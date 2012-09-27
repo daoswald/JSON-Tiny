@@ -1,5 +1,54 @@
-This is inital work on adapting Mojo::JSON for use as a stand-alone module, JSON::Tiny.
+JSON::Tiny
 
-This module *may* be relased on CPAN if it turns out ok.  However, until a tagged commit
-identifying a CPAN release version number appears, this should not be considered the 
-least bit stable.  Everything can (and probably will) change between now and then.
+Minimal JSON in a no non-core dependency configuration.
+
+DESCRIPTION
+
+Lightweight, fast, relaxed JSON in a stand-alone module with no 
+non-core dependencies.
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+DEPENDENCIES
+
+There are no non-core dependencies.
+This module requires a minimum Perl version of 5.10.0.
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this module with the
+perldoc command.
+
+    perldoc JSON::Tiny
+
+You can also look for information at:
+
+    RT, CPAN's request tracker (report bugs here)
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=List-JSON-Tiny
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/JSON-Tiny
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/JSON-Tiny
+
+    Search CPAN
+        http://search.cpan.org/dist/JSON-Tiny/
+
+
+LICENSE AND COPYRIGHT
+
+Copyright (C) 2012 David Oswald
+
+This program is free software, you can redistribute it and/or modify 
+it under the terms of the Artistic License version 2.0.
+
+See http://dev.perl.org/licenses/ for more information.
+
