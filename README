@@ -31,7 +31,7 @@ perldoc command.
 You can also look for information at:
 
     RT, CPAN's request tracker (report bugs here)
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=List-JSON-Tiny
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=JSON-Tiny
 
     AnnoCPAN, Annotated CPAN documentation
         http://annocpan.org/dist/JSON-Tiny
