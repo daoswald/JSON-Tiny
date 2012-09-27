@@ -1,8 +1,14 @@
 package JSON::Tiny;
 
+# Minimalistic JSON encoding and decoding.  The code is directly copied from
+# Mojo::JSON and Mojo::Util (version 3.43) with a few minor adjustments to
+# facilitate its use as a stand-alone tool.
+
 use B;
 use Scalar::Util 'blessed';
+use Encode ();
 
+# Constructor and accessor since we're not using Mojo::Base.
 sub new {
   my $self = bless {}, shift;
   $self->{error} = undef;
@@ -14,9 +20,9 @@ sub error {
   return $_[0]->{error};
 }
 
-###########################
-# Blatently lifted from Mojo::Util
-use Encode ();
+
+# Utilities that would have been provided by Mojo::Util.
+
 sub JSON::Tiny::Util::decode {
   my ($encoding, $bytes) = @_;
   return unless eval { $bytes = Encode::decode($encoding, $bytes, 1); 1 };
@@ -25,9 +31,10 @@ sub JSON::Tiny::Util::decode {
 
 sub JSON::Tiny::Util::encode { Encode::encode(shift, shift) }
 
-#############################
 
 
+# The rest of this was lifted from Mojo::JSON, with a few name changes to fit
+# the new standalone package.
 
 # Literal names
 my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
@@ -355,6 +362,9 @@ JSON::Tiny - Minimalistic JSON (A derivative work from JSON::Tiny).
   my $hash  = $json->decode($bytes);
 
 =head1 DESCRIPTION
+
+L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
+L<Mojolicious> "web in a box" framework.
 
 L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
 it is possibly the fastest pure-Perl JSON parser available, you should not use

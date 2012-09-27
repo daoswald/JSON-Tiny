@@ -1,0 +1,5 @@
+This is inital work on adapting Mojo::JSON for use as a stand-alone module, JSON::Tiny.
+
+This module *may* be relased on CPAN if it turns out ok.  However, until a tagged commit
+identifying a CPAN release version number appears, this should not be considered the 
+least bit stable.  Everything can (and probably will) change between now and then.
