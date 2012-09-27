@@ -2,6 +2,8 @@ package JSONTest; ## no critic (package)
 
 use strict;
 
+# Simulate what Mojo::Base -base would have provided.
+
 sub new {
   my $class = shift;
   bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
@@ -20,9 +22,17 @@ package main;
 
 use strict;
 use utf8;
-use Test::More tests => 119;
-use Mojo::ByteStream 'b';
+use Encode qw( encode decode ); # Original tests used Mojo::Bytestream versions.
+use Test::More tests => 118; # One test (blessed reference) disabled becaues
+                             # it cannot be reasonably simulated without
+                             # Mojo::ByteStream and Mojo::Base.
+                             # Other blessed reference tests still exist.
 use JSON::Tiny;
+
+sub new {
+  my $class = shift;
+  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
+}
 
 # Decode array
 my $json  = JSON::Tiny->new;
@@ -139,7 +149,7 @@ is $string, '["hello\nworld!"]', 'encode ["hello\nworld!"]';
 $string = $json->encode(["hello\t\"world!"]);
 is $string, '["hello\t\"world!"]', 'encode ["hello\t\"world!"]';
 $string = $json->encode(["hello\x{0003}\x{0152}world\x{0152}!"]);
-is b($string)->decode('UTF-8'), "[\"hello\\u0003\x{0152}world\x{0152}!\"]",
+is decode('UTF-8', $string), "[\"hello\\u0003\x{0152}world\x{0152}!\"]",
   'encode ["hello\x{0003}\x{0152}world\x{0152}!"]';
 $string = $json->encode(["123abc"]);
 is $string, '["123abc"]', 'encode ["123abc"]';
@@ -184,54 +194,54 @@ is $string, '[37.7668,[20]]', 'encode [37.7668, [20]]';
 
 # Faihu roundtrip
 $string = $json->encode(["\x{10346}"]);
-is b($string)->decode('UTF-8'), "[\"\x{10346}\"]", 'encode ["\x{10346}"]';
+is decode( 'UTF-8', $string ), "[\"\x{10346}\"]", 'encode ["\x{10346}"]';
 $array = $json->decode($string);
 is_deeply $array, ["\x{10346}"], 'successful roundtrip';
 
 # Decode UTF-16LE
-$array = $json->decode(b("\x{feff}[true]")->encode('UTF-16LE'));
+$array = $json->decode( encode( 'UTF-16LE', "\x{feff}[true]" ));
 is_deeply $array, [$json->true], 'decode \x{feff}[true]';
 
 # Decode UTF-16LE with faihu surrogate pair
-$array = $json->decode(b("\x{feff}[\"\\ud800\\udf46\"]")->encode('UTF-16LE'));
+$array = $json->decode( encode('UTF-16LE', "\x{feff}[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode \x{feff}[\"\\ud800\\udf46\"]';
 
 # Decode UTF-16LE with faihu surrogate pair and BOM value
 $array = $json->decode(
-  b("\x{feff}[\"\\ud800\\udf46\x{feff}\"]")->encode('UTF-16LE'));
+  encode( 'UTF-16LE', "\x{feff}[\"\\ud800\\udf46\x{feff}\"]" ));
 is_deeply $array, ["\x{10346}\x{feff}"],
   'decode \x{feff}[\"\\ud800\\udf46\x{feff}\"]';
 
 # Decode UTF-16BE with faihu surrogate pair
-$array = $json->decode(b("\x{feff}[\"\\ud800\\udf46\"]")->encode('UTF-16BE'));
+$array = $json->decode(encode('UTF-16BE', "\x{feff}[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode \x{feff}[\"\\ud800\\udf46\"]';
 
 # Decode UTF-32LE
-$array = $json->decode(b("\x{feff}[true]")->encode('UTF-32LE'));
+$array = $json->decode(encode('UTF-32LE', "\x{feff}[true]"));
 is_deeply $array, [$json->true], 'decode \x{feff}[true]';
 
 # Decode UTF-32BE
-$array = $json->decode(b("\x{feff}[true]")->encode('UTF-32BE'));
+$array = $json->decode(encode('UTF-32BE', "\x{feff}[true]"));
 is_deeply $array, [$json->true], 'decode \x{feff}[true]';
 
 # Decode UTF-16LE without BOM
 $array
-  = $json->decode(b("[\"\\ud800\\udf46\"]")->encode('UTF-16LE')->to_string);
+  = $json->decode(encode('UTF-16LE', "[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Decode UTF-16BE without BOM
 $array
-  = $json->decode(b("[\"\\ud800\\udf46\"]")->encode('UTF-16BE')->to_string);
+  = $json->decode(encode('UTF-16BE', "[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Decode UTF-32LE without BOM
 $array
-  = $json->decode(b("[\"\\ud800\\udf46\"]")->encode('UTF-32LE')->to_string);
+  = $json->decode(encode('UTF-32LE', "[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Decode UTF-32BE without BOM
 $array
-  = $json->decode(b("[\"\\ud800\\udf46\"]")->encode('UTF-32BE')->to_string);
+  = $json->decode(encode('UTF-32BE', "[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Complicated roudtrips
@@ -259,14 +269,15 @@ is $json->error, undef, 'no error';
 
 # u2028 and u2029
 $string = $json->encode(["\x{2028}test\x{2029}123"]);
-is index($string, b("\x{2028}")->encode), -1, 'properly escaped';
-is index($string, b("\x{2029}")->encode), -1, 'properly escaped';
+is index($string, encode('UTF-8',"\x{2028}")), -1,'properly escaped';
+is index($string, encode('UTF-8',"\x{2029}")), -1, 'properly escaped';
 is_deeply $json->decode($string), ["\x{2028}test\x{2029}123"],
   'successful roundtrip';
 
+# Mojo::ByteStream::b() not available, and can't be reasonably simulated.
 # Blessed reference
-$string = $json->encode([b('test')]);
-is_deeply $json->decode($string), ['test'], 'successful roundtrip';
+# $string = $json->encode([b('test')]);
+# is_deeply $json->decode($string), ['test'], 'successful roundtrip';
 
 # Blessed reference with TO_JSON method
 $string = $json->encode(JSONTest->new);
@@ -278,11 +289,11 @@ is_deeply $json->decode($string), {just => 'works'}, 'successful roundtrip';
 # Errors
 is $json->decode('["â™¥"]'), undef, 'wide character in input';
 is $json->error, 'Wide character in input', 'right error';
-is $json->decode(b("\x{feff}[\"\\ud800\"]")->encode('UTF-16LE')), undef,
+is $json->decode(encode('UTF-16LE',"\x{feff}[\"\\ud800\"]")), undef,
   'missing high surrogate';
 is $json->error, 'Malformed JSON: Missing low-surrogate at line 1, offset 8',
   'right error';
-is $json->decode(b("\x{feff}[\"\\udf46\"]")->encode('UTF-16LE')), undef,
+is $json->decode(encode('UTF-16LE', "\x{feff}[\"\\udf46\"]")), undef,
   'missing low surrogate';
 is $json->error, 'Malformed JSON: Missing high-surrogate at line 1, offset 8',
   'right error';
@@ -323,4 +334,3 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
 is $json->error,
   'Malformed JSON: Unexpected data after array at line 3, offset 8',
   'right error';
-

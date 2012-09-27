@@ -370,6 +370,11 @@ a single-source-file module.  Though traditional installation methods are
 recommended, for those who really cannot have any external dependencies, this
 module I<could> literally be copied and pasted into a project.
 
+Mojo::JSON was chosen as a starting point because it is so light-weight to begin
+with, because it is robust (in a relaxed way), and because it is well tested.
+Furthermore, Mojo::JSON's tests were able to be adapted as easily as the module
+itself to a no non-core dependency configuration.
+
 Much of the remainder of this documentation is adapted directly from
 L<Mojo::JSON>. Only the names have been changed to protect the innocent.
 
