@@ -1,0 +1,51 @@
+{
+   "abstract" : "Minimalistic JSON with no non-Core dependencies.",
+   "author" : [
+      "David Oswald <davido [@at] cpan [d.o.t] org>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120630",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "JSON-Tiny",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "English" : "0",
+            "Test::More" : "0.98"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "B" : "0",
+            "Encode" : "0",
+            "Scalar::Util" : "0",
+            "perl" : "5.010000"
+         }
+      }
+   },
+   "provides" : {
+      "JSON::Tiny" : {
+         "file" : "lib/JSON/Tiny.pm",
+         "version" : "0.01"
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.01"
+}

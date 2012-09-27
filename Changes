@@ -1,0 +1,7 @@
+Revision history for JSON::Tiny
+
+0.01_001    September 27, 2012 13:46:00 PDT
+    - Beta testing.  API may change.
+    - Developer's release.
+    - Initial release to CPAN.
+    - Unstable -- Seeking smoke test results.

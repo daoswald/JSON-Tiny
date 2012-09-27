@@ -4,9 +4,12 @@ package JSON::Tiny;
 # Mojo::JSON and Mojo::Util (version 3.43) with a few minor adjustments to
 # facilitate its use as a stand-alone tool.
 
+use strict;
 use B;
 use Scalar::Util 'blessed';
 use Encode ();
+
+$JSON::Tiny::VERSION = '0.01';
 
 # Constructor and accessor since we're not using Mojo::Base.
 sub new {
@@ -20,7 +23,6 @@ sub error {
   return $_[0]->{error};
 }
 
-
 # Utilities that would have been provided by Mojo::Util.
 
 sub JSON::Tiny::Util::decode {
@@ -30,7 +32,6 @@ sub JSON::Tiny::Util::decode {
 }
 
 sub JSON::Tiny::Util::encode { Encode::encode(shift, shift) }
-
 
 
 # The rest of this was lifted from Mojo::JSON, with a few name changes to fit
@@ -75,7 +76,7 @@ sub decode {
   # Missing input
   $self->error('Missing or empty input') and return unless $bytes;
 
-  # Remove BOM
+  # Remohttps://mail.google.com/mail/u/0/?shva=1#inboxve BOM
   $bytes =~ s/^(?:\357\273\277|\377\376\0\0|\0\0\376\377|\376\377|\377\376)//g;
 
   # Wide characters
@@ -262,7 +263,7 @@ sub _decode_value {
   return $FALSE if m/\Gfalse/gc;
 
   # Null
-  return undef if m/\Gnull/gc;
+  return undef if m/\Gnull/gc;  ## no critic (return)
 
   # Invalid data
   _exception('Expected string, array, object, number, boolean or null');
@@ -351,7 +352,7 @@ use overload '0+' => sub { ${$_[0]} }, '""' => sub { ${$_[0]} }, fallback => 1;
 
 =head1 NAME
 
-JSON::Tiny - Minimalistic JSON (A derivative work from JSON::Tiny).
+JSON::Tiny - Minimalistic JSON with no non-Core dependencies.
 
 =head1 SYNOPSIS
 
@@ -364,7 +365,13 @@ JSON::Tiny - Minimalistic JSON (A derivative work from JSON::Tiny).
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
-L<Mojolicious> "web in a box" framework.
+L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
+a single-source-file module.  Though traditional installation methods are
+recommended, for those who really cannot have any external dependencies, this
+module I<could> literally be copied and pasted into a project.
+
+Much of the remainder of this documentation is adapted directly from
+L<Mojo::JSON>. Only the names have been changed to protect the innocent.
 
 L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
 it is possibly the fastest pure-Perl JSON parser available, you should not use
@@ -403,6 +410,12 @@ Parser errors.
 
 L<JSON::Tiny> implements the following methods.
 
+=head2 C<new>
+
+  my $json = JSON::Tiny->new;
+
+Instantiate a JSON::Tiny object.
+
 =head2 C<decode>
 
   my $array = $json->decode($bytes);
@@ -430,8 +443,92 @@ False value, used because Perl has no native equivalent.
 
 True value, used because Perl has no native equivalent.
 
+=head1 CONFIGURATION AND ENVIRONMENT
+
+This module should run under any Perl from 5.10.0 onward.  There are no special
+environment or configuration concerns to address.
+
+=head1 DEPENDENCIES
+
+This module has no non-Core dependencies.  From the Perl Core it uses the
+following modules: C<B>, C<Scalar::Util>, and C<Encode>.
+
+=head1 INCOMPATIBILITIES
+
+This module hasn't been tested on Perl versions that predate Perl 5.10.0.
+
+=head1 AUTHOR
+
+David Oswald, C<< <davido at cpan.org> >>
+
+Much of the code was adapted with minimal changes from L<Mojo::JSON>.  However,
+questions and support needs should I<not> be directed toward the L<Mojolicious>
+project.  See below for more info.
+
+=head1 SUPPORT
+
+Support requests for this module should be directed to the author.  Bug reports
+should be directed to CPAN's Request Tracker (RT), listed below.
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc JSON::Tiny
+
+This module is maintained in a public repo at Github.  You may look for
+information at:
+
+=over 4
+
+=item * Github: Development is hosted on Github at:
+
+L<http://www.github.com/daoswald/JSON::Tiny>
+
+=item * RT: CPAN's request tracker (report bugs here)
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=JSON-Tiny>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/JSON-Tiny>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/JSON-Tiny>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/JSON-Tiny/>
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+Thank-you to the L<Mojolicious> development team for producing an excellent
+product, for vigorously advancing its design, for faithfully supporting it, and
+for tirelessly answering questions in IRC and mailing lists so that people
+can be successful in using it effectively.
+
+This module, having been adapted largely from L<Mojo::JSON>, wouldn't exist (or
+wouldn't be as well designed) if it had to be written from scratch.
+
+I<Randal Schwartz>, for mentioning that he had a need for an embeddable JSON
+parser and for posting his pure-Regex solution on PerlMonks, here:
+L<http://www.perlmonks.org/?node_id=995856>, as well as discussing it at
+Los Angeles PerlMongers (September 2012).  Though he wasn't involved in
+JSON::Tiny, it was the exploration of alternatives to his solution that
+led me down this road.
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2012 David Oswald.
+
+This program is free software, you can redistribute it and/or modify it under
+the terms of the Artistic License version 2.0.
+
+See L<http://dev.perl.org/licenses/artistic.html> for more information.
+
 =head1 SEE ALSO
 
-L<Mojolicious>, L<Mojo::JSON>.
+L<JSON>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
 
 =cut
