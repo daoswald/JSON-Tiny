@@ -12,10 +12,15 @@ use Encode ();
 $JSON::Tiny::VERSION = '0.01';
 
 # Constructor and accessor since we're not using Mojo::Base.
+#sub new {
+#  my $self = bless {}, shift;
+#  $self->{error} = undef;
+#  return $self;
+#}
+
 sub new {
-  my $self = bless {}, shift;
-  $self->{error} = undef;
-  return $self;
+  my $class = shift;
+  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
 }
 
 sub error {
