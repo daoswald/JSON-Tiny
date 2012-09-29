@@ -12,11 +12,6 @@ use Encode ();
 $JSON::Tiny::VERSION = '0.01';
 
 # Constructor and accessor since we're not using Mojo::Base.
-#sub new {
-#  my $self = bless {}, shift;
-#  $self->{error} = undef;
-#  return $self;
-#}
 
 sub new {
   my $class = shift;
