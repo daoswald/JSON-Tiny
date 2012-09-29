@@ -1,8 +1,8 @@
 package JSON::Tiny;
 
-# Minimalistic JSON encoding and decoding.  The code is directly copied from
-# Mojo::JSON and Mojo::Util (version 3.43) with a few minor adjustments to
-# facilitate its use as a stand-alone tool.
+# Minimalistic JSON encoding and decoding.  Code and tests adapted with minor
+# changes from Mojo::JSON and Mojo::Util (version 3.43), with adjustments to 
+# facilitate use as a stand-alone tool.
 
 use strict;
 use B;
@@ -33,9 +33,7 @@ sub JSON::Tiny::Util::decode {
 
 sub JSON::Tiny::Util::encode { Encode::encode(shift, shift) }
 
-
-# The rest of this was lifted from Mojo::JSON, with a few name changes to fit
-# the new standalone package.
+# The rest was lifted from Mojo::JSON. Names changed for a standalone package.
 
 # Literal names
 my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
@@ -356,26 +354,25 @@ JSON::Tiny - Minimalistic JSON with no non-Core dependencies.
 
 =head1 SYNOPSIS
 
-  use JSON::Tiny;
+    use JSON::Tiny;
 
-  my $json  = JSON::Tiny->new;
-  my $bytes = $json->encode({foo => [1, 2], bar => 'hello!'});
-  my $hash  = $json->decode($bytes);
+    my $json  = JSON::Tiny->new;
+    my $bytes = $json->encode({foo => [1, 2], bar => 'hello!'});
+    my $hash  = $json->decode($bytes);
 
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
 L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
-a single-source-file module.  Though traditional installation methods are
-recommended, for those who really cannot have any external dependencies, this
-module I<could> literally be copied and pasted into a project.
+a single-source-file module of about 350 lines of code with no non-core
+dependencies.
 
-Mojo::JSON was chosen as a starting point because it is so light-weight to begin
-with, because it is robust (in a relaxed way), and because it is well tested.
-Furthermore, Mojo::JSON's tests were able to be adapted as easily as the module
-itself to a no non-core dependency configuration.
+Mojo::JSON was chosen as a starting point because it is so light-weight to 
+begin with, robust, relaxed, and well tested. Furthermore, Mojo::JSON's tests 
+were able to be adapted as easily as the module itself to a no non-core 
+dependency configuration.
 
-Much of the remainder of this documentation is adapted directly from
+Most of the remainder of this documentation is adapted directly from
 L<Mojo::JSON>. Only the names have been changed to protect the innocent.
 
 L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
@@ -386,15 +383,15 @@ It supports normal Perl data types like C<Scalar>, C<Array> reference, C<Hash>
 reference and will try to call the C<TO_JSON> method on blessed references, or
 stringify them if it doesn't exist.
 
-  [1, -2, 3]     -> [1, -2, 3]
-  {"foo": "bar"} -> {foo => 'bar'}
+    [1, -2, 3]     -> [1, -2, 3]
+    {"foo": "bar"} -> {foo => 'bar'}
 
 Literal names will be translated to and from L<JSON::Tiny> constants or a
 similar native Perl value.
 
-  true  -> JSON::Tiny->true
-  false -> JSON::Tiny->false
-  null  -> undef
+    true  -> JSON::Tiny->true
+    false -> JSON::Tiny->false
+    null  -> undef
 
 Decoding UTF-16 (LE/BE) and UTF-32 (LE/BE) will be handled transparently,
 encoding will only generate UTF-8. The two Unicode whitespace characters
@@ -406,8 +403,8 @@ L<JSON::Tiny> implements the following attributes.
 
 =head2 C<error>
 
-  my $err = $json->error;
-  $json   = $json->error('Parser error');
+    my $err = $json->error;
+    $json   = $json->error('Parser error');
 
 Parser errors.
 
@@ -417,58 +414,54 @@ L<JSON::Tiny> implements the following methods.
 
 =head2 C<new>
 
-  my $json = JSON::Tiny->new;
+    my $json = JSON::Tiny->new;
 
 Instantiate a JSON::Tiny object.
 
 =head2 C<decode>
 
-  my $array = $json->decode($bytes);
-  my $hash  = $json->decode($bytes);
+    my $array = $json->decode($bytes);
+    my $hash  = $json->decode($bytes);
 
 Decode JSON.
 
 =head2 C<encode>
 
-  my $bytes = $json->encode({foo => 'bar'});
+    my $bytes = $json->encode({foo => 'bar'});
 
 Encode Perl data structure.
 
 =head2 C<false>
 
-  my $false = JSON::Tiny->false;
-  my $false = $json->false;
+    my $false = JSON::Tiny->false;
+    my $false = $json->false;
 
 False value, used because Perl has no native equivalent.
 
 =head2 C<true>
 
-  my $true = JSON::Tiny->true;
-  my $true = $json->true;
+    my $true = JSON::Tiny->true;
+    my $true = $json->true;
 
 True value, used because Perl has no native equivalent.
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-This module should run under any Perl from 5.10.0 onward.  There are no special
-environment or configuration concerns to address.
+This module should run under any Perl from 5.10.0 onward.
 
 =head1 DEPENDENCIES
 
-This module has no non-Core dependencies.  From the Perl Core it uses the
-following modules: C<B>, C<Scalar::Util>, and C<Encode>.
+This module has no non-Core dependencies.
 
 =head1 INCOMPATIBILITIES
 
-This module hasn't been tested on Perl versions that predate Perl 5.10.0.
+This module uses Perl constructs that are incompatible with pre v5.10.0 Perl.
 
 =head1 AUTHOR
 
 David Oswald, C<< <davido at cpan.org> >>
 
-Much of the code was adapted with minimal changes from L<Mojo::JSON>.  However,
-questions and support needs should I<not> be directed toward the L<Mojolicious>
-project.  See below for more info.
+The code and tests were adapted with minimal changes from L<Mojo::JSON>.
 
 =head1 SUPPORT
 
@@ -486,7 +479,7 @@ information at:
 
 =item * Github: Development is hosted on Github at:
 
-L<http://www.github.com/daoswald/JSON::Tiny>
+L<http://www.github.com/daoswald/JSON-Tiny>
 
 =item * RT: CPAN's request tracker (report bugs here)
 
@@ -509,19 +502,16 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 =head1 ACKNOWLEDGEMENTS
 
 Thank-you to the L<Mojolicious> development team for producing an excellent
-product, for vigorously advancing its design, for faithfully supporting it, and
-for tirelessly answering questions in IRC and mailing lists so that people
-can be successful in using it effectively.
+product, that implements light-weight versions of many useful tools. This 
+module wouldn't exist (or wouldn't be as well tested and designed) if it
+had to be written from scratch.
 
-This module, having been adapted largely from L<Mojo::JSON>, wouldn't exist (or
-wouldn't be as well designed) if it had to be written from scratch.
-
-I<Randal Schwartz>, for mentioning that he had a need for an embeddable JSON
-parser and for posting his pure-Regex solution on PerlMonks, here:
-L<http://www.perlmonks.org/?node_id=995856>, as well as discussing it at
-Los Angeles PerlMongers (September 2012).  Though he wasn't involved in
-JSON::Tiny, it was the exploration of alternatives to his solution that
-led me down this road.
+Also to I<Randal Schwartz> for mentioning that he had a need for an 
+embeddable light-weight JSON parser, posting his pure-Regex solution on 
+PerlMonks (L<http://www.perlmonks.org/?node_id=995856>), and explaining it at 
+Los Angeles PerlMongers (September 2012).  Though he wasn't involved in 
+JSON::Tiny, it was the exploration of alternatives to his solution that 
+provided inspiration.
 
 =head1 LICENSE AND COPYRIGHT
 
