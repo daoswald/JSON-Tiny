@@ -74,7 +74,7 @@ sub decode {
   # Missing input
   $self->error('Missing or empty input') and return unless $bytes;
 
-  # Remohttps://mail.google.com/mail/u/0/?shva=1#inboxve BOM
+  # Remove BOM
   $bytes =~ s/^(?:\357\273\277|\377\376\0\0|\0\0\376\377|\376\377|\377\376)//g;
 
   # Wide characters
@@ -348,6 +348,8 @@ use overload '0+' => sub { ${$_[0]} }, '""' => sub { ${$_[0]} }, fallback => 1;
 
 1;
 
+__END__
+
 =head1 NAME
 
 JSON::Tiny - Minimalistic JSON with no non-Core dependencies.
@@ -364,7 +366,7 @@ JSON::Tiny - Minimalistic JSON with no non-Core dependencies.
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
 L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
-a single-source-file module of about 350 lines of code with no non-core
+a single-source-file module of about 350 lines of code with core-only
 dependencies.
 
 Mojo::JSON was chosen as a starting point because it is so light-weight to 
