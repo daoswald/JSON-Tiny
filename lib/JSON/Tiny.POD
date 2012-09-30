@@ -1,0 +1,181 @@
+
+=head1 NAME
+
+JSON::Tiny - Minimalistic JSON with no non-Core dependencies.
+
+=head1 SYNOPSIS
+
+    use JSON::Tiny;
+
+    my $json  = JSON::Tiny->new;
+    my $bytes = $json->encode({foo => [1, 2], bar => 'hello!'});
+    my $hash  = $json->decode($bytes);
+
+=head1 DESCRIPTION
+
+L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
+L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
+a single-source-file module of about 350 lines of code with core-only
+dependencies.
+
+Mojo::JSON was chosen as a starting point because it is so light-weight to 
+begin with, robust, relaxed, and well tested. Furthermore, Mojo::JSON's tests 
+were able to be adapted as easily as the module itself to a no non-core 
+dependency configuration.
+
+Most of the remainder of this documentation is adapted directly from
+L<Mojo::JSON>. Only the names have been changed to protect the innocent.
+
+L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
+it is possibly the fastest pure-Perl JSON parser available, you should not use
+it for validation.
+
+It supports normal Perl data types like C<Scalar>, C<Array> reference, C<Hash>
+reference and will try to call the C<TO_JSON> method on blessed references, or
+stringify them if it doesn't exist.
+
+    [1, -2, 3]     -> [1, -2, 3]
+    {"foo": "bar"} -> {foo => 'bar'}
+
+Literal names will be translated to and from L<JSON::Tiny> constants or a
+similar native Perl value.
+
+    true  -> JSON::Tiny->true
+    false -> JSON::Tiny->false
+    null  -> undef
+
+Decoding UTF-16 (LE/BE) and UTF-32 (LE/BE) will be handled transparently,
+encoding will only generate UTF-8. The two Unicode whitespace characters
+C<u2028> and C<u2029> will always be escaped to make JSONP easier.
+
+=head1 ATTRIBUTES
+
+L<JSON::Tiny> implements the following attributes.
+
+=head2 C<error>
+
+    my $err = $json->error;
+    $json   = $json->error('Parser error');
+
+Parser errors.
+
+=head1 METHODS
+
+L<JSON::Tiny> implements the following methods.
+
+=head2 C<new>
+
+    my $json = JSON::Tiny->new;
+
+Instantiate a JSON::Tiny object.
+
+=head2 C<decode>
+
+    my $array = $json->decode($bytes);
+    my $hash  = $json->decode($bytes);
+
+Decode JSON.
+
+=head2 C<encode>
+
+    my $bytes = $json->encode({foo => 'bar'});
+
+Encode Perl data structure.
+
+=head2 C<false>
+
+    my $false = JSON::Tiny->false;
+    my $false = $json->false;
+
+False value, used because Perl has no native equivalent.
+
+=head2 C<true>
+
+    my $true = JSON::Tiny->true;
+    my $true = $json->true;
+
+True value, used because Perl has no native equivalent.
+
+=head1 CONFIGURATION AND ENVIRONMENT
+
+This module should run under any Perl from 5.10.0 onward.
+
+=head1 DEPENDENCIES
+
+This module uses only core dependencies.
+
+=head1 INCOMPATIBILITIES
+
+This module uses Perl constructs that are incompatible with pre v5.10.0 Perl.
+
+=head1 AUTHOR
+
+David Oswald, C<< <davido at cpan.org> >>
+
+The code and tests were adapted with minimal changes from L<Mojo::JSON>.
+
+=head1 SUPPORT
+
+Support requests for this module should be directed to the author.  Bug reports
+should be directed to CPAN's Request Tracker (RT), listed below.
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc JSON::Tiny
+
+This module is maintained in a public repo at Github.  You may look for
+information at:
+
+=over 4
+
+=item * Github: Development is hosted on Github at:
+
+L<http://www.github.com/daoswald/JSON-Tiny>
+
+=item * RT: CPAN's request tracker (report bugs here)
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=JSON-Tiny>
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/JSON-Tiny>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/JSON-Tiny>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/JSON-Tiny/>
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+Thank-you to the L<Mojolicious> development team for producing an excellent
+product, that implements light-weight versions of many useful tools. This 
+module wouldn't exist (or wouldn't be as well tested and designed) if it
+had to be written from scratch.
+
+Also to I<Randal Schwartz> for mentioning that he had a need for an 
+embeddable light-weight JSON parser, posting his pure-Regex solution on 
+PerlMonks (L<http://www.perlmonks.org/?node_id=995856>), and explaining it at 
+Los Angeles PerlMongers (September 2012).  Though he wasn't involved in 
+JSON::Tiny, it was the exploration of alternatives to his solution that 
+provided inspiration.
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2012 David Oswald.
+
+This program is free software, you can redistribute it and/or modify it under
+the terms of the Artistic License version 2.0.
+
+See L<http://dev.perl.org/licenses/artistic.html> for more information.
+
+=head1 SEE ALSO
+
+L<JSON>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
+
+=cut
+
