@@ -116,7 +116,7 @@ dependencies.  L<JSON> is backward compatible to Perl 5.6.x, while
 C<JSON::Tiny> is backward compatible to 5.10.x.
 
 =item * Simple Design: L<JSON> is 2254 lines of code spread across six modules 
-and five files with a distribution tarball size of 84KB. L<JSON::Tiny> is 351 
+and five files with a distribution tarball size of 84KB. L<JSON::Tiny> is 344 
 lines of code in a single module, and a single file.  It can even be embedded 
 within existing code.  The tarball size is 17KB.
 
@@ -126,8 +126,8 @@ are setters/getters for behavioral attributes).  L<JSON::Tiny> has six.
 =item * Fast Performance (Benchmarks):
 
                Rate   JSON_PP JSON_Tiny
-    JSON_PP   282/s        --      -62%
-    JSON_Tiny 750/s      165%        --
+    JSON_PP   288/s        --      -62%
+    JSON_Tiny 767/s      166%        --
 
 The script used to generate this benchmark is included in the L<JSON::Tiny>
 distribution's C<examples/> folder.  Note: L<JSON> will automatically use 

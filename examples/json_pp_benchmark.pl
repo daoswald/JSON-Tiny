@@ -25,7 +25,7 @@ sub json_tiny {
     return \@decoded;
 }
 
-cmpthese ( -5, {
+cmpthese ( -15, {
     JSON_PP   => \&json_pp,
     JSON_Tiny => \&json_tiny,
 } );

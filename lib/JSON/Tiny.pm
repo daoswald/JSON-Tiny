@@ -6,10 +6,10 @@ package JSON::Tiny;
 
 use strict;
 use B;
-use Scalar::Util 'blessed';
+use Scalar::Util ();
 use Encode ();
 
-$JSON::Tiny::VERSION = '0.01';
+our $VERSION = '0.01';
 
 # Constructor and accessor since we're not using Mojo::Base.
 
@@ -23,17 +23,8 @@ sub error {
   return $_[0]->{error};
 }
 
-# Utilities that would have been provided by Mojo::Util.
-
-sub JSON::Tiny::Util::decode {
-  my ($encoding, $bytes) = @_;
-  return unless eval { $bytes = Encode::decode($encoding, $bytes, 1); 1 };
-  return $bytes;
-}
-
-sub JSON::Tiny::Util::encode { Encode::encode(shift, shift) }
-
-# The rest was lifted from Mojo::JSON. Names changed for a standalone package.
+# The rest was lifted from Mojo::JSON, with a couple of minor changes. 
+# Names changed for a standalone package.
 
 # Literal names
 my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
@@ -84,7 +75,9 @@ sub decode {
   # Detect and decode Unicode
   my $encoding = 'UTF-8';
   $bytes =~ $UTF_PATTERNS->{$_} and $encoding = $_ for keys %$UTF_PATTERNS;
-  $bytes = JSON::Tiny::Util::decode $encoding, $bytes;
+
+  my $d_res = eval { $bytes = Encode::decode($encoding, $bytes, 1); 1 };
+  $bytes = undef unless $d_res;
 
   # Object or array
   my $res = eval {
@@ -123,7 +116,7 @@ sub decode {
 
 sub encode {
   my ($self, $ref) = @_;
-  return JSON::Tiny::Util::encode 'UTF-8', _encode_values($ref);
+  return Encode::encode 'UTF-8', _encode_values($ref);
 }
 
 sub false {$FALSE}
@@ -308,7 +301,7 @@ sub _encode_values {
     return $value ? 'true' : 'false' if $ref eq 'JSON::Tiny::_Bool';
 
     # Blessed reference with TO_JSON method
-    if (blessed $value && (my $sub = $value->can('TO_JSON'))) {
+    if (Scalar::Util::blessed $value && (my $sub = $value->can('TO_JSON'))) {
       return _encode_values($value->$sub);
     }
   }
