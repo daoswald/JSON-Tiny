@@ -12,7 +12,7 @@ WriteMakefile(
     NAME               => 'JSON::Tiny',
     AUTHOR             => q{David Oswald <davido [@at] cpan [d.o.t] org>},
     VERSION_FROM       => 'lib/JSON/Tiny.pm',
-    ABSTRACT_FROM      => 'lib/JSON/Tiny.POD',
+    ABSTRACT_FROM      => 'lib/JSON/Tiny.pod',
     LICENSE            => 'artistic',
     MIN_PERL_VERSION   => '5.010000',
     PL_FILES           => {},

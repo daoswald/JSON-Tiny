@@ -1,6 +1,6 @@
 Changes
 lib/JSON/Tiny.pm
-lib/JSON/Tiny.POD
+lib/JSON/Tiny.pod
 Makefile.PL
 MANIFEST            This list of files
 MANIFEST.SKIP
