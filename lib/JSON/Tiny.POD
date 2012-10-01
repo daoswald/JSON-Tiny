@@ -96,6 +96,94 @@ False value, used because Perl has no native equivalent.
 
 True value, used because Perl has no native equivalent.
 
+=head1 COMPARISON TO JSON::PP
+
+"::Tiny" should mean several things: Quick installation, minimal dependencies,
+simple design, simple interface, reasonably fast performance, and light memory
+demands.
+
+When you go "::Tiny", you do give up configurability.  The full L<JSON> 
+distribution is excellent if you need greater control.
+
+=head2 Quick Installation
+
+C<cpanm JSON> versus C<cpanm JSON::Tiny>
+
+=over 4
+
+=item * JSON: 5.9 seconds.
+
+=item * JSON::Tiny 1.8 seconds.
+
+=back
+
+=head2 Minimal Dependencies
+
+Both L<JSON> and L<JSON::Tiny> use only core dependencies.  JSON is backward
+compatible to Perl 5.6.x, while JSON::Tiny is backward compatible to 5.10.x.
+
+
+=head2 Simple Design
+
+=over 4
+
+=item * L<JSON>
+
+2254 lines of code spread across six modules and five files.  Tarball size is
+84KB.
+
+=item * L<JSON::Tiny>
+
+The JSON::Tiny distribution has 351 lines of code in a single module,
+and a single file.  It could even be embedded within existing code.  Tarball
+size is 17KB.
+
+=back
+
+=head2 Simple Interface
+
+JSON has around 42 functions and methods (many are setters/getters for 
+behavioral attributes).  JSON::Tiny has four.
+
+JSON throws exceptions if the JSON functions fail, which you will have to 
+deal with.  JSON::Tiny provides an C<$jt->error> accessor instead of throwing
+exceptions.
+
+Obviously there's more to the story.  L<JSON> is more complex because it does
+so much, and is so highly configurable.  If all you need is sane defaults and a
+simple interface, L<JSON::Tiny> is a good choice.
+
+=head2 Reasonably Fast Performance (Benchmarks)
+
+               Rate   JSON_PP JSON_Tiny
+    JSON_PP   282/s        --      -62%
+    JSON_Tiny 750/s      165%        --
+
+The script used to generate this benchmark is included in the JSON::Tiny
+distribution's C<examples/> folder.  L<JSON> will automatically use L<JSON::XS>
+if it's available, and in that case, JSON::XS blows all the pure-Perl modules
+away.
+
+=head2 Light Memory Demands
+
+From the distribution's C<examples/> folder, C<json_pp_alone.pl> and 
+C<json_tiny_alone.pl> were tested, first using L<Devel::MemoryTrace::Light>,
+and then using L<http://valgrind.org/valgrind>.  The results were as follows:
+
+=over 4
+
+=item * JSON (JSON::PP): About 1.7MB detected with Devel::MemoryTrace::Lite,
+and 6.1MB detected with valgrind.
+
+=item * JSON::Tiny: About 1.1MB detected with Devel::MemoryTrace::Lite, and 
+5.4MB detected with valgrind.
+
+=back
+
+The two tools used have very different ways of measuring memory consumption,
+but in both cases L<JSON::Tiny> consumed less memory than L<JSON>, by somewhere
+between 600 and 700KB.
+
 =head1 CONFIGURATION AND ENVIRONMENT
 
 This module should run under any Perl from 5.10.0 onward.
@@ -178,4 +266,3 @@ See L<http://dev.perl.org/licenses/artistic.html> for more information.
 L<JSON>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
 
 =cut
-
