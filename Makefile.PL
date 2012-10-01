@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+use 5.010000;
+
 use ExtUtils::MakeMaker;
 
 ## no critic (may require interpolation)
@@ -11,12 +13,12 @@ WriteMakefile(
     AUTHOR             => q{David Oswald <davido [@at] cpan [d.o.t] org>},
     VERSION_FROM       => 'lib/JSON/Tiny.pm',
     ABSTRACT_FROM      => 'lib/JSON/Tiny.POD',
-    LICENSE            => 'perl',
+    LICENSE            => 'artistic',
     MIN_PERL_VERSION   => '5.010000',
     PL_FILES           => {},
     BUILD_REQUIRES => {
         'Test::More' => '0.98',             # Core, but updated version.
-	'English'    => '0',                # Core.
+        'English'    => '0',                # Core.
     },
     PREREQ_PM => {
         'Scalar::Util' => '0',              # Core: Being explicit.
