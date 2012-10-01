@@ -1,5 +1,6 @@
 Changes
 lib/JSON/Tiny.pm
+lib/JSON/Tiny.pod
 Makefile.PL
 MANIFEST            This list of files
 MANIFEST.SKIP
@@ -15,4 +16,8 @@ t/05-load-prereqs.t
 t/10-load-can.t
 t/13-kwalitee.t
 t/20-mojo-json.t
+examples/json_pp_alone.pl
+examples/json_tiny_alone.pl
+examples/json_pp_benchmark.pl
+
 

@@ -1,20 +1,23 @@
-#!/usr/bin/env perl
-
 use strict;
 use warnings;
 use Test::More;
 
-# Ensure a recent version of Test::Pod::Coverage
-my $min_tpc = 1.08;
-eval "use Test::Pod::Coverage $min_tpc"; ## no critic (eval)
-plan skip_all => "Test::Pod::Coverage $min_tpc required for testing POD coverage"
+
+if ( not $ENV{RELEASE_TESTING} ) {
+    my $msg =
+        'Author Test: Set $ENV{RELEASE_TESTING} to a true value to run.';
+    plan( skip_all => $msg );
+}
+
+
+eval "use Test::Pod::Coverage 1.00"; ## no critic (eval)
+
+
+plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD coverage"
     if $@;
 
-# Test::Pod::Coverage doesn't require a minimum Pod::Coverage version,
-# but older versions don't recognize some common documentation styles
-my $min_pc = 0.18;
-eval "use Pod::Coverage $min_pc"; ## no critic(eval)
-plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
-    if $@;
 
-all_pod_coverage_ok();
+pod_coverage_ok( 'JSON::Tiny');
+
+
+done_testing();
