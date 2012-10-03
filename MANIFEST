@@ -18,6 +18,6 @@ t/13-kwalitee.t
 t/20-mojo-json.t
 examples/json_pp_alone.pl
 examples/json_tiny_alone.pl
-examples/json_pp_benchmark.pl
+examples/json_benchmark.pl
 
 

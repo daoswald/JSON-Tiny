@@ -17,7 +17,7 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
 L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
-a single-source-file module of about 350 lines of code with core-only
+a single-source-file module of about 345 lines of code with core-only
 dependencies.
 
 Mojo::JSON was chosen as a starting point because it is so light-weight to 
@@ -25,8 +25,8 @@ begin with, robust, relaxed, and well tested. Furthermore, Mojo::JSON's tests
 were able to be adapted as easily as the module itself to a no non-core 
 dependency configuration.
 
-Most of the remainder of this documentation is adapted directly from
-L<Mojo::JSON>. Only the names have been changed to protect the innocent.
+Most of the remainder of this document is adapted directly from
+L<Mojo::JSON>. The names have been changed to protect the innocent.
 
 L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
 it is possibly the fastest pure-Perl JSON parser available, you should not use
@@ -100,25 +100,25 @@ True value, used because Perl has no native equivalent.
 
 =head1 It's Tiny
 
-Comparing JSON::PP to JSON::Tiny:
+Comparing JSON::Tiny to JSON::PP (from the L<JSON> distribution):
 
 
 =over 4
 
-=item * L<JSON> is highly configurable.  L<JSON::Tiny> provides sane defaults,
-and a simple zero-configuration API.
+=item * L<JSON> is highly configurable (and comparatively complex).
+L<JSON::Tiny> provides sane defaults, and a simple zero-configuration API.
 
 =item * Installation: C<cpanm JSON> vs C<cpanm JSON::Tiny>: L<JSON>: 5.9 
 seconds. L<JSON::Tiny> 1.8 seconds.
 
 =item * Minimal Dependencies: Both L<JSON> and L<JSON::Tiny> use only core 
-dependencies.  L<JSON> is backward compatible to Perl 5.6.x, while 
-C<JSON::Tiny> is backward compatible to 5.10.x.
+dependencies.  JSON::Tiny is backward compatible to Perl 5.10, while JSONL<JSON>
+is backward compatible to 5.6.
 
-=item * Simple Design: L<JSON> is 2254 lines of code spread across six modules 
-and five files with a distribution tarball size of 84KB. L<JSON::Tiny> is 344 
-lines of code in a single module, and a single file.  It can even be embedded 
-within existing code.  The tarball size is 17KB.
+=item * Simple Design: L<JSON> has 2254 lines of code spread across six modules 
+and five files with a distribution tarball size of 84KB. L<JSON::Tiny> has 345 
+lines of code in a single module, from a single file.  It can even be easily
+embedded within existing code.  The tarball size is 17KB.
 
 =item * Simple Interface: L<JSON::PP> has around 42 functions and methods (many 
 are setters/getters for behavioral attributes).  L<JSON::Tiny> has six.
@@ -148,6 +148,9 @@ and 6.1MB detected with valgrind.
 5.4MB detected with valgrind.
 
 =back
+
+Obviously the two utilities have very different methods of measuring memory 
+use, but both show JSON::Tiny to be 600-700KB lighter weight than JSON::PP.
 
 =back
 
@@ -226,10 +229,10 @@ Copyright 2012 David Oswald.
 This program is free software, you can redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
 
-See L<http://dev.perl.org/licenses/artistic.html> for more information.
+See L<http://www.perlfoundation.org/artistic_license_2_0> for more information.
 
 =head1 SEE ALSO
 
-L<JSON>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
+L<JSON>, L<JSON::PP>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
 
 =cut

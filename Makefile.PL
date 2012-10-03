@@ -13,7 +13,7 @@ WriteMakefile(
     AUTHOR             => q{David Oswald <davido [@at] cpan [d.o.t] org>},
     VERSION_FROM       => 'lib/JSON/Tiny.pm',
     ABSTRACT_FROM      => 'lib/JSON/Tiny.pod',
-    LICENSE            => 'artistic',
+    LICENSE            => 'artistic_2',
     MIN_PERL_VERSION   => '5.010000',
     PL_FILES           => {},
     BUILD_REQUIRES => {

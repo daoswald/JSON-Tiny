@@ -1,7 +1,8 @@
 Revision history for JSON::Tiny
 
-0.01    September 27, 2012 13:46:00 PDT
+0.01    October 3, 2012 00:27:00 PDT
     - Initial release.
     - JSON/Tiny.pm adapted from Mojo::JSON.
     - t/20-mojo-json.t adapted from Mojolicious/t/mojo/json.t
     - All Mojolicious/Mojo::* dependencies removed.  No non-core deps.
+    - Licensed under Artistic 2.0, as is Mojolicious.

@@ -1,8 +1,11 @@
 package JSON::Tiny;
 
 # Minimalistic JSON encoding and decoding.  Code and tests adapted with minor
-# changes from Mojo::JSON and Mojo::Util (version 3.43), with adjustments to 
+# changes from Mojo::JSON and Mojo::Util (version 3.43), with changes to 
 # facilitate use as a stand-alone tool.
+
+# Licensed under the Artistic 2.0 license. 
+# See http://www.perlfoundation.org/artistic_license_2_0 for details.
 
 use strict;
 use B;
@@ -342,4 +345,3 @@ use overload '0+' => sub { ${$_[0]} }, '""' => sub { ${$_[0]} }, fallback => 1;
 1;
 
 __END__
-
