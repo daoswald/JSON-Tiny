@@ -6,14 +6,13 @@ use warnings;
 use Test::More tests => 3;
 
 sub prereq_message {
-    return "*** YOU MUST INSTALL $_[0] BEFORE PROCEEDING ***\n";
+  return "*** YOU MUST INSTALL $_[0] BEFORE PROCEEDING ***\n";
 }
 
 BEGIN {
-    foreach my $module ( qw/Scalar::Util Encode B/ ) {
-        use_ok( $module )
-            or BAIL_OUT( prereq_message( $module ) );
-    }
+  foreach my $module ( qw/Scalar::Util Encode B/ ) {
+    use_ok( $module ) or BAIL_OUT( prereq_message( $module ) );
+  }
 }
 
 done_testing();

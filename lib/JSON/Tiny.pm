@@ -1,24 +1,23 @@
 package JSON::Tiny;
 
-# Minimalistic JSON encoding and decoding.  Code and tests adapted with minor
-# changes from Mojo::JSON and Mojo::Util (version 3.43), with changes to 
-# facilitate use as a stand-alone tool.
+# Minimalistic JSON. Code and tests adapted from Mojo::JSON and Mojo::Util
+# (version 3.43). See the POD for more explanation.
 
-# Licensed under the Artistic 2.0 license. 
-# See http://www.perlfoundation.org/artistic_license_2_0 for details.
+# Licensed under the Artistic 2.0 license.
+# See http://www.perlfoundation.org/artistic_license_2_0.
 
 use strict;
 use B;
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.01';
+our $VERSION = '0.20';
 
-# Constructor and accessor since we're not using Mojo::Base.
+# Constructor and accessor, as we're not using Mojo::Base.
 
 sub new {
   my $class = shift;
-  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
+  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, $class;
 }
 
 sub error {
@@ -26,7 +25,7 @@ sub error {
   return $_[0]->{error};
 }
 
-# The rest was lifted from Mojo::JSON, with a couple of minor changes. 
+# The rest is adapted from Mojo::JSON, with minor modifications.
 # Names changed for a standalone package.
 
 # Literal names
@@ -343,5 +342,3 @@ package JSON::Tiny::_Bool;
 use overload '0+' => sub { ${$_[0]} }, '""' => sub { ${$_[0]} }, fallback => 1;
 
 1;
-
-__END__

@@ -1,11 +1,9 @@
 #!/usr/bin/env perl
 
-use v5.14;
+use v5.10;
 
 BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # Force JSON::PP.
 
-use strict;
-use warnings;
 use File::Slurp;
 use JSON;
 use JSON::Tiny;
@@ -14,23 +12,21 @@ use Benchmark qw( cmpthese );
 my @json = do { split /-{5,}/, read_file(\*DATA); };
 
 sub json_pp {
-    my $j = JSON->new->relaxed;
-    my @decoded = map { $j->decode( $_ ) } @json;
-    return \@decoded;
+  my $j = JSON->new->relaxed;
+  my @decoded = map { $j->decode($_) } @json;
+  return \@decoded;
 }
 
 sub json_tiny {
-    my $j = JSON::Tiny->new;
-    my @decoded = map { $j->decode( $_ ) } @json;
-    return \@decoded;
+  my $j = JSON::Tiny->new;
+  my @decoded = map { $j->decode($_) } @json;
+  return \@decoded;
 }
 
 cmpthese ( -15, {
-    JSON_PP   => \&json_pp,
-    JSON_Tiny => \&json_tiny,
-} );
-
-
+  JSON_PP   => \&json_pp,
+  JSON_Tiny => \&json_tiny,
+});
 
 __DATA__
 {
@@ -54,7 +50,7 @@ __DATA__
         }
     ]
 }
-------------------------------------
+--------------------
 {
     "name": "Product",
     "properties": {
@@ -92,7 +88,7 @@ __DATA__
         }
     }
 }
-------------------------------------------
+--------------------
 {
     "id": 1,
     "name": "Foo",
@@ -103,7 +99,7 @@ __DATA__
         "retail": 20
     }
 }
--------------------------------------------
+--------------------
 {"web-app": {
   "servlet": [   
     {

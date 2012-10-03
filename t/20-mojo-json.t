@@ -6,7 +6,7 @@ use strict;
 
 sub new {
   my $class = shift;
-  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
+  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, $class;
 }
 
 sub something {
@@ -22,17 +22,12 @@ package main;
 
 use strict;
 use utf8;
-use Encode qw( encode decode ); # Original tests used Mojo::Bytestream versions.
-use Test::More tests => 118; # One test (blessed reference) disabled becaues
+use Encode qw( encode decode );
+use Test::More tests => 118; # One test (blessed reference) disabled because
                              # it cannot be reasonably simulated without
                              # Mojo::ByteStream and Mojo::Base.
                              # Other blessed reference tests still exist.
 use JSON::Tiny;
-
-sub new {
-  my $class = shift;
-  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
-}
 
 # Decode array
 my $json  = JSON::Tiny->new;

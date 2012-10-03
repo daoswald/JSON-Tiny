@@ -1,8 +1,13 @@
 Revision history for JSON::Tiny
-
+0.20    October 4, 2012 00:01:00 PDT
+    - Bump version number to .20: avoid confusion with unrelated
+      Perl6 module previously using same namespace.
+    - POD improvements.
+    - Remove "ref($class) || $class;" from constructor.
+    - Remove 'beta' status.
 0.01    October 3, 2012 00:27:00 PDT
     - Initial release.
-    - JSON/Tiny.pm adapted from Mojo::JSON.
+    - JSON::Tiny adapted from Mojo::JSON.
     - t/20-mojo-json.t adapted from Mojolicious/t/mojo/json.t
-    - All Mojolicious/Mojo::* dependencies removed.  No non-core deps.
-    - Licensed under Artistic 2.0, as is Mojolicious.
+    - Mojolicious and Mojo dependencies removed.
+    - Artistic 2.0 license matches Mojolicious.
