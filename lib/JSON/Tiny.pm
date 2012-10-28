@@ -1,7 +1,6 @@
 package JSON::Tiny;
 
-# Minimalistic JSON. Code and tests adapted from Mojo::JSON and Mojo::Util
-# (version 3.43). See the POD for more explanation.
+# Minimalistic JSON. Code and tests adapted from Mojo::JSON and Mojo::Util.
 
 # Licensed under the Artistic 2.0 license.
 # See http://www.perlfoundation.org/artistic_license_2_0.
