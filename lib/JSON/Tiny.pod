@@ -16,7 +16,7 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
-L<Mojolicious> "web in a box" framework (version 3.43).  It has been adapted as
+L<Mojolicious> "web in a box" framework (version 3.52).  It has been adapted as
 a single-source-file module of about 345 lines of code with core-only
 dependencies.
 

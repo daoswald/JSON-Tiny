@@ -1,4 +1,7 @@
 Revision history for JSON::Tiny
+0.21    October 27, 2012 19:28 PDT
+    - Added boolean shortcut support to JSON::Tiny (See Mojolicious v3.52).
+    - Fixed small context bugs (See Mojolicious v3.51).
 0.20    October 4, 2012 00:01:00 PDT
     - Bump version number to .20: avoid confusion with unrelated
       Perl6 module previously using same namespace.

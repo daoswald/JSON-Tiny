@@ -23,7 +23,7 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 118; # One test (blessed reference) disabled because
+use Test::More tests => 124; # One test (blessed reference) disabled because
                              # it cannot be reasonably simulated without
                              # Mojo::ByteStream and Mojo::Base.
                              # Other blessed reference tests still exist.
@@ -65,11 +65,11 @@ cmp_ok $array->[0], '==', 1e3, 'value is 1e3';
 
 # Decode name
 $array = $json->decode('[true]');
-is_deeply $array, [$json->true], 'decode [true]';
+is_deeply $array, [JSON::Tiny->true], 'decode [true]';
 $array = $json->decode('[null]');
 is_deeply $array, [undef], 'decode [null]';
 $array = $json->decode('[true, false]');
-is_deeply $array, [$json->true, $json->false], 'decode [true, false]';
+is_deeply $array, [JSON::Tiny->true, JSON::Tiny->false], 'decode [true, false]';
 
 # Decode string
 $array = $json->decode('[" "]');
@@ -163,11 +163,11 @@ is $string, '{"foo":["bar"]}', 'encode {foo => [\'bar\']}';
 
 # Encode name
 $string = $json->encode([$json->true]);
-is $string, '[true]', 'encode [$json->true]';
+is $string, '[true]', 'encode [JSON::Tiny->true]';
 $string = $json->encode([undef]);
 is $string, '[null]', 'encode [undef]';
-$string = $json->encode([$json->true, $json->false]);
-is $string, '[true,false]', 'encode [$json->true, $json->false]';
+$string = $json->encode([JSON::Tiny->true, JSON::Tiny->false]);
+is $string, '[true,false]', 'encode [JSON::Tiny->true, JSON::Tiny->false]';
 
 # Encode number
 $string = $json->encode([1]);
@@ -195,7 +195,7 @@ is_deeply $array, ["\x{10346}"], 'successful roundtrip';
 
 # Decode UTF-16LE
 $array = $json->decode( encode( 'UTF-16LE', "\x{feff}[true]" ));
-is_deeply $array, [$json->true], 'decode \x{feff}[true]';
+is_deeply $array, [JSON::Tiny->true], 'decode \x{feff}[true]';
 
 # Decode UTF-16LE with faihu surrogate pair
 $array = $json->decode( encode('UTF-16LE', "\x{feff}[\"\\ud800\\udf46\"]"));
@@ -213,11 +213,11 @@ is_deeply $array, ["\x{10346}"], 'decode \x{feff}[\"\\ud800\\udf46\"]';
 
 # Decode UTF-32LE
 $array = $json->decode(encode('UTF-32LE', "\x{feff}[true]"));
-is_deeply $array, [$json->true], 'decode \x{feff}[true]';
+is_deeply $array, [JSON::Tiny->true], 'decode \x{feff}[true]';
 
 # Decode UTF-32BE
 $array = $json->decode(encode('UTF-32BE', "\x{feff}[true]"));
-is_deeply $array, [$json->true], 'decode \x{feff}[true]';
+is_deeply $array, [JSON::Tiny->true], 'decode \x{feff}[true]';
 
 # Decode UTF-16LE without BOM
 $array
@@ -244,7 +244,7 @@ $string = '[null,false,true,"",0,1]';
 $array  = $json->decode($string);
 isa_ok $array, 'ARRAY', 'decode [null,false,true,"",0,1]';
 is $json->encode($array), $string, 'reencode';
-$array = [undef, 0, 1, '', $json->true, $json->false];
+$array = [undef, 0, 1, '', JSON::Tiny->true, JSON::Tiny->false];
 $string = $json->encode($array);
 ok $string, 'defined value';
 is_deeply $json->decode($string), $array, 'successful roundtrip';
@@ -280,6 +280,20 @@ is_deeply $json->decode($string), {}, 'successful roundtrip';
 $string = $json->encode(
   JSONTest->new(something => {just => 'works'}, else => {not => 'working'}));
 is_deeply $json->decode($string), {just => 'works'}, 'successful roundtrip';
+
+# Boolean shortcut
+is $json->encode({true  => \1}), '{"true":true}',   'encode {true => \1}';
+is $json->encode({false => \0}), '{"false":false}', 'encode {false => \0}';
+$string = 'some true value';
+is $json->encode({true => \!!$string}), '{"true":true}',
+  'encode true boolean from string';
+is $json->encode({true => \$string}), '{"true":true}',
+  'encode true boolean from string';
+$string = '';
+is $json->encode({false => \!!$string}), '{"false":false}',
+  'encode false boolean from string';
+is $json->encode({false => \$string}), '{"false":false}',
+  'encode false boolean from string';
 
 # Errors
 is $json->decode('["â™¥"]'), undef, 'wide character in input';
@@ -329,3 +343,5 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
 is $json->error,
   'Malformed JSON: Unexpected data after array at line 3, offset 8',
   'right error';
+
+done_testing();
