@@ -1,4 +1,7 @@
 Revision history for JSON::Tiny
+0.22    ???????
+    - Lexical warnings now enabled for JSON/Tiny.pm.
+    - Silenced some unwanted Perl Critic criticizims.
 0.21    October 27, 2012 19:28 PDT
     - Added boolean shortcut support to JSON::Tiny (See Mojolicious v3.52).
     - Fixed small context bugs (See Mojolicious v3.51).
