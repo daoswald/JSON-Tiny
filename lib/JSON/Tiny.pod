@@ -42,7 +42,8 @@ stringify them if it doesn't exist.
     {"foo": "bar"} -> {foo => 'bar'}
 
 Literal names will be translated to and from L<JSON::Tiny> constants or a
-similar native Perl value.
+similar native Perl value. In addition C<Scalar> references will be used to
+generate booleans, based on if their values are true or false.
 
     true  -> JSON::Tiny->true
     false -> JSON::Tiny->false
