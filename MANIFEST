@@ -13,6 +13,7 @@ t/02-pod.t
 t/03-pod-coverage.t
 t/04-perlcritic.t
 t/05-load-prereqs.t
+t/09-changes.t
 t/10-load-can.t
 t/13-kwalitee.t
 t/20-mojo-json.t

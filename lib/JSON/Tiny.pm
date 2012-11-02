@@ -11,7 +11,7 @@ use B;
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 # Constructor and accessor, as we're not using Mojo::Base.
 
