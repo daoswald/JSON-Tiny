@@ -26,3 +26,4 @@ MYMETA\b
 pm_to_blib
 pod2htmd\.tmp
 pod2htmi\.tmp
+cover_db

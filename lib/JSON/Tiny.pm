@@ -5,13 +5,18 @@ package JSON::Tiny;
 # Licensed under the Artistic 2.0 license.
 # See http://www.perlfoundation.org/artistic_license_2_0.
 
+use 5.010;
+
 use strict;
 use warnings;
 use B;
+use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.22';
+our $VERSION = '0.23';
+
+our @EXPORT_OK = ('j');
 
 # Constructor and accessor, as we're not using Mojo::Base.
 
@@ -61,7 +66,7 @@ my $WHITESPACE_RE = qr/[\x20\x09\x0a\x0d]*/;
 sub decode {
   my ($self, $bytes) = @_;
 
-  # Cleanup
+  # Clean start
   $self->error(undef);
 
   # Missing input
@@ -118,10 +123,17 @@ sub decode {
 
 sub encode {
   my ($self, $ref) = @_;
-  return Encode::encode 'UTF-8', _encode_values($ref);
+  return Encode::encode 'UTF-8', _encode_value($ref);
 }
 
 sub false {$FALSE}
+
+sub j {
+  my $d = shift;
+  return __PACKAGE__->new->encode($d) if ref $d eq 'ARRAY' || ref $d eq 'HASH';
+  return __PACKAGE__->new->decode($d);
+}
+
 sub true  {$TRUE}
 
 sub _decode_array {
@@ -263,31 +275,24 @@ sub _decode_value {
 }
 
 sub _encode_array {
-  return '[' . join(',', map { _encode_values($_) } @{shift()}) . ']';
+  my $array = shift;
+  return '[' . join(',', map { _encode_value($_) } @$array) . ']';
 }
 
 sub _encode_object {
   my $object = shift;
-
-  # Encode pairs
-  my @pairs = map { _encode_string($_) . ':' . _encode_values($object->{$_}) }
+  my @pairs = map { _encode_string($_) . ':' . _encode_value($object->{$_}) }
     keys %$object;
-
-  # Stringify
   return '{' . join(',', @pairs) . '}';
 }
 
 sub _encode_string {
   my $string = shift;
-
-  # Escape string
   $string =~ s!([\x00-\x1F\x7F\x{2028}\x{2029}\\"/\b\f\n\r\t])!$REVERSE{$1}!gs;
-
-  # Stringify
   return "\"$string\"";
 }
 
-sub _encode_values {
+sub _encode_value {
   my $value = shift;
 
   # Reference
@@ -305,7 +310,7 @@ sub _encode_values {
 
     # Blessed reference with TO_JSON method
     if (Scalar::Util::blessed $value && (my $sub = $value->can('TO_JSON'))) {
-      return _encode_values($value->$sub);
+      return _encode_value($value->$sub);
     }
   }
 
@@ -334,7 +339,6 @@ sub _exception {
     $context .= ' at line ' . @lines . ', offset ' . length(pop @lines || '');
   }
 
-  # Throw
   die "$context\n";
 }
 

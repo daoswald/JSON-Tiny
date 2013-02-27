@@ -1,5 +1,12 @@
 Revision history for Perl module JSON::Tiny
 
+0.23 2013-02-27
+  - Bring JSON::Tiny's code and tests current with Mojolicious commit
+    747f08d2b8280a1b333d888aee6c231b631af906 (Feb 03, 2013).
+  - Added 'j' function (this change adds Exporter dependency).
+  - POD tweaks, including documentation for 'j' function.
+  - Test improvements, including testing for 'j' function.
+  
 0.22 2012-11-02
   - Lexical warnings now enabled for JSON/Tiny.pm.
   - Silenced some unwanted Perl Critic criticizims.

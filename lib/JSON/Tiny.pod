@@ -7,12 +7,23 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
 =head1 SYNOPSIS
 
+    # Encode and decode JSON
     use JSON::Tiny;
 
     my $json  = JSON::Tiny->new;
-    my $bytes = $json->encode({foo => [1, 2], bar => 'hello!'});
+    my $bytes = $json->encode({foo => [1, 2], bar => 'hello!', baz => \1});
     my $hash  = $json->decode($bytes);
 
+    # Check for errors
+    my $json = JSON::Tiny->new;
+    if(defined(my $hash = $json->decode($bytes))) { say $hash->{message} }
+    else { say 'Error: ', $json->error }
+
+    # Use the alternative interface
+    use JSON::Tiny 'j';
+    my $bytes = j({foo => [1, 2], bar => 'hello!', baz => \1});
+    my $hash  = j($bytes);
+    
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
@@ -53,11 +64,24 @@ Decoding UTF-16 (LE/BE) and UTF-32 (LE/BE) will be handled transparently,
 encoding will only generate UTF-8. The two Unicode whitespace characters
 C<u2028> and C<u2029> will always be escaped to make JSONP easier.
 
+=head1 FUNCTIONS
+
+L<JSON::Tiny> implements the following functions.
+
+=head2 j
+
+    my $bytes = j([1, 2, 3]);
+    my $bytes = j({foo => 'bar'});
+    my $array = j($bytes);
+    my $hash  = j($bytes);
+
+Encode Perl data structure or decode JSON and return C<undef> if decoding fails.
+
 =head1 ATTRIBUTES
 
 L<JSON::Tiny> implements the following attributes.
 
-=head2 C<error>
+=head2 error
 
     my $err = $json->error;
     $json   = $json->error('Parser error');
@@ -68,33 +92,34 @@ Parser errors.
 
 L<JSON::Tiny> implements the following methods.
 
-=head2 C<new>
+=head2 new
 
     my $json = JSON::Tiny->new;
 
 Instantiate a JSON::Tiny object.
 
-=head2 C<decode>
+=head2 decode
 
     my $array = $json->decode($bytes);
     my $hash  = $json->decode($bytes);
 
-Decode JSON.
+Decode JSON to Perl data structure and return C<undef> if decoding fails.
 
-=head2 C<encode>
+=head2 encode
 
+    my $bytes = $json->encode([1, 2, 3]);
     my $bytes = $json->encode({foo => 'bar'});
 
-Encode Perl data structure.
+Encode Perl data structure to JSON.
 
-=head2 C<false>
+=head2 false
 
     my $false = JSON::Tiny->false;
     my $false = $json->false;
 
 False value, used because Perl has no native equivalent.
 
-=head2 C<true>
+=head2 true
 
     my $true = JSON::Tiny->true;
     my $true = $json->true;
