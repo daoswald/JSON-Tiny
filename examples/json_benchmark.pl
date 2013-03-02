@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-
-use v5.10;
 
 BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # Force JSON::PP.
 

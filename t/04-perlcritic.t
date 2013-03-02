@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-
 use Test::More;
 use English qw( -no_match_vars );
 
@@ -29,10 +28,7 @@ if ( $EVAL_ERROR ) {
 
 Test::Perl::Critic->import( -severity => 5 );
 
-# We want to test the primary module components (blib/) as well as the
-# test suite (t/).
 my @directories = qw{  blib/  t/  };
 
 Test::Perl::Critic::all_critic_ok(@directories);
-
 done_testing();

@@ -12,14 +12,10 @@ if ( ! $ENV{RELEASE_TESTING} ) {
   plan( skip_all => $msg );
 }
 
-
 eval { require Test::Kwalitee; Test::Kwalitee->import() }; ## no critic (eval)
-
 plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;
-
 done_testing();
 
-# Clean up.  I haven't traced out where this is getting created, but we
-# certainly don't need to leave it behind as clutter.
-
+# Clean up.  I haven't traced out where this is getting created, but we don't
+# need to leave it behind as clutter.
 unlink 'Debian_CPANTS.txt' if -e 'Debian_CPANTS.txt';

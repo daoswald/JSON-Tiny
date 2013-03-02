@@ -6,7 +6,6 @@ package JSON::Tiny;
 # See http://www.perlfoundation.org/artistic_license_2_0.
 
 use 5.010;
-
 use strict;
 use warnings;
 use B;
@@ -14,9 +13,8 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.23';
-
-our @EXPORT_OK = ('j');
+our $VERSION = '0.24';
+our @EXPORT_OK = qw(j);
 
 # Constructor and accessor, as we're not using Mojo::Base.
 

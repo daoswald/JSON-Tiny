@@ -1,26 +1,29 @@
 Revision history for Perl module JSON::Tiny
 
+0.24 2012-03-01
+  - POD improvements.
+
 0.23 2013-02-27
-  - Bring JSON::Tiny's code and tests current with Mojolicious commit
+  - Bring code and tests current with Mojolicious commit
     747f08d2b8280a1b333d888aee6c231b631af906 (Feb 03, 2013).
-  - Added 'j' function (this change adds Exporter dependency).
+  - Add 'j' function (and an Exporter dependency).
   - POD tweaks, including documentation for 'j' function.
-  - Test improvements, including testing for 'j' function.
+  - Tests for 'j' function.
   
 0.22 2012-11-02
-  - Lexical warnings now enabled for JSON/Tiny.pm.
-  - Silenced some unwanted Perl Critic criticizims.
-  - Dates in "Changes" are now W3CDTF compliant.
-  - Added optional author "release test" t/09-changes.t to test "Changes"
-    standards compliance.
+  - Enable lexical warnings for JSON/Tiny.pm.
+  - Silence unwanted Perl Criticizims.
+  - Dates in "Changes" are W3CDTF compliant.
+  - Added optional release test t/09-changes.t to test "Changes" standards
+    compliance.
 
 0.21 2012-10-27
-  - Added boolean shortcut support to JSON::Tiny (See Mojolicious v3.52).
-  - Fixed small context bugs (See Mojolicious v3.51).
+  - Added boolean shortcut support to JSON::Tiny (Mojolicious v3.52).
+  - Fixed small context bugs (Mojolicious v3.51).
 
 0.20 2012-10-04
-  - Bump version number to .20: avoid confusion with unrelated
-    Perl6 module previously using same namespace.
+  - Bump version number to .20: avoid confusion with Perl6 module previously
+    using same name.
   - POD improvements.
   - Remove "ref($class) || $class;" from constructor.
   - Remove 'beta' status.

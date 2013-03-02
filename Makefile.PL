@@ -14,7 +14,7 @@ WriteMakefile(
   MIN_PERL_VERSION  => '5.010000',
   PL_FILES          => {},
   BUILD_REQUIRES => {
-    'Test::More' => '0.98',  # Core, but updated version.
+    'Test::More' => '0.98',  # Core; updated version.
     'English'    => '0',     # Core.
   },
   PREREQ_PM => {
@@ -27,7 +27,7 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.23'
+        version => '0.24'
       },
     },
   },
