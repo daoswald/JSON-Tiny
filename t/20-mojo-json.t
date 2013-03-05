@@ -23,7 +23,7 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 124; # One test (blessed reference) disabled because
+use Test::More tests => 125; # One test (blessed reference) disabled because
                              # it cannot be reasonably simulated without
                              # Mojo::ByteStream and Mojo::Base.
                              # Other blessed reference tests still exist.
@@ -243,6 +243,10 @@ is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 $array
   = $json->decode(encode('UTF-32BE', "[\"\\ud800\\udf46\"]"));
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
+
+# Decode object with duplicate keys
+$hash = $json->decode('{"foo": 1, "foo": 2}');
+is_deeply $hash, {foo =>2}, 'decode {"foo": 1, "foo": 2}';
 
 # Complicated roudtrips
 $bytes = '[null,false,true,"",0,1]';

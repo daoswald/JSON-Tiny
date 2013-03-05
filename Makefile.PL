@@ -27,7 +27,7 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.24'
+        version => '0.25'
       },
     },
   },

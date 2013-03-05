@@ -25,19 +25,18 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
     
 =head1 DESCRIPTION
 
-L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the fabulous
+L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the
 L<Mojolicious> framework.  It has been adapted as a single-source-file module of
 about 350 lines of code and core-only dependencies.
 
 Key features include relaxed JSON handling, transparent Unicode support, speed,
-small memory footprint, and a minimal code base ideal for bundling or embedding.
+small memory footprint, and a minimal code base ideal for bundling or inlining.
 
-L<Mojo::JSON> was chosen as a start point because it is already robust, minimal,
-and well tested. Furthermore, Mojo::JSON's tests were able to be adapted as
-easily as the module itself to a design free of non-core dependencies.
+L<Mojo::JSON> was chosen as a start point because it is robust, minimal, and
+well tested. Mojo::JSON's tests were able to be adapted as easily as the module
+itself to a design free of non-core dependencies.
 
-Most of the remainder of this document is adapted directly from
-L<Mojo::JSON>.
+Most of the remainder of this document is adapted directly from L<Mojo::JSON>.
 
 L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
 it is possibly the fastest pure-Perl JSON parser available, you should not use
@@ -126,14 +125,14 @@ True value, used because Perl has no native equivalent.
 
 =head1 It's Tiny
 
-Comparing JSON::Tiny with JSON::PP (from the L<JSON> distribution):
+Comparing JSON::Tiny with JSON::PP from the L<JSON> distribution:
 
 =over 4
 
 =item * L<JSON::PP> is highly configurable and comparatively complex.
-L<JSON::Tiny> provides sane defaults, and a zero-configuration API.
+L<JSON::Tiny> offers sane defaults, and nothing to configure.
 
-=item * Installation: C<cpanm JSON::PP> versus C<cpanm JSON::Tiny>:
+=item * Installation: C<cpanm JSON::PP> vs C<cpanm JSON::Tiny>:
 L<JSON::PP>: 5.2 seconds. L<JSON::Tiny>: 1.9 seconds (including download).
 
 =item * Minimal Dependencies: Both L<JSON::PP> and L<JSON::Tiny> only use core 
@@ -144,9 +143,8 @@ files, and a distribution tarball of 84KB. L<JSON::Tiny> has 350 lines of code;
 a single module in a single file. It can be easily embedded within existing
 code. The tarball is 18KB.
 
-=item * Simple Interface: L<JSON::PP> has around 42 functions and methods.
-L<JSON::Tiny> has seven.  The simple interface provides DWIM defaults without
-complexity.
+=item * Simple Interface: L<JSON::PP> has about 42 functions and methods.
+L<JSON::Tiny> has seven.
 
 =item * Fast Performance (Benchmarks):
 
@@ -161,13 +159,12 @@ case, L<JSON::XS> wins by an order of magnitude, but it's XS.
 Because JSON::Tiny doesn't pull in as many external modules, and splits the POD
 into a separate file to minimize the source-code file size, the startup time for
 JSON::Tiny is slightly faster than for the JSON module. But, the startup time
-is so small for both modules that the difference is only going to be noticed in
-applications such as CGI, where processes might be started many times per
-second.
+in either case would only be a factor in applications such as CGI, where
+processes may be started many times per second.
 
 =item * Light Memory Needs: From the distribution's C<examples/> folder, 
-C<json_pp_alone.pl> and  C<json_tiny_alone.pl> were tested, first using 
-L<Devel::MemoryTrace::Light>, and then using L<http://valgrind.org/valgrind>.
+C<json_pp_alone.pl> and  C<json_tiny_alone.pl> were tested, first with 
+L<Devel::MemoryTrace::Light>, and then with L<http://valgrind.org/valgrind>.
 The results were as follows:
 
 =over 4
@@ -195,7 +192,7 @@ Perl 5.10 or newer.
 
 =head1 INCOMPATIBILITIES
 
-This module isn't compatible with Perl versions pre-5.10.
+This module isn't intended for Perl versions pre-5.10.
 
 =head1 AUTHOR
 
@@ -205,7 +202,7 @@ The code and tests were adapted with minimal changes from L<Mojo::JSON>.
 
 =head1 SUPPORT
 
-Support requests should be directed to the author.  Direct bug reports to
+Support requests should be directed to the author. Direct bug reports to
 CPAN's Request Tracker (RT).
 
 You can find documentation for this module with the perldoc command.
@@ -241,14 +238,13 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 
 =head1 ACKNOWLEDGEMENTS
 
-Thank-you to the L<Mojolicious> development team for producing an excellent
-product that offers light-weight implementations of many useful tools. This
-module wouldn't exist or be as well designed and tested if it had to be written
-from scratch.
+Thank-you to the L<Mojolicious> team for producing an excellent product that
+offers light-weight implementations of many useful tools. This module wouldn't
+exist or be as well designed and tested if it had to be written from scratch.
 
-Also to I<Randal Schwartz> for demonstrating to Los Angeles Perl Mongers
+Also to Randal Schwartz for demonstrating to Los Angeles Perl Mongers
 (Sept 2012) his embeddable pure-regexp JSON parser, and explaining it further on
-PerlMonks (L<http://www.perlmonks.org/?node_id=995856>).  Though he wasn't
+PerlMonks (L<http://www.perlmonks.org/?node_id=995856>). Though he wasn't
 involved in JSON::Tiny, it was the exploration of alternatives to his solution
 that led to this fork of the Mojolicious JSON parser.
 

@@ -1,11 +1,13 @@
 Revision history for Perl module JSON::Tiny
 
+0.25 2012-03-05
+  - Added test "Decode object with duplicate keys" (Mojolicious commit e4874cba)
+
 0.24 2012-03-01
   - POD improvements.
 
 0.23 2013-02-27
-  - Bring code and tests current with Mojolicious commit
-    747f08d2b8280a1b333d888aee6c231b631af906 (Feb 03, 2013).
+  - Bring code and tests current with Mojolicious commit 747f08d2 (Feb 3, 2013).
   - Add 'j' function (and an Exporter dependency).
   - POD tweaks, including documentation for 'j' function.
   - Tests for 'j' function.

@@ -13,7 +13,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.24';
+our $VERSION = '0.25';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor, as we're not using Mojo::Base.
