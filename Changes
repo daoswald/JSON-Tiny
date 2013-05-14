@@ -1,37 +1,37 @@
 Revision history for Perl module JSON::Tiny
 
 0.26 2013-05-13
-  - Changed heuristics for number detection to better line up with user
+  - Change heuristics for number detection to better line up with user
     expectations (Mojolicious commit 9f75c27).
 
 0.25 2012-03-05
-  - Added test "Decode object with duplicate keys" (Mojolicious commit e4874cba)
+  - Add test "Decode object with duplicate keys" (Mojolicious commit e4874cba)
 
 0.24 2012-03-01
   - POD improvements.
 
 0.23 2013-02-27
   - Bring code and tests current with Mojolicious commit 747f08d2 (Feb 3, 2013).
-  - Add 'j' function (and an Exporter dependency).
-  - POD tweaks, including documentation for 'j' function.
-  - Tests for 'j' function.
+  - Add 'j' function (and Exporter dependency).
+  - POD tweaks, incl. documentation for 'j' function.
+  - Tests for 'j'.
   
 0.22 2012-11-02
   - Enable lexical warnings for JSON/Tiny.pm.
   - Silence unwanted Perl Criticizims.
   - "Changes" is now W3CDTF compliant.
-  - Added optional release test t/09-changes.t: "Changes" standards compliance.
+  - Add optional release test t/09-changes.t: "Changes" standards compliance.
 
 0.21 2012-10-27
-  - Added boolean shortcut support to JSON::Tiny (Mojolicious v3.52).
-  - Fixed small context bugs (Mojolicious v3.51).
+  - Add boolean shortcut support to JSON::Tiny (Mojolicious v3.52).
+  - Fix small context bugs (Mojolicious v3.51).
 
 0.20 2012-10-04
-  - Bump version number to .20: avoid confusion with Perl6 module previously
-    using same name.
+  - Bump version number to .20: avoid confusion with defunct Perl6 module of
+    same name.
   - POD improvements.
   - Drop "ref($class) || $class;" from c'tor.
-  - Remove 'beta' status.
+  - Drop 'beta' status.
 
 0.01 2012-10-03
   - Initial release.

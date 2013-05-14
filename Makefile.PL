@@ -14,14 +14,14 @@ WriteMakefile(
   MIN_PERL_VERSION  => '5.010000',
   PL_FILES          => {},
   BUILD_REQUIRES => {
-    'Test::More' => '0.98',  # Core; updated version.
-    'English'    => '0',     # Core.
+    'Test::More' => '0.98',  # Core; updated version
+    'English'    => '0',     # C
   },
   PREREQ_PM => {
-    'Exporter'     => '0',   # Core.
-    'Scalar::Util' => '0',   # Core.
-    'B'            => '0',   # Core.
-    'Encode'       => '0',   # Core.
+    'Exporter'     => '0',   # C
+    'Scalar::Util' => '0',   # C
+    'B'            => '0',   # C
+    'Encode'       => '0',   # C
   },
   META_MERGE => {
     provides => {

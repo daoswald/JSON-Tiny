@@ -18,7 +18,7 @@ To install this module, run the following commands:
 
 DEPENDENCIES
 
-This module requires a minimum Perl version of 5.10.0.
+Minimum Perl version: 5.10.
 
 SUPPORT AND DOCUMENTATION
 
@@ -32,15 +32,11 @@ You can also look for information at:
     RT, CPAN's request tracker (report bugs here)
         http://rt.cpan.org/NoAuth/Bugs.html?Dist=JSON-Tiny
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/JSON-Tiny
-
-    CPAN Ratings
-        http://cpanratings.perl.org/d/JSON-Tiny
-
     Search CPAN
         http://search.cpan.org/dist/JSON-Tiny/
 
+
+    See the module's POD for additional info.
 
 LICENSE AND COPYRIGHT
 

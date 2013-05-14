@@ -1,4 +1,4 @@
-# Version control stuff.
+# Version control.
 \bRCS\b
 \bCVS\b
 ,v$
@@ -6,15 +6,15 @@
 ^\.git/\b
 ^\.gitignore$
 
-# Makemaker generated stuff.
+# Makemaker generated.
 ^MANIFEST\.
 ^Makefile$
 ^blib/
 ^MakeMaker-\d
 \.tar\.gz
-^List-BinarySearch-[\d.]+/
+^JSON-Tiny-[\d.]+/
 
-# Temp, old and emacs backup files.
+# Temp, old & emacs backup.
 ~$
 \.old$
 ^#.*#$
@@ -24,6 +24,4 @@
 \.gz$
 MYMETA\b
 pm_to_blib
-pod2htmd\.tmp
-pod2htmi\.tmp
 cover_db
