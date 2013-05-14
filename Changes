@@ -1,5 +1,10 @@
 Revision history for Perl module JSON::Tiny
 
+0.26 2013-05-13
+  - Changed heuristics for number detection to better line up with user
+    expectations (Mojolicious commit 9f75c27).
+  - Tests updated to stay current with Mojolicious commit 9f75c27.
+
 0.25 2012-03-05
   - Added test "Decode object with duplicate keys" (Mojolicious commit e4874cba)
 

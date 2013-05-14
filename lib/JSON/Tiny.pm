@@ -13,7 +13,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.25';
+our $VERSION = '0.26';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor, as we're not using Mojo::Base.
@@ -285,9 +285,9 @@ sub _encode_object {
 }
 
 sub _encode_string {
-  my $string = shift;
-  $string =~ s!([\x00-\x1F\x7F\x{2028}\x{2029}\\"/\b\f\n\r\t])!$REVERSE{$1}!gs;
-  return "\"$string\"";
+  my $str = shift;
+  $str =~ s!([\x00-\x1F\x7F\x{2028}\x{2029}\\"/\b\f\n\r\t])!$REVERSE{$1}!gs;
+  return "\"$str\"";
 }
 
 sub _encode_value {
@@ -316,9 +316,8 @@ sub _encode_value {
   return 'null' unless defined $value;
 
   # Number
-  my $flags = B::svref_2object(\$value)->FLAGS;
-  return $value
-    if $flags & (B::SVp_IOK | B::SVp_NOK) && !($flags & B::SVp_POK);
+  return 0 + $value
+    if B::svref_2object(\$value)->FLAGS & (B::SVp_IOK | B::SVp_NOK);
 
   # String
   return _encode_string($value);

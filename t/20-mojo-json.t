@@ -23,7 +23,7 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 125; # One test (blessed reference) disabled because
+use Test::More tests => 128; # One test (blessed reference) disabled because
                              # it cannot be reasonably simulated without
                              # Mojo::ByteStream and Mojo::Base.
                              # Other blessed reference tests still exist.
@@ -303,6 +303,20 @@ is $json->encode({false => \!!$bytes}), '{"false":false}',
   'encode false boolean from double negated reference';
 is $json->encode({false => \$bytes}), '{"false":false}',
   'encode false boolean from reference';
+
+# Upgraded numbers
+my $num = 3;
+my $str = "$num";
+is $json->encode({test => [$num, $str]}), '{"test":[3,"3"]}',
+  'upgraded number detected';
+$num = 3.21;
+$str = "$num";
+is $json->encode({test => [$num, $str]}), '{"test":[3.21,"3.21"]}',
+  'upgraded number detected';
+$str = '0 but true';
+$num = 1 + $str;
+is $json->encode({test => [$num, $str]}), '{"test":[1,0]}',
+  'upgraded number detected';
 
 # Errors
 is $json->decode('["â™¥"]'), undef, 'wide character in input';
