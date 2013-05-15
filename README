@@ -4,7 +4,7 @@ Minimal JSON with no dependencies.
 
 DESCRIPTION
 
-Lightweight, fast, relaxed, pure-Perl JSON in a stand-alone module  with no
+Lightweight, fast, relaxed, pure-Perl JSON in a stand-alone module with no
 non-core dependencies.
 
 INSTALLATION
@@ -34,7 +34,6 @@ You can also look for information at:
 
     Search CPAN
         http://search.cpan.org/dist/JSON-Tiny/
-
 
     See the module's POD for additional info.
 

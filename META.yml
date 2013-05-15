@@ -1,7 +1,7 @@
 ---
 abstract: 'Minimalistic JSON. No dependencies.'
 author:
-  - 'David Oswald <davido [@at] cpan [d.o.t] org>'
+  - 'David Oswald <davido [at] cpan [d.o.t] org>'
 build_requires:
   English: 0
   Test::More: 0.98
@@ -21,11 +21,11 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: 0.26
+    version: 0.27
 requires:
   B: 0
   Encode: 0
   Exporter: 0
   Scalar::Util: 0
   perl: 5.010000
-version: 0.26
+version: 0.27

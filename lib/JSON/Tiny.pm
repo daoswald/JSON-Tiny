@@ -13,10 +13,10 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 our @EXPORT_OK = qw(j);
 
-# Constructor and accessor, as we're not using Mojo::Base.
+# Constructor and accessor: we're not using Mojo::Base.
 
 sub new {
   my $class = shift;
@@ -28,8 +28,8 @@ sub error {
   return $_[0]->{error};
 }
 
-# The rest is adapted from Mojo::JSON, with minor modifications.
-# Names changed for a standalone package.
+# The rest adapted from Mojo::JSON, with minor mods.
+# Names changed for standalone package.
 
 # Literal names
 my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
@@ -316,8 +316,9 @@ sub _encode_value {
   return 'null' unless defined $value;
 
   # Number
-  return 0 + $value
-    if B::svref_2object(\$value)->FLAGS & (B::SVp_IOK | B::SVp_NOK);
+  my $flags = B::svref_2object(\$value)->FLAGS;
+  return 0 + $value if $flags & (B::SVp_IOK | B::SVp_NOK) && $value * 0 == 0;
+ 
 
   # String
   return _encode_string($value);

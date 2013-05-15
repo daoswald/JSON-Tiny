@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.27 2013-05-15
+  - Fixed JSON::Tiny to encode "inf" and "nan" values as strings. (chansen)
+    (Mojolicious commit 7169414 -- v4.0)
+
 0.26 2013-05-13
   - Change heuristics for number detection to better line up with user
     expectations (Mojolicious commit 9f75c27).
