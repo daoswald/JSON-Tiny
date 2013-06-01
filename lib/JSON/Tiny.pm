@@ -3,7 +3,7 @@ package JSON::Tiny;
 # Minimalistic JSON. Code and tests adapted from Mojo::JSON and Mojo::Util.
 
 # Licensed under the Artistic 2.0 license.
-# See http://www.perlfoundation.org/artistic_license_2_0.
+# http://www.perlfoundation.org/artistic_license_2_0.
 
 use 5.010;
 use strict;
@@ -13,10 +13,10 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.27';
+our $VERSION = '0.28';
 our @EXPORT_OK = qw(j);
 
-# Constructor and accessor: we're not using Mojo::Base.
+# Constructor and accessor: we don't have Mojo::Base.
 
 sub new {
   my $class = shift;
@@ -28,8 +28,7 @@ sub error {
   return $_[0]->{error};
 }
 
-# The rest adapted from Mojo::JSON, with minor mods.
-# Names changed for standalone package.
+# The rest adapted from Mojo::JSON, with minor mods & naming changes.
 
 # Literal names
 my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';

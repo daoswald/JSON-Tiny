@@ -23,10 +23,10 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 130; # One test (blessed reference) disabled because
-                             # it cannot be simulated without
-                             # Mojo::ByteStream and Mojo::Base.
-                             # Other blessed reference tests still exist.
+use Test::More tests => 130; # One test (blessed reference) disabled:
+                             # Cannot be simulated without Mojo::ByteStream
+                             # & Mojo::Base. Other blessed reference tests
+                             # still exist.
 use JSON::Tiny 'j';
 
 # Decode array
@@ -319,8 +319,10 @@ is $json->encode({test => [$num, $str]}), '{"test":[1,0]}',
   'upgraded number detected';
 
 # "inf" and "nan"
-is $json->encode({test => 9**9**9}), '{"test":"inf"}', 'encode "inf"';
-is $json->encode({test => -sin(9**9**9)}), '{"test":"nan"}', 'encode "nan"';
+like $json->encode({test => 9**9**9}), qr/^{"test":".*"}$/,
+  'encode "inf" as string';
+like $json->encode({test => -sin(9**9**9)}), qr/^{"test":".*"}$/,
+  'encode "nan" as string';
 
 # Errors
 is $json->decode('["â™¥"]'), undef, 'wide character in input';

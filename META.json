@@ -4,7 +4,7 @@
       "David Oswald <davido [at] cpan [d.o.t] org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"
    ],
@@ -22,7 +22,6 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "English" : "0",
             "Test::More" : "0.98"
          }
       },
@@ -33,10 +32,6 @@
       },
       "runtime" : {
          "requires" : {
-            "B" : "0",
-            "Encode" : "0",
-            "Exporter" : "0",
-            "Scalar::Util" : "0",
             "perl" : "5.010000"
          }
       }
@@ -44,9 +39,9 @@
    "provides" : {
       "JSON::Tiny" : {
          "file" : "lib/JSON/Tiny.pm",
-         "version" : "0.27"
+         "version" : "0.28"
       }
    },
    "release_status" : "stable",
-   "version" : "0.27"
+   "version" : "0.28"
 }

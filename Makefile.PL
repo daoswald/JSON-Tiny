@@ -13,22 +13,12 @@ WriteMakefile(
   LICENSE           => 'artistic_2',
   MIN_PERL_VERSION  => '5.010000',
   PL_FILES          => {},
-  # All are core-only.
-  BUILD_REQUIRES => {
-    'Test::More' => '0.98',
-    'English'    => '0',
-  },
-  PREREQ_PM => {
-    'Exporter'     => '0',
-    'Scalar::Util' => '0',
-    'B'            => '0',
-    'Encode'       => '0',
-  },
+  BUILD_REQUIRES => { 'Test::More' => '0.98' },
   META_MERGE => {
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.27'
+        version => '0.28'
       },
     },
   },

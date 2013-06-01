@@ -3,12 +3,11 @@ abstract: 'Minimalistic JSON. No dependencies.'
 author:
   - 'David Oswald <davido [at] cpan [d.o.t] org>'
 build_requires:
-  English: 0
   Test::More: 0.98
 configure_requires:
   ExtUtils::MakeMaker: 0
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921'
+generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.120921'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,11 +20,7 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: 0.27
+    version: 0.28
 requires:
-  B: 0
-  Encode: 0
-  Exporter: 0
-  Scalar::Util: 0
   perl: 5.010000
-version: 0.27
+version: 0.28

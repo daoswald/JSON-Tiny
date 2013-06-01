@@ -1,8 +1,4 @@
 # Version control.
-\bRCS\b
-\bCVS\b
-,v$
-\B\.svn\b
 ^\.git/\b
 ^\.gitignore$
 
