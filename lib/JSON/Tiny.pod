@@ -26,15 +26,15 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the
-L<Mojolicious> framework.  It has been adapted as a single-source-file module of
-under 350 lines of code and core-only dependencies.
+L<Mojolicious> framework.  It has been adapted as a single-source-file module
+of under 350 lines of code and core-only dependencies.
 
 Key features include relaxed JSON handling, transparent Unicode support, speed,
 small memory footprint, and a minimal code base ideal for bundling or inlining.
 
-L<Mojo::JSON> was chosen as a start point because it is robust, minimal, and
-well tested. Mojo::JSON's tests were able to be adapted as easily as the module
-itself to a design free of non-core dependencies.
+L<Mojo::JSON> was chosen as a model because it is robust, minimal, and well
+tested. Mojo::JSON's tests were also adapted to a design free of non-core
+dependencies.
 
 Much of this document is adapted directly from L<Mojo::JSON>.
 
@@ -72,7 +72,8 @@ L<JSON::Tiny> implements the following functions.
     my $array = j($bytes);
     my $hash  = j($bytes);
 
-Encode Perl data structure or decode JSON and return C<undef> if decoding fails.
+Encode Perl data structure or decode JSON and return C<undef> if decoding
+fails.
 
 =head1 ATTRIBUTES
 
@@ -139,9 +140,9 @@ L<JSON::PP>: 5.2 seconds. L<JSON::Tiny>: 1.9 seconds (including download).
 dependencies. JSON::Tiny requires Perl 5.10, while L<JSON::PP> requires 5.6.
 
 =item * Simple Design: L<JSON> has 2254 lines of code in six modules and five
-files, and a dist tarball of 84KB. L<JSON::Tiny> has 350 lines of code; a single
-module in a single file. It can be easily embedded within existing code. The
-tarball is 18KB.
+files, and a dist tarball of 84KB. L<JSON::Tiny> has 350 lines of code; a
+single module in a single file. It can be easily embedded within existing code.
+The tarball is 18KB.
 
 =item * Simple Interface: L<JSON::PP> has about 42 functions and methods.
 L<JSON::Tiny> has seven.
@@ -241,11 +242,11 @@ Thank-you to the L<Mojolicious> team for producing an excellent product that
 offers light-weight implementations of many useful tools. This module wouldn't
 exist or be as well designed and tested if it weren't for Mojolicious.
 
-Also to Randal Schwartz for showing the Los Angeles Perl Mongers (Sept 2012) his
-embeddable pure-regexp JSON parser, and explaining it on PerlMonks
-(L<http://www.perlmonks.org/?node_id=995856>). He wasn't involved in JSON::Tiny,
-but it was the exploration of alternatives to his solution that led to this fork
-of Mojolicious's JSON parser.
+Also to Randal Schwartz for showing the Los Angeles Perl Mongers (Sept 2012)
+his embeddable pure-regexp JSON parser, and explaining it on PerlMonks
+(L<http://www.perlmonks.org/?node_id=995856>). He wasn't involved in
+JSON::Tiny, but it was the exploration of alternatives to his solution that led
+to this fork of Mojolicious's JSON parser.
 
 =head1 LICENSE AND COPYRIGHT
 

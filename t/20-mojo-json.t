@@ -2,7 +2,7 @@ package JSONTest; ## no critic (package)
 
 use strict;
 
-# Simulate Mojo::Base -base.
+# Emulate Mojo::Base -base.
 
 sub new {
   my $class = shift;
@@ -23,10 +23,9 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 130; # One test (blessed reference) disabled:
-                             # Cannot be simulated without Mojo::ByteStream
-                             # & Mojo::Base. Other blessed reference tests
-                             # still exist.
+use Test::More tests => 129; # One blessed reference test disabled:
+                             # Difficult without Mojo::ByteStream & Mojo::Base.
+                             # Other blessed reference tests still exist.
 use JSON::Tiny 'j';
 
 # Decode array
@@ -46,10 +45,9 @@ is_deeply $array, ['-122.026020'], 'decode [ -122.026020 ]';
 $array = $json->decode('[ -122.026020 ]');
 is_deeply $array, ['-122.02602'], 'decode [ -122.026020 ]';
 $array = $json->decode('[0.0]');
-isa_ok $array, 'ARRAY', 'decode [0.0]';
 cmp_ok $array->[0], '==', 0, 'value is 0';
 $array = $json->decode('[0e0]');
-isa_ok $array, 'ARRAY', 'decode [0e0]';
+
 cmp_ok $array->[0], '==', 0, 'value is 0';
 $array = $json->decode('[1,-2]');
 is_deeply $array, [1, -2], 'decode [1,-2]';
@@ -60,7 +58,6 @@ is_deeply $array, [10000000000000, [2]], 'decode [10e12 , [2 ]]';
 $array = $json->decode('[37.7668 , [ 20 ]] ');
 is_deeply $array, [37.7668, [20]], 'decode [37.7668 , [ 20 ]] ';
 $array = $json->decode('[1e3]');
-isa_ok $array, 'ARRAY', 'decode [1e3]';
 cmp_ok $array->[0], '==', 1e3, 'value is 1e3';
 
 # Decode name
@@ -249,9 +246,14 @@ $hash = $json->decode('{"foo": 1, "foo": 2}');
 is_deeply $hash, {foo =>2}, 'decode {"foo": 1, "foo": 2}';
 
 # Complicated roudtrips
+$bytes = '{"":""}';
+$hash  = $json->decode($bytes);
+is_deeply $hash, {'' => ''}, 'decode {"":""}';
+is $json->encode($hash), $bytes, 'reencode';
 $bytes = '[null,false,true,"",0,1]';
 $array  = $json->decode($bytes);
-isa_ok $array, 'ARRAY', 'decode [null,false,true,"",0,1]';
+is_deeply $array, [undef, JSON::Tiny->false, JSON::Tiny->true, '', 0, 1],
+  'decode [null,false,true,"",0,1]';
 is $json->encode($array), $bytes, 'reencode';
 $array = [undef, 0, 1, '', JSON::Tiny->true, JSON::Tiny->false];
 $bytes = $json->encode($array);

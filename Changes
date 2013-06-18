@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.29 2013-06-18
+  - Added tests for empty keys (kraih/mojo a265d7f).
+  - Revised UTF patterns.
+  
 0.28 2013-05-31
   - Tests for "inf" and "nan" made more portable (kraih/mojo caa1af3e2b &
     b95c9a2a7a). Close RT# 85775.

@@ -1,6 +1,6 @@
 package JSON::Tiny;
 
-# Minimalistic JSON. Code and tests adapted from Mojo::JSON and Mojo::Util.
+# Minimalistic JSON. Adapted from Mojo::JSON and Mojo::Util.
 
 # Licensed under the Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
@@ -13,7 +13,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -52,10 +52,10 @@ for (0x00 .. 0x1F, 0x7F) { $REVERSE{pack 'C', $_} //= sprintf '\u%.4X', $_ }
 
 # Unicode encoding detection
 my $UTF_PATTERNS = {
-  'UTF-32BE' => qr/^\0\0\0[^\0]/,
-  'UTF-16BE' => qr/^\0[^\0]\0[^\0]/,
-  'UTF-32LE' => qr/^[^\0]\0\0\0/,
-  'UTF-16LE' => qr/^[^\0]\0[^\0]\0/
+  'UTF-32BE' => qr/^\x00{3}[^\x00]/,
+  'UTF-32LE' => qr/^[^\x00]\x00{3}/,
+  'UTF-16BE' => qr/^(?:\x00[^\x00]){2}/,
+  'UTF-16LE' => qr/^(?:[^\x00]\x00){2}/
 };
 
 my $WHITESPACE_RE = qr/[\x20\x09\x0a\x0d]*/;
