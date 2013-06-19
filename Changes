@@ -1,5 +1,10 @@
 Revision history for Perl module JSON::Tiny
 
+0.30 2013-06-19
+  - Pushed minimum Perl version back to 5.8.4 (was 5.10). (Thanks tye.)
+  - Provided documentation under INCOMPATIBILITIES about upgrading
+    Exporter to facilitate running under earlier Perl versions.
+
 0.29 2013-06-18
   - Added tests for empty keys (kraih/mojo a265d7f).
   - Revised UTF patterns.

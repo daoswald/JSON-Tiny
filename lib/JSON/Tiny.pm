@@ -5,7 +5,6 @@ package JSON::Tiny;
 # Licensed under the Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
 
-use 5.010;
 use strict;
 use warnings;
 use B;
@@ -13,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -48,7 +47,13 @@ my %ESCAPE = (
   'u2029' => "\x{2029}"
 );
 my %REVERSE = map { $ESCAPE{$_} => "\\$_" } keys %ESCAPE;
-for (0x00 .. 0x1F, 0x7F) { $REVERSE{pack 'C', $_} //= sprintf '\u%.4X', $_ }
+
+#for (0x00 .. 0x1F, 0x7F) { $REVERSE{pack 'C', $_} //= sprintf '\u%.4X', $_ }
+for( 0x00 .. 0x1F, 0x7F ) {
+  my $packed = pack 'C', $_;
+  $REVERSE{$packed} = sprintf '\u%.4X', $_
+    if ! defined( $REVERSE{$packed} );
+}
 
 # Unicode encoding detection
 my $UTF_PATTERNS = {

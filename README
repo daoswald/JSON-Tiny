@@ -18,7 +18,9 @@ To install this module, run the following commands:
 
 DEPENDENCIES
 
-Minimum Perl version: 5.10.
+Minimum Perl version: 5.8.4.  Refer to the INCOMPATIBILITIES section in
+JSON::Tiny's POD for tips on how to install under earlier versions 
+of Perl.
 
 SUPPORT AND DOCUMENTATION
 

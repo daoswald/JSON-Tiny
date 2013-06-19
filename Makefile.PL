@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-use 5.010000;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
@@ -11,14 +10,14 @@ WriteMakefile(
   VERSION_FROM      => 'lib/JSON/Tiny.pm',
   ABSTRACT_FROM     => 'lib/JSON/Tiny.pod',
   LICENSE           => 'artistic_2',
-  MIN_PERL_VERSION  => '5.010000',
+  MIN_PERL_VERSION  => '5.008004',
   PL_FILES          => {},
   BUILD_REQUIRES => { 'Test::More' => '0.98' },
   META_MERGE => {
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.29'
+        version => '0.30'
       },
     },
   },

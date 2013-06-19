@@ -20,7 +20,7 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: 0.29
+    version: 0.30
 requires:
-  perl: 5.010000
-version: 0.29
+  perl: 5.008004
+version: 0.30
