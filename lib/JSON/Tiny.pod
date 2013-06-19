@@ -193,9 +193,10 @@ Perl 5.8.4 or newer.
 
 =head1 INCOMPATIBILITIES
 
-Incompatible with L<Exporter> versions that predate Perl 5.8.4.  Upgrading
-Exporter to a newer version will probably allow JSON::Tiny to work on earlier
-versions of Perl.
+Incompatible with L<Exporter> versions that predate Perl 5.8.4.  Perl 5.8.4
+shipped with Exporter v5.58.  Exporter became dual-life as of v5.59, so
+upgrading Exporter to v5.59 or newer should allow JSON::Tiny to run on Perl
+versions older than 5.8.4.
 
 =head1 AUTHOR
 
