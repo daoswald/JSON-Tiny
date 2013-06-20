@@ -4,10 +4,6 @@ use strict;
 use warnings;
 use Test::More;
 
-# Ensure a recent version of Test::Pod
-my $min_tp = 1.22;
-eval "use Test::Pod $min_tp;"; ## no critic (eval)
-diag $@;
-plan skip_all => "Test::Pod $min_tp required for testing POD" if $@;
-
+eval 'use Test::Pod 1.26'; ## no critic (eval)
+plan skip_all => 'Test::Pod 1.26 required for testing POD' if $@;
 all_pod_files_ok();

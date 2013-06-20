@@ -12,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.31';
+our $VERSION = '0.32';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -193,7 +193,7 @@ sub _decode_string {
   my $pos = pos;
 
   # Extract string with escaped characters
-  m#\G(((?:[^\x00-\x1F\\"]|\\(?:["\\/bfnrt]|u[[:xdigit:]]{4})){0,32766})*)#gc;
+  m#\G(((?:[^\x00-\x1F\\"]|\\(?:["\\/bfnrt]|u[[:xdigit:]]{4})){0,32766})*)#gc; # segfault under 5.8.x in t/20-mojo-json.t #83
   my $str = $1;
 
   # Missing quote

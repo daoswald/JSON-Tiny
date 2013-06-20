@@ -23,9 +23,12 @@ package main;
 use strict;
 use utf8;
 use Encode qw( encode decode );
-use Test::More tests => 129; # One blessed reference test disabled:
-                             # Difficult without Mojo::ByteStream & Mojo::Base.
-                             # Other blessed reference tests still exist.
+use Test::More;
+
+plan tests => 129;  # One blessed reference test disabled: Difficult without
+                    # Mojo::ByteStream & Mojo::Base. Other blessed reference
+                    # tests still exist.
+
 use JSON::Tiny 'j';
 
 # Decode array
@@ -270,7 +273,7 @@ is_deeply $hash, {foo => 'c:\progra~1\mozill~1\firefox.exe'},
 
 # Huge string
 $bytes = $json->encode(['a' x 32768]);
-is_deeply $json->decode($bytes), ['a' x 32768], 'successful roundtrip';
+is_deeply $json->decode($bytes), ['a' x 32768], 'successful roundtrip'; # segfault under 5.8.x.
 is $json->error, undef, 'no error';
 
 # u2028 and u2029
@@ -374,5 +377,3 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
 is $json->error,
   'Malformed JSON: Unexpected data after array at line 3, offset 8',
   'right error';
-
-done_testing();

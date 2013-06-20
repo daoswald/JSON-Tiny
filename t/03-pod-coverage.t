@@ -2,14 +2,18 @@ use strict;
 use warnings;
 use Test::More;
 
-if ( not $ENV{RELEASE_TESTING} ) {
-  my $msg = 'Author Test: Set $ENV{RELEASE_TESTING} to a true value to run.';
-  plan( skip_all => $msg );
+if( $ENV{RELEASE_TESTING} ) {
+  eval 'use Test::Pod::Coverage 1.00'; ## no critic (eval)
+  if( $@ ) {
+    plan skip_all
+      => 'Test::Pod::Coverage 1.00 required for testing POD coverage.';
+  }
+  else {
+    plan tests => 1;
+  }
+}
+else {
+  plan skip_all => 'Author Test: Set $ENV{RELEASE_TESTING} to run.';
 }
 
-eval "use Test::Pod::Coverage 1.00"; ## no critic (eval)
-plan skip_all => "Test::Pod::Coverage 1.00 required for testing POD coverage"
-  if $@;
-  
 pod_coverage_ok( 'JSON::Tiny');
-done_testing();

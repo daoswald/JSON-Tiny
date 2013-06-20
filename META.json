@@ -22,7 +22,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
@@ -39,9 +39,9 @@
    "provides" : {
       "JSON::Tiny" : {
          "file" : "lib/JSON/Tiny.pm",
-         "version" : "0.31"
+         "version" : "0.32"
       }
    },
    "release_status" : "stable",
-   "version" : "0.31"
+   "version" : "0.32"
 }

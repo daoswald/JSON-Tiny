@@ -13,5 +13,3 @@ BEGIN {
     use_ok( $module ) or BAIL_OUT( prereq_message( $module ) );
   }
 }
-
-done_testing();
