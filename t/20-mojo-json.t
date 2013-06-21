@@ -273,7 +273,7 @@ is_deeply $hash, {foo => 'c:\progra~1\mozill~1\firefox.exe'},
 
 # Huge string
 $bytes = $json->encode(['a' x 32768]);
-is_deeply $json->decode($bytes), ['a' x 32768], 'successful roundtrip'; # segfault under 5.8.x.
+is_deeply $json->decode($bytes), ['a' x 32768], 'successful roundtrip (huge)'; # segfault under 5.8.x.
 is $json->error, undef, 'no error';
 
 # u2028 and u2029

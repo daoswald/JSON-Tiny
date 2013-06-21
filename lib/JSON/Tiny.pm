@@ -191,9 +191,8 @@ sub _decode_object {
 
 sub _decode_string {
   my $pos = pos;
-
   # Extract string with escaped characters
-  m#\G(((?:[^\x00-\x1F\\"]|\\(?:["\\/bfnrt]|u[[:xdigit:]]{4})){0,32766})*)#gc; # segfault under 5.8.x in t/20-mojo-json.t #83
+  m#\G((?:(?:[^\x00-\x1F\\"]|\\(?:["\\/bfnrt]|u[[:xdigit:]]{4})){0,32766})*)#gc; # segfault under 5.8.x in t/20-mojo-json.t #83
   my $str = $1;
 
   # Missing quote
