@@ -1,5 +1,6 @@
 ## no critic (RCS,VERSION,may require interpolation)
 
+use 5.008000;
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -17,7 +18,7 @@ WriteMakefile(
   VERSION_FROM      => 'lib/JSON/Tiny.pm',
   ABSTRACT_FROM     => 'lib/JSON/Tiny.pod',
   LICENSE           => 'artistic_2',
-  MIN_PERL_VERSION  => '5.008004',
+  MIN_PERL_VERSION  => '5.008000',
   PL_FILES          => {},
   PREREQ_PM         => $PREREQ_PM,
   META_MERGE => {

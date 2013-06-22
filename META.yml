@@ -22,5 +22,5 @@ provides:
     file: lib/JSON/Tiny.pm
     version: 0.32
 requires:
-  perl: 5.008004
+  perl: 5.008000
 version: 0.32

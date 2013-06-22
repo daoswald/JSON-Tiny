@@ -77,6 +77,8 @@ L<JSON::Tiny> implements the following functions.
 Encode Perl data structure or decode JSON and return C<undef> if decoding
 fails.
 
+Dies with a C<JSON::Tiny::error> message on decode failure.
+
 =head1 ATTRIBUTES
 
 L<JSON::Tiny> implements the following attributes.

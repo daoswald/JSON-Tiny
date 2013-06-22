@@ -1,8 +1,11 @@
 Revision history for Perl module JSON::Tiny
 
-0.32 2013-06-??
+0.32 2013-06-22
   - j() now dies with a useful error message on non-parsable JSON.
+  - POD: Document that j() can throw exception on failure to decode.
   - Minor performance tweaks.
+  - Known issues: Perl 5.8.9 or older: May segfault on decoding JSON
+    with strings larger than 22k. Will be fixed in next release.
   
 0.31 2013-06-19
   - Improved documentation on Exporter dependency for Pre-5.8.4 Perl.
