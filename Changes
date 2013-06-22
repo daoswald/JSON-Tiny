@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.32 2013-06-??
+  - j() now dies with a useful error message on non-parsable JSON.
+  - Minor performance tweaks.
+  
 0.31 2013-06-19
   - Improved documentation on Exporter dependency for Pre-5.8.4 Perl.
   

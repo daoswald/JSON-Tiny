@@ -6,7 +6,7 @@ use JSON;
 use JSON::Tiny;
 use Benchmark qw( cmpthese );
 
-my @json = do { split /-{5,}/, read_file(\*DATA); };
+my @json = split /-{5,}/, read_file(\*DATA);
 
 sub json_pp {
   my $j = JSON->new->relaxed;
