@@ -17,6 +17,7 @@ t/09-changes.t
 t/10-load-can.t
 t/13-kwalitee.t
 t/20-mojo-json.t
+t/21-jt-unique.t
 examples/json_pp_alone.pl
 examples/json_tiny_alone.pl
 examples/json_benchmark.pl

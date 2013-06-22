@@ -131,9 +131,10 @@ sub encode {
 sub false {$FALSE}
 
 sub j {
-  my $d = shift;
-  return __PACKAGE__->new->encode($d) if ref $d eq 'ARRAY' || ref $d eq 'HASH';
-  return __PACKAGE__->new->decode($d);
+  my( $d, $j ) = ( shift, __PACKAGE__->new );
+  return $j->encode($d) if ref $d eq 'ARRAY' || ref $d eq 'HASH';
+  defined and return $_ for $j->decode($d);
+  die $j->error;
 }
 
 sub true  {$TRUE}
