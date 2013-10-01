@@ -272,7 +272,7 @@ sub _decode_value {
   # Null
   return undef if m/\Gnull/gc;  ## no critic (return)
 
-  # Invalid data
+  # Invalid character
   _exception('Expected string, array, object, number, boolean or null');
 }
 
