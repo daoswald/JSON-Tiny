@@ -102,7 +102,7 @@ sub decode {
     # Object
     elsif (m/\G\{/gc) { $ref = _decode_object() }
 
-    # Unexpected
+    # Invalid character
     else { _exception('Expected array or object') }
 
     # Leftover data
@@ -196,7 +196,7 @@ sub _decode_string {
   m!\G((?:(?:[^\x00-\x1f\\"]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4})){0,32766})*)!gc; # segfault under 5.8.x in t/20-mojo-json.t #83
   my $str = $1;
 
-  # Missing quote
+  # Invalid character
   unless (m/\G"/gc) {
     _exception('Unexpected character or invalid escape while parsing string')
       if m/\G[\x00-\x1f\\]/;
