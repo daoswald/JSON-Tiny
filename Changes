@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.34 2013-10-15
+  - Added t/22-bool.t to test overriding Boolean decoding behavior.
+  - Documented Boolean overriding in POD.
+
 0.33 2013-10-15
   - Change 'my $TRUE' and 'my $FALSE' to 'our' so that users can override
     Booleans if desired.  See http://perlmonks.org/?node_id=1058232

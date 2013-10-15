@@ -128,6 +128,15 @@ False value, used because Perl has no native equivalent.
 
 True value, used because Perl has no native equivalent.
 
+=head3 Advanced
+
+The Boolean false and true values returned as JSON is decoded are
+JSON::Tiny::_Bool objects with stringification and numeric overloading.  If the
+user requires a plain old literal C<0> or C<1>, setting
+C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;> prior to calling the
+C<decode> method will have the desired effect.  This should almost never be
+necessary.
+
 =head1 It's Tiny
 
 Comparing JSON::Tiny with JSON::PP from the L<JSON> distribution:
