@@ -4,7 +4,7 @@
       "David Oswald <davido [at] cpan [d.o.t] org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.74, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"
    ],
@@ -25,11 +25,6 @@
             "ExtUtils::MakeMaker" : "0"
          }
       },
-      "configure" : {
-         "requires" : {
-            "ExtUtils::MakeMaker" : "0"
-         }
-      },
       "runtime" : {
          "requires" : {
             "perl" : "5.008000"
@@ -39,9 +34,16 @@
    "provides" : {
       "JSON::Tiny" : {
          "file" : "lib/JSON/Tiny.pm",
-         "version" : "0.32"
+         "version" : "0.33"
       }
    },
    "release_status" : "stable",
-   "version" : "0.32"
+   "resources" : {
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/daoswald/JSON-Tiny.git",
+         "web" : "https://github.com/daoswald/JSON-Tiny"
+      }
+   },
+   "version" : "0.33"
 }

@@ -1,5 +1,10 @@
 Revision history for Perl module JSON::Tiny
 
+0.33 2013-10-15
+  - Change 'my $TRUE' and 'my $FALSE' to 'our' so that users can override
+    Booleans if desired.  See http://perlmonks.org/?node_id=1058232
+  - Added additional META info via Makefile.PL (Git repo, Meta spec version.)
+  
 0.32 2013-06-22
   - j() now dies with a useful error message on non-parsable JSON.
   - POD: Document that j() can throw exception on failure to decode.

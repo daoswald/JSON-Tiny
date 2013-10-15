@@ -12,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -29,9 +29,11 @@ sub error {
 
 # The rest adapted from Mojo::JSON, with minor mods & naming changes.
 
+# Mojo::JSON sets these up as 'my' lexicals. We use 'our' so that users can
+# explicitly override the Booleans with just zero or one if they desire.
 # Literal names
-my $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
-my $TRUE  = bless \(my $true  = 1), 'JSON::Tiny::_Bool';
+our $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
+our $TRUE  = bless \(my $true  = 1), 'JSON::Tiny::_Bool';
 
 # Escaped special character map (with u2028 and u2029)
 my %ESCAPE = (

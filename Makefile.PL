@@ -22,10 +22,18 @@ WriteMakefile(
   PL_FILES          => {},
   PREREQ_PM         => $PREREQ_PM,
   META_MERGE => {
+    'meta-spec'		=> { version => 2 },
+    resources			=> {
+			repository		=> {
+				type		=> 'git',
+				url			=> 'https://github.com/daoswald/JSON-Tiny.git',
+				web			=> 'https://github.com/daoswald/JSON-Tiny',
+			},
+		},
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.32'
+        version => '0.33'
       },
     },
   },
