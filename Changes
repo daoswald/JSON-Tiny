@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.35 2013-10-16
+  - References to a scalar (even if blessed) will now encode to
+    Boolean types.
+
 0.34 2013-10-15
   - Added t/22-bool.t to test overriding Boolean decoding behavior.
   - Documented Boolean overriding in POD.
