@@ -128,14 +128,20 @@ False value, used because Perl has no native equivalent.
 
 True value, used because Perl has no native equivalent.
 
-=head3 Advanced
+=head3 More on Booleans
 
-The Boolean false and true values returned as JSON is decoded are
-JSON::Tiny::_Bool objects with stringification and numeric overloading.  If the
-user requires a plain old literal C<0> or C<1>, setting
-C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;> prior to calling the
-C<decode> method will have the desired effect.  This should almost never be
-necessary.
+A reference to a scalar (even if blessed) will also be encoded as a Boolean
+value unless it has a TO_JSON method.
+
+    my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
+
+The Boolean false and true values returned when JSON is decoded are
+JSON::Tiny::_Bool objects with stringification and numeric overloading.  As an
+B<advanced option>, if the user requires a plain old literal C<0> or C<1>,
+setting C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>, or to some
+other value, including blessed references prior to calling the C<decode> method
+will have the desired effect.  Using C<local> to prevent the change from
+causing errors at a distance is probably a very good idea.  
 
 =head1 It's Tiny
 

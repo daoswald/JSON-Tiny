@@ -31,23 +31,41 @@ is(
 );
 
 
+{
 
-$JSON::Tiny::FALSE = 0;
-$JSON::Tiny::TRUE  = 1;
+  local $JSON::Tiny::FALSE = 0;
+  local $JSON::Tiny::TRUE  = 1;
+
+  $rv = $j->decode( '{"a":false, "b":true}' );
+
+  is( $rv->{'a'}, 0, 'Overridden Boolean false returns zero (0)' );
+  is( $rv->{'b'}, 1, 'Overridden Boolean true returns one (1)' );
+
+  is(
+    ref( $rv->{'a'} ), '',
+    'Overriding Boolean false assumes correct type.'
+  );
+
+  is(
+    ref( $rv->{'b'} ), '',
+    'Overriding Boolean true assumes correct type.'
+  );
+
+}
 
 $rv = $j->decode( '{"a":false, "b":true}' );
 
-is( $rv->{'a'}, 0, 'Overridden Boolean false returns zero (0)' );
-is( $rv->{'b'}, 1, 'Overridden Boolean true returns one (1)' );
-
-is(
-  ref( $rv->{'a'} ), '',
-  'Overriding Boolean false assumes correct type.'
+is( ref( $rv->{'b'} ), 'JSON::Tiny::_Bool',
+    'JSON::Tiny::_Bool is back after localized change to $JSON::Tiny::FALSE ' .
+    'falls from scope.'
+);
+is( ref( $rv->{'a'} ), 'JSON::Tiny::_Bool',
+    'JSON::Tiny::_Bool is back after localized change to $JSON::Tiny::TRUE ' .
+    'falls from scope.'
 );
 
-is(
-  ref( $rv->{'b'} ), '',
-  'Overriding Boolean true assumes correct type.'
-);
+$rv = $j->encode( { a => \0, b => \1 } );
+like( $rv, qr/"b":true/,  'Reference to \\1 encodes as Boolean true.'  );
+like( $rv, qr/"a":false/, 'Reference to \\0 encodes as Boolean false.' );
 
 done_testing();
