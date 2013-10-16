@@ -309,13 +309,14 @@ sub _encode_value {
     return _encode_object($value) if $ref eq 'HASH';
 
     # True or false
-    return $$value ? 'true' : 'false' if $ref eq 'SCALAR';
+#    return $$value ? 'true' : 'false' if $ref eq 'SCALAR';
     return $value  ? 'true' : 'false' if $ref eq 'JSON::Tiny::_Bool';
 
     # Blessed reference with TO_JSON method
     if (Scalar::Util::blessed $value && (my $sub = $value->can('TO_JSON'))) {
       return _encode_value($value->$sub);
     }
+    return $$value ? 'true' : 'false' if $ref =~ /SCALAR/;
   }
 
   # Null
