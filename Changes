@@ -1,5 +1,11 @@
 Revision history for Perl module JSON::Tiny
 
+0.36 2013-11-08
+  - JSON::Tiny had incorrect value associated with escaped special
+    character \b (was \x07). Now it is correctly associated with 0x08.
+  - Tests added to prove bug fix.
+  - See Mojo::JSON commit 42fb62087a and others from 2014-11-08.
+
 0.35 2013-10-16
   - References to a scalar (even if blessed) will now encode to
     Boolean types.

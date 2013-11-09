@@ -12,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.35';
+our $VERSION = '0.36';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -40,7 +40,7 @@ my %ESCAPE = (
   '"'     => '"',
   '\\'    => '\\',
   '/'     => '/',
-  'b'     => "\x07",
+  'b'     => "\x08",
   'f'     => "\x0c",
   'n'     => "\x0a",
   'r'     => "\x0d",
