@@ -12,11 +12,10 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.36';
+our $VERSION = '0.37';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
-
 sub new {
   my $class = shift;
   bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, $class;
@@ -26,8 +25,6 @@ sub error {
   $_[0]->{error} = $_[1] if @_ > 1;
   return $_[0]->{error};
 }
-
-# The rest adapted from Mojo::JSON, with minor mods & naming changes.
 
 # Mojo::JSON sets these up as 'my' lexicals. We use 'our' so that users can
 # explicitly override the Booleans with just zero or one if they desire.
@@ -50,7 +47,6 @@ my %ESCAPE = (
 );
 my %REVERSE = map { $ESCAPE{$_} => "\\$_" } keys %ESCAPE;
 
-#for (0x00 .. 0x1f, 0x7f) { $REVERSE{pack 'C', $_} //= sprintf '\u%.4X', $_ }
 for( 0x00 .. 0x1f, 0x7f ) {
   my $packed = pack 'C', $_;
   $REVERSE{$packed} = sprintf '\u%.4X', $_
@@ -139,7 +135,7 @@ sub j {
   die $j->error;
 }
 
-sub true  {$TRUE}
+sub true {$TRUE}
 
 sub _decode_array {
   my @array;
@@ -195,7 +191,7 @@ sub _decode_object {
 sub _decode_string {
   my $pos = pos;
   # Extract string with escaped characters
-  m!\G((?:(?:[^\x00-\x1f\\"]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4})){0,32766})*)!gc; # segfault under 5.8.x in t/20-mojo-json.t #83
+  m!\G((?:(?:[^\x00-\x1f\\"]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4})){0,32766})*)!gc; # segfault on 5.8.x in t/20-mojo-json.t #83
   my $str = $1;
 
   # Invalid character
@@ -327,7 +323,6 @@ sub _encode_value {
   # Number
   my $flags = B::svref_2object(\$value)->FLAGS;
   return 0 + $value if $flags & (B::SVp_IOK | B::SVp_NOK) && $value * 0 == 0;
- 
 
   # String
   return _encode_string($value);

@@ -7,9 +7,6 @@ use ExtUtils::MakeMaker;
 
 my $PREREQ_PM = {};
 
-$PREREQ_PM->{'Test::More'}   = '0'    if $] < 5.006002; #BUILD_REQUIRES N/A.
-$PREREQ_PM->{'Scalar::Util'} = '0'    if $] < 5.008000;
-$PREREQ_PM->{'Encode'}       = '0'    if $] < 5.008000;
 $PREREQ_PM->{'Exporter'}     = '5.59' if $] < 5.008004;
 
 WriteMakefile(
@@ -22,18 +19,18 @@ WriteMakefile(
   PL_FILES          => {},
   PREREQ_PM         => $PREREQ_PM,
   META_MERGE => {
-    'meta-spec'		=> { version => 2 },
-    resources			=> {
-			repository		=> {
-				type		=> 'git',
-				url			=> 'https://github.com/daoswald/JSON-Tiny.git',
-				web			=> 'https://github.com/daoswald/JSON-Tiny',
-			},
-		},
+    'meta-spec'   => { version => 2 },
+    resources     => {
+      repository    => {
+        type    => 'git',
+        url     => 'https://github.com/daoswald/JSON-Tiny.git',
+        web     => 'https://github.com/daoswald/JSON-Tiny',
+      },
+    },
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.36'
+        version => '0.37'
       },
     },
   },

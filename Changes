@@ -1,14 +1,17 @@
 Revision history for Perl module JSON::Tiny
 
+0.37 2013-11-21
+  - Removed useless minimum Perl version dependency checks from Makefile.PL.
+  - JSON::Tiny is not so relaxed anymore (POD update).
+
 0.36 2013-11-08
   - JSON::Tiny had incorrect value associated with escaped special
     character \b (was \x07). Now it is correctly associated with 0x08.
-  - Tests added to prove bug fix.
-  - See Mojo::JSON commit 42fb62087a and others from 2014-11-08.
+  - Tests added to prove fix.
+  - Synch with Mojo::JSON commit 42fb62087a and others from 2014-11-08.
 
 0.35 2013-10-16
-  - References to a scalar (even if blessed) will now encode to
-    Boolean types.
+  - References to a scalar (even if blessed) will now encode to Boolean types.
 
 0.34 2013-10-15
   - Added t/22-bool.t to test overriding Boolean decoding behavior.
@@ -16,39 +19,36 @@ Revision history for Perl module JSON::Tiny
 
 0.33 2013-10-15
   - Change 'my $TRUE' and 'my $FALSE' to 'our' so that users can override
-    Booleans if desired.  See http://perlmonks.org/?node_id=1058232
+    Booleans if desired. (http://perlmonks.org/?node_id=1058232)
   - Added additional META info via Makefile.PL (Git repo, Meta spec version.)
-  
+
 0.32 2013-06-22
   - j() now dies with a useful error message on non-parsable JSON.
   - POD: Document that j() can throw exception on failure to decode.
   - Minor performance tweaks.
   - Known issues: Perl 5.8.9 or older: May segfault on decoding JSON
-    with strings larger than 22k. Will be fixed in next release.
-  
+    with strings larger than 22k.
+
 0.31 2013-06-19
   - Improved documentation on Exporter dependency for Pre-5.8.4 Perl.
   
 0.30 2013-06-19
-  - Pushed minimum Perl version back to 5.8.4 (was 5.10). (Thanks tye.)
+  - Pushed minimum Perl version back to 5.8.4 (was 5.10). (tye)
   - Provided documentation under INCOMPATIBILITIES about upgrading
     Exporter to facilitate running under earlier Perl versions.
 
 0.29 2013-06-18
-  - Added tests for empty keys (kraih/mojo a265d7f).
+  - Added tests for empty keys.
   - Revised UTF patterns.
   
 0.28 2013-05-31
-  - Tests for "inf" and "nan" made more portable (kraih/mojo caa1af3e2b &
-    b95c9a2a7a). Close RT# 85775.
+  - Tests for "inf" and "nan" made more portable. Close RT# 85775.
     
 0.27 2013-05-15
-  - Fixed JSON::Tiny to encode "inf" and "nan" values as strings. (chansen)
-    (kraih/mojo 7169414 -- v4.0)
+  - Fixed JSON::Tiny to encode "inf" and "nan" values as strings.
 
 0.26 2013-05-13
-  - Change heuristics for number detection to better match user expectations
-    (kraih/mojo 9f75c27).
+  - Change heuristics for number detection to better match user expectations.
 
 0.25 2012-03-05
   - Add test "Decode object with duplicate keys" (kraih/mojo e4874cba)
@@ -73,8 +73,7 @@ Revision history for Perl module JSON::Tiny
   - Fix small context bugs (Mojolicious v3.51).
 
 0.20 2012-10-04
-  - Bump version number to .20: avoid confusion with defunct Perl6 module by
-    same name.
+  - Bump version number to .20: avoid confusion with Perl6 module by same name.
   - POD improvements.
   - Drop "ref($class) || $class;" from c'tor.
   - Drop 'beta' status.

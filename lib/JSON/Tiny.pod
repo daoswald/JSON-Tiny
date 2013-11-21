@@ -8,9 +8,9 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
 =head1 SYNOPSIS
 
-    # Encode and decode JSON
     use JSON::Tiny;
 
+    # Encode and decode JSON
     my $json  = JSON::Tiny->new;
     my $bytes = $json->encode({foo => [1, 2], bar => 'hello!', baz => \1});
     my $hash  = $json->decode($bytes);
@@ -28,21 +28,19 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a standalone adaptation of L<Mojo::JSON>, from the
-L<Mojolicious> framework.  It has been adapted as a single-source-file module
-of under 350 lines of code and core-only dependencies.
+L<Mojolicious> framework.  It is a single-source-file module of under 350 lines
+of code and core-only dependencies.
 
-Key features include relaxed JSON handling, transparent Unicode support, speed,
-small memory footprint, and a minimal code base ideal for bundling or inlining.
+Key features include RFC 4627 JSON, transparent Unicode support, speed, small
+memory footprint, and a minimal code base ideal for bundling or inlining.
 
 L<Mojo::JSON> was chosen as a model because it is robust, minimal, and well
-tested. Mojo::JSON's tests were also adapted to a design free of non-core
-dependencies.
+tested. Mojo::JSON's tests were also adapted to a dependency-free design.
 
-Much of this document is adapted directly from L<Mojo::JSON>.
+Much of this POD is inherited directly from L<Mojo::JSON>.
 
-L<JSON::Tiny> is a minimalistic and relaxed implementation of RFC 4627. While
-it is possibly the fastest pure-Perl JSON parser available, you should not use
-it for validation.
+L<JSON::Tiny> is a minimalistic and (I<Along with Mojo::JSON>) possibly the
+fastest pure-Perl implementation of RFC 4627.
 
 It supports normal Perl data types like C<Scalar>, C<Array> reference, C<Hash>
 reference and will try to call the C<TO_JSON> method on blessed references, or
@@ -135,13 +133,13 @@ value unless it has a TO_JSON method.
 
     my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
 
-The Boolean false and true values returned when JSON is decoded are
-JSON::Tiny::_Bool objects with stringification and numeric overloading.  As an
+Boolean false and true values returned when JSON is decoded are
+JSON::Tiny::_Bool objects with stringification and numeric overloading. As an
 B<advanced option>, if the user requires a plain old literal C<0> or C<1>,
 setting C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>, or to some
 other value, including blessed references prior to calling the C<decode> method
-will have the desired effect.  Using C<local> to prevent the change from
-causing errors at a distance is probably a very good idea.  
+will have the desired effect. Using C<local> to prevent the change from causing
+errors at a distance is probably a very good idea.  
 
 =head1 It's Tiny
 
@@ -160,10 +158,10 @@ dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 
 =item * Simple Design: L<JSON> has 2254 lines of code in six modules and five
 files, and a dist tarball of 84KB. L<JSON::Tiny> has 350 lines of code; a
-single module in a single file. It can be easily embedded within existing code.
-The tarball is 18KB.
+single module in a single file facilitating embedding within existing code. The
+tarball is 18KB.
 
-=item * Simple Interface: L<JSON::PP> has about 42 functions and methods.
+=item * L<JSON::PP> has about 42 functions and methods.
 L<JSON::Tiny> has seven.
 
 =item * Fast Performance (Benchmarks):
@@ -174,37 +172,34 @@ L<JSON::Tiny> has seven.
 
 The benchmark script is included in this distribution's C<examples/> folder.
 L<JSON> will automatically use L<JSON::XS> if it's available. In that
-case, L<JSON::XS> wins, but it's XS.
+case, L<JSON::XS> does win.
 
-Because JSON::Tiny doesn't pull in as many external modules, and splits the POD
+Because JSON::Tiny doesn't pull in many external modules, and splits the POD
 into a separate file to minimize the source-code file size, startup time for
-JSON::Tiny is slightly faster than for the JSON module. But, the startup time
-in either case should only be a factor in applications such as CGI, where
-processes may be started many times per second.
+JSON::Tiny is slightly faster than for the JSON module. This may be beneficial
+in applications such as CGI, where processes may are started frequently.
 
 =item * Light Memory Needs: From the distribution's C<examples/> folder, 
 C<json_pp_alone.pl> and  C<json_tiny_alone.pl> were tested, first with 
 L<Devel::MemoryTrace::Light>, and then with L<http://valgrind.org/valgrind>.
-The results were as follows:
+Here are the results:
 
 =over 4
 
-=item * L<JSON> (JSON::PP): Devel::MemoryTrace::Lite: About 1.7MB. valgrind:
-about 6.1MB.
+=item * L<JSON> (JSON::PP): Devel::MemoryTrace::Lite: 1.7MB. valgrind: 6.1MB.
 
-=item * L<JSON::Tiny>: Devel::MemoryTrace::Lite: About 1.1MB. valgrind:
-about 5.4MB.
+=item * L<JSON::Tiny>: Devel::MemoryTrace::Lite: 1.1MB. valgrind: 5.4MB.
 
 =back
 
-These utilities have different methods of measuring memory use, but both show
-JSON::Tiny is 600-700KB lighter than JSON::PP.
+These utilities measuer memory in different ways, but both show JSON::Tiny is
+600-700KB lighter than JSON::PP.
 
 =back
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-Zero configuration.
+No configuration.
 
 =head1 DEPENDENCIES
 
@@ -213,20 +208,19 @@ Perl 5.8.4 or newer.
 =head1 INCOMPATIBILITIES
 
 Incompatible with L<Exporter> versions that predate Perl 5.8.4.  Perl 5.8.4
-shipped with Exporter v5.58.  Exporter became dual-life as of v5.59, so
-upgrading Exporter to v5.59 or newer should allow JSON::Tiny to run on Perl
-versions older than 5.8.4.
+shipped with Exporter v5.58.  Exporter became dual-life as of v5.59. Upgrade
+Exporter to v5.59 or newer for Perl versions older than 5.8.4.
 
 =head1 AUTHOR
 
 David Oswald, C<< <davido at cpan.org> >>
 
-The code and tests were adapted with minimal changes from L<Mojo::JSON>.
+Code and tests were adapted from L<Mojo::JSON>.
 
 =head1 SUPPORT
 
-Support requests should be directed to the author. Direct bug reports to
-CPAN's Request Tracker (RT).
+Directed support requests to the author. Direct bug reports to CPAN's Request
+Tracker (RT).
 
 You can find documentation for this module with the perldoc command.
 
@@ -264,11 +258,10 @@ Thank-you to the L<Mojolicious> team for producing an excellent product that
 offers light-weight implementations of many useful tools. This module wouldn't
 exist or be as well designed and tested if it weren't for Mojolicious.
 
-Also to Randal Schwartz for showing the Los Angeles Perl Mongers (Sept 2012)
-his embeddable pure-regexp JSON parser, and explaining it on PerlMonks
-(L<http://www.perlmonks.org/?node_id=995856>). He wasn't involved in
-JSON::Tiny, but it was the exploration of alternatives to his solution that led
-to this fork of Mojolicious's JSON parser.
+Also to Randal Schwartz for showing Los Angeles Perl Mongers (Sept 2012) his
+pure-regexp JSON tool (PerlMonks: L<http://www.perlmonks.org/?node_id=995856>).
+He wasn't involved in JSON::Tiny, but it was the exploration of alternatives to
+his solution that led to this fork of Mojo::JSON.
 
 =head1 LICENSE AND COPYRIGHT
 
@@ -281,6 +274,6 @@ See L<http://www.perlfoundation.org/artistic_license_2_0> for more information.
 
 =head1 SEE ALSO
 
-L<JSON>, L<JSON::PP>, L<JSON::XS>, L<Mojo::JSON>, L<Mojolicious>.
+L<JSON>, L<JSON::PP>, L<JSON::XS>, L<Mojo::JSON>.
 
 =cut
