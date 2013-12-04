@@ -1,5 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
+0.xx 2013-12-03
+  - ACKNOWLEDGEMENTS now recognizes that chansen's GitHub Gist provided the
+    foundation from which Mojo::JSON was built.
+
 0.37 2013-11-21
   - Removed useless minimum Perl version dependency checks from Makefile.PL.
   - JSON::Tiny is not so relaxed anymore (POD update).

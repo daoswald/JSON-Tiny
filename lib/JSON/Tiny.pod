@@ -254,18 +254,21 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 
 =head1 ACKNOWLEDGEMENTS
 
-Thank-you to the L<Mojolicious> team for producing an excellent product that
-offers light-weight implementations of many useful tools. This module wouldn't
-exist or be as well designed and tested if it weren't for Mojolicious.
+The L<Mojolicious> team for producing an excellent product that
+offers light-weight implementations of many useful tools. This module was
+adapted directly from L<Mojo::JSON>.
 
-Also to Randal Schwartz for showing Los Angeles Perl Mongers (Sept 2012) his
-pure-regexp JSON tool (PerlMonks: L<http://www.perlmonks.org/?node_id=995856>).
-He wasn't involved in JSON::Tiny, but it was the exploration of alternatives to
-his solution that led to this fork of Mojo::JSON.
+Christian Hansen, whos L<GitHub Gist|https://gist.github.com/chansen/810296>
+provided the basis for L<Mojo::JSON>, from which this module is derived.
+
+Randal Schwartz for showing Los Angeles Perl Mongers (Sept 2012) his
+pure-regexp JSON parser (L<PerlMonks|http://www.perlmonks.org/?node_id=995856>).
+He wasn't involved in JSON::Tiny, but it was exploring alternatives to his 
+solution that led to this fork of Mojo::JSON.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 David Oswald.
+Copyright 2012-2013 David Oswald.
 
 This program is free software, you can redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
