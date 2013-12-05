@@ -1,33 +1,33 @@
 Revision history for Perl module JSON::Tiny
 
-0.xx 2013-12-03
-  - ACKNOWLEDGEMENTS now recognizes that chansen's GitHub Gist provided the
-    foundation from which Mojo::JSON was built.
+0.38 2013-12-03
+  - ACKNOWLEDGEMENTS to recognize that chansen's GitHub Gist provided the
+    foundation upon which Mojo::JSON built.
 
 0.37 2013-11-21
-  - Removed useless minimum Perl version dependency checks from Makefile.PL.
-  - JSON::Tiny is not so relaxed anymore (POD update).
+  - Removed useless minimum dependency version checks from Makefile.PL.
+  - JSON::Tiny is not relaxed (POD update).
 
 0.36 2013-11-08
   - JSON::Tiny had incorrect value associated with escaped special
-    character \b (was \x07). Now it is correctly associated with 0x08.
+    character \b (was \x07). Now it's correctly associated with 0x08.
   - Tests added to prove fix.
-  - Synch with Mojo::JSON commit 42fb62087a and others from 2014-11-08.
+  - Sync with Mojo::JSON commit 42fb62087a, etc. from 2014-11-08.
 
 0.35 2013-10-16
-  - References to a scalar (even if blessed) will now encode to Boolean types.
+  - References to a scalar (even if blessed) will encode to Boolean types.
 
 0.34 2013-10-15
   - Added t/22-bool.t to test overriding Boolean decoding behavior.
   - Documented Boolean overriding in POD.
 
 0.33 2013-10-15
-  - Change 'my $TRUE' and 'my $FALSE' to 'our' so that users can override
+  - Change 'my $TRUE' and 'my $FALSE' to 'our' so users can override
     Booleans if desired. (http://perlmonks.org/?node_id=1058232)
-  - Added additional META info via Makefile.PL (Git repo, Meta spec version.)
+  - Added additional META info via Makefile.PL (Git repo, Meta spec versn.)
 
 0.32 2013-06-22
-  - j() now dies with a useful error message on non-parsable JSON.
+  - j() now dies with useful error message on non-parsable JSON.
   - POD: Document that j() can throw exception on failure to decode.
   - Minor performance tweaks.
   - Known issues: Perl 5.8.9 or older: May segfault on decoding JSON
