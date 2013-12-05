@@ -1,22 +1,18 @@
-# Version control.
 ^\.git/\b
 ^\.gitignore$
 
-# Makemaker generated.
 ^MANIFEST\.
 ^Makefile$
 ^blib/
 ^MakeMaker-\d
 \.tar\.gz
-^JSON-Tiny-[\d.]+/
+^JSON-Tiny-[\d._]+/
 
-# Temp, old & emacs backup.
 ~$
 \.old$
 ^#.*#$
 ^\.#
 
-# Custom.
 \.gz$
 MYMETA\b
 pm_to_blib

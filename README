@@ -4,8 +4,8 @@ Minimal JSON with no dependencies.
 
 DESCRIPTION
 
-Lightweight, fast, relaxed, pure-Perl JSON in a stand-alone module with no
-non-core dependencies.
+Lightweight, fast, pure-Perl JSON in a stand-alone module with only core
+dependencies.
 
 INSTALLATION
 
@@ -18,9 +18,8 @@ To install this module, run the following commands:
 
 DEPENDENCIES
 
-Minimum Perl version: 5.8.4.  Refer to the INCOMPATIBILITIES section in
-JSON::Tiny's POD for tips on how to install under earlier versions 
-of Perl.
+Minimum Perl version: 5.8.4.  See the INCOMPATIBILITIES section in JSON::Tiny's
+POD for more information.
 
 SUPPORT AND DOCUMENTATION
 
@@ -41,10 +40,9 @@ You can also look for information at:
 
 LICENSE AND COPYRIGHT
 
-Copyright (C) 2012 David Oswald
+Copyright (C) 2012-2013 David Oswald
 
 This program is free software, you can redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
 
 See http://www.perlfoundation.org/artistic_license_2_0 for more information.
-

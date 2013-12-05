@@ -2,7 +2,7 @@ package JSON::Tiny;
 
 # Minimalistic JSON. Adapted from Mojo::JSON and Mojo::Util.
 
-# Licensed under the Artistic 2.0 license.
+# License: Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
 
 use strict;
@@ -12,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.38';
+our $VERSION = '0.39';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -26,8 +26,8 @@ sub error {
   return $_[0]->{error};
 }
 
-# Mojo::JSON sets these up as 'my' lexicals. We use 'our' so that users can
-# explicitly override the Booleans with just zero or one if they desire.
+# Mojo::JSON uses 'my' lexicals here. We use 'our' so users may override the
+# Booleans with literal 0 or 1 if desired.
 # Literal names
 our $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
 our $TRUE  = bless \(my $true  = 1), 'JSON::Tiny::_Bool';
@@ -127,6 +127,7 @@ sub encode {
 }
 
 sub false {$FALSE}
+sub true {$TRUE}
 
 sub j {
   my( $d, $j ) = ( shift, __PACKAGE__->new );
@@ -134,8 +135,6 @@ sub j {
   defined and return $_ for $j->decode($d);
   die $j->error;
 }
-
-sub true {$TRUE}
 
 sub _decode_array {
   my @array;

@@ -4,9 +4,6 @@ use strict;
 use warnings;
 use Test::More;
 
-# To enable this suite one must set $ENV{RELEASE_TESTING} to a true value.
-# This prevents author tests from running on a user install.
-
 if ( $ENV{RELEASE_TESTING} ) {
   eval { require Test::Kwalitee; Test::Kwalitee->import() }; ## no critic (eval)
   plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;

@@ -7,8 +7,6 @@ use JSON::Tiny;
 
 my $j = JSON::Tiny->new;
 
-ok(1);
-
 my $rv = $j->decode( '{ "a":false, "b":true }' );
 
 ok(

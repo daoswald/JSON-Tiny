@@ -1,4 +1,3 @@
-
 BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # Force JSON::PP.
 
 use File::Slurp;
@@ -10,20 +9,15 @@ my @json = split /-{5,}/, read_file(\*DATA);
 
 sub json_pp {
   my $j = JSON->new->relaxed;
-  my @decoded = map { $j->decode($_) } @json;
-  return \@decoded;
+  return [ map { $j->decode($_) } @json ];
 }
 
 sub json_tiny {
   my $j = JSON::Tiny->new;
-  my @decoded = map { $j->decode($_) } @json;
-  return \@decoded;
+  return [ map { $j->decode($_) } @json ];
 }
 
-cmpthese ( -15, {
-  JSON_PP   => \&json_pp,
-  JSON_Tiny => \&json_tiny,
-});
+cmpthese ( -15, { JSON_PP => \&json_pp, JSON_Tiny => \&json_tiny } );
 
 __DATA__
 {

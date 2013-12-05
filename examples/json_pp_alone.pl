@@ -1,4 +1,3 @@
-
 BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # Force JSON::PP.
 
 use JSON;
@@ -7,8 +6,7 @@ my @json = do { local $/ = undef; split /-{5,}/, scalar <DATA> };
 
 sub json_pp {
   my $j = JSON->new;
-  my @decoded = map { $j->decode($_) } @json;
-  return \@decoded;
+  return [ map { $j->decode($_) } @json ];
 }
 
 my $decoded = json_pp();
