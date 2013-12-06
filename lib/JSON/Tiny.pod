@@ -141,19 +141,18 @@ Comparing JSON::Tiny with JSON::PP from the L<JSON> distribution:
 
 =over 4
 
-=item * L<JSON::PP> is configurable, and comparatively complex. L<JSON::Tiny>
-offers sane defaults, and nothing to configure.
+=item * L<JSON::PP> is configurable, but more complex. L<JSON::Tiny> offers
+sane defaults, and zero configuration.
 
-=item * Installation: C<cpanm JSON::PP> vs C<cpanm JSON::Tiny>: L<JSON::PP>:
-5.2 seconds. L<JSON::Tiny>: 1.9 seconds (including download).
+=item * Installation with C<cpanm>: L<JSON::PP>, 5.2 seconds. L<JSON::Tiny>,
+1.9 seconds (including download).
 
 =item * Minimal Dependencies: Both L<JSON::PP> and L<JSON::Tiny> only use core
 dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 
 =item * Simple Design: L<JSON> has 2254 lines of code in six modules and five
 files, and a dist tarball of 84KB. L<JSON::Tiny> has 350 lines of code; a
-single module in a single file facilitating embedding within existing code. The
-tarball is 19KB.
+single module in a single file -- great for embedding. The tarball is 19KB.
 
 =item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has seven.
 
@@ -175,18 +174,15 @@ processes are started frequently.
 L<http://valgrind.org/valgrind> and L<Devel::MemoryTrace::Lite> by running
 C<examples/json_pp_alone.pl> and C<examples/json_tiny_alone.pl>.
 
-Here are the results:
-
 =over 4
 
-=item * L<JSON> (JSON::PP): Devel::MemoryTrace::Lite: 1.7MB. valgrind: 6.1MB.
+=item * L<JSON> (JSON::PP) -- Devel::MemoryTrace::Lite: 1.7MB. valgrind: 6.1MB.
 
-=item * L<JSON::Tiny>: Devel::MemoryTrace::Lite: 1.1MB. valgrind: 5.4MB.
+=item * L<JSON::Tiny> -- Devel::MemoryTrace::Lite: 1.1MB. valgrind: 5.4MB.
 
 =back
 
-These utilities measure memory in different ways, but both show JSON::Tiny is
-600-700KB smaller than JSON::PP.
+These utilities show that JSON::Tiny is 600-700KB smaller than JSON::PP.
 
 =back
 
@@ -247,17 +243,17 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 
 =head1 ACKNOWLEDGEMENTS
 
-The L<Mojolicious> team for producing an excellent product that
-offers light-weight implementations of many useful tools. This module was
-adapted directly from L<Mojo::JSON>, which was chosen as a model because it is
-robust, minimal, and well tested. Mojo::JSON's tests were also adapted to a
+The L<Mojolicious> team for producing an excellent product that offers
+light-weight implementations of many useful tools. This module was adapted
+directly from L<Mojo::JSON>, which was chosen as a model because it is robust,
+minimal, and well tested. Mojo::JSON's tests were also adapted to a
 dependency-free design.
 
 Christian Hansen, whos L<GitHub Gist|https://gist.github.com/chansen/810296>
 provided the basis for L<Mojo::JSON>, from which this module is derived.
 
 Randal Schwartz for showing Los Angeles Perl Mongers (Sept 2012) his
-pure-regexp JSON parser (L<PerlMonks|http://www.perlmonks.org/?node_id=995856>).
+pure-regexp JSON parser (L<PerlMonks|http://perlmonks.org/?node_id=995856>).
 He wasn't involved in JSON::Tiny, but it was exploring alternatives to his
 solution that led to this fork of Mojo::JSON.
 
