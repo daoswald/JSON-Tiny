@@ -12,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.39';
+our $VERSION = '0.40';
 our @EXPORT_OK = qw(j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -122,8 +122,7 @@ sub decode {
 }
 
 sub encode {
-  my ($self, $ref) = @_;
-  return Encode::encode 'UTF-8', _encode_value($ref);
+  return Encode::encode 'UTF-8', _encode_value($_[1]);
 }
 
 sub false {$FALSE}

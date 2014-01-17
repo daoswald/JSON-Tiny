@@ -31,10 +31,11 @@ L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
 the L<Mojolicious> framework. It is a single-source-file module with 350 lines
 of code and core-only dependencies.
 
-Key features include RFC 4627 JSON, transparent Unicode support, speed, small
-memory footprint, and a minimal code base ideal for bundling or inlining.
-L<JSON::Tiny> and Mojo::JSON are possibly the fastest pure-Perl implementations
-of RFC 4627.
+Key features include L<RFC 4627|http://tools.ietf.org/search/rfc4627> JSON, 
+transparent Unicode support, speed, small memory footprint, and a minimal 
+code base ideal for bundling or inlining. L<JSON::Tiny> and Mojo::JSON are 
+possibly the fastest pure-Perl implementations of 
+L<RFC 4627|http://tools.ietf.org/search/rfc4627>.
 
 L<JSON::Tiny> supports normal Perl data types like C<Scalar>, C<Array>
 reference, C<Hash> reference and will try to call the C<TO_JSON> method on

@@ -1,5 +1,10 @@
 Revision history for Perl module JSON::Tiny
 
+0.40 2014-01-16
+  - Minor optimization in encode().
+  - RFC mention in POD now links to the RFC.
+  - Makefile.PL: Fixed small bug with PREREQ_PM hashref.
+
 0.39 2013-12-04
   - POD refinements.
 
