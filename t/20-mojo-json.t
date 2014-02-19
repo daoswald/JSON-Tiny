@@ -25,11 +25,11 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 131;  # One blessed reference test disabled: Difficult without
+plan tests => 132;  # One blessed reference test disabled: Difficult without
                     # Mojo::ByteStream & Mojo::Base. Other blessed reference
                     # tests still exist.
 
-use JSON::Tiny 'j';
+use JSON::Tiny qw(decode_json encode_json j);
 
 # Decode array
 my $json  = JSON::Tiny->new;
@@ -271,10 +271,10 @@ ok $bytes, 'defined value';
 is_deeply $json->decode($bytes), $array, 'successful roundtrip';
 
 # Real world roundtrip
-$bytes = $json->encode({foo => 'c:\progra~1\mozill~1\firefox.exe'});
+$bytes = encode_json({foo => 'c:\progra~1\mozill~1\firefox.exe'});
 is $bytes, '{"foo":"c:\\\\progra~1\\\\mozill~1\\\\firefox.exe"}',
   'encode {foo => \'c:\progra~1\mozill~1\firefox.exe\'}';
-$hash = $json->decode($bytes);
+$hash = decode_json($bytes);
 is_deeply $hash, {foo => 'c:\progra~1\mozill~1\firefox.exe'},
   'successful roundtrip';
 
@@ -383,4 +383,8 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
   'syntax error';
 is $json->error,
   'Malformed JSON: Unexpected data after array at line 3, offset 8',
+  'right error';
+my $jt = eval { j('{') }, undef, 'decoding failed';
+eval { decode_json("[\"foo\",\n\"bar\",\n\"bazra\"]lalala") };
+like $@, qr/Malformed JSON: Unexpected data after array at line 3, offset 8/,
   'right error';

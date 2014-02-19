@@ -58,7 +58,22 @@ C<u2028> and C<u2029> will always be escaped to make JSONP easier.
 
 =head1 FUNCTIONS
 
-L<JSON::Tiny> implements the following functions.
+L<JSON::Tiny> implements the following functions, which can be imported
+individually.
+
+=head2 decode_json
+
+  my $array = decode_json($bytes);
+  my $hash  = decode_json($bytes);
+
+Decode JSON to Perl data structure and die if decoding fails.
+
+=head2 encode_json
+
+  my $bytes = encode_json([1, 2, 3]);
+  my $bytes = encode_json({foo => 'bar'});
+
+Encode Perl data structure to JSON.
 
 =head2 j
 
