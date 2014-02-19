@@ -394,5 +394,6 @@ is $json->error,
   'right error';
 my $jt = eval { j('{') }, undef, 'decoding failed';
 eval { decode_json("[\"foo\",\n\"bar\",\n\"bazra\"]lalala") };
-like $@, qr/Malformed JSON: Unexpected data after array at line 3, offset 8/,
+like $@,
+  qr/JSON: Unexpected data after array at line 3, offset 8 at.*json\.t/,
   'right error';
