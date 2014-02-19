@@ -88,8 +88,8 @@ sub decode_json {
   my $encoding = 'UTF-8';
   $bytes =~ $UTF_PATTERNS->{$_} and $encoding = $_ for keys %$UTF_PATTERNS;
 
-  my $d_res = eval { $bytes = Encode::decode($encoding, $bytes, 1); 1 };
-  $bytes = undef unless $d_res;
+  my $d_res = eval { $bytes = Encode::decode($encoding, $bytes, 1) // ''; 1 };
+  $bytes = '' unless defined $d_res;
   local $_ = $bytes;
 
   # Leading whitespace
