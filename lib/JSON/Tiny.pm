@@ -64,23 +64,19 @@ my $UTF_PATTERNS = {
 my $WHITESPACE_RE = qr/[\x20\x09\x0a\x0d]*/;
 
 sub decode {
-  my ($self, $bytes) = @_;
-
+  my $self = shift;
   $self->error(undef);
-  my $res = eval { decode_json($bytes) };
-  if (!$res && (my $e = $@)) {
-    chomp $e;
-    $self->error($e);
-  }
-
-  return $res;
+  my $ref = eval { decode_json(shift) };
+  return $ref if $ref;
+  chomp(my $e = $@);
+  $self->error($e);
+  return undef;
 }
 
 sub decode_json {
-  my $bytes = shift;
   
   # Missing input
-  die "Missing or empty input\n" unless $bytes;
+  die "Missing or empty input\n" unless length(my $bytes = shift);
 
   # Remove BOM
   $bytes =~ s/^(?:\357\273\277|\377\376\0\0|\0\0\376\377|\376\377|\377\376)//g;
@@ -94,9 +90,9 @@ sub decode_json {
 
   my $d_res = eval { $bytes = Encode::decode($encoding, $bytes, 1); 1 };
   $bytes = undef unless $d_res;
+  local $_ = $bytes;
 
   # Leading whitespace
-  local $_ = $bytes;
   m/\G$WHITESPACE_RE/gc;
 
   # Array
@@ -126,9 +122,8 @@ sub false {$FALSE}
 sub true {$TRUE}
 
 sub j {
-  my $data = shift;
-  return encode_json($data) if ref $data eq 'ARRAY' || ref $data eq 'HASH';
-  return decode_json($data);
+  return encode_json($_[0]) if ref $_[0] eq 'ARRAY' || ref $_[0] eq 'HASH';
+  return decode_json($_[0]);
 }
 
 sub _decode_array {

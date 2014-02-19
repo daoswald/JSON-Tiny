@@ -1,5 +1,10 @@
 Revision history for Perl module JSON::Tiny
 
+0.41 2014-02-19
+  - ADDED decode_json and encode_json functions.
+  - Fixed small decoding error.
+  - Minor optimizations.
+
 0.40 2014-01-16
   - Minor optimization in encode().
   - RFC mention in POD now links to the RFC.

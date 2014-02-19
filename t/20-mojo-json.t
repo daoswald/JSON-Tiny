@@ -25,7 +25,7 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 132;  # One blessed reference test disabled: Difficult without
+plan tests => 134;  # One blessed reference test disabled: Difficult without
                     # Mojo::ByteStream & Mojo::Base. Other blessed reference
                     # tests still exist.
 
@@ -383,6 +383,10 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
   'syntax error';
 is $json->error,
   'Malformed JSON: Unexpected data after array at line 3, offset 8',
+  'right error';
+is $json->decode('0'), undef, 'syntax error';
+is $json->error,
+  'Malformed JSON: Expected array or object at line 0, offset 0',
   'right error';
 my $jt = eval { j('{') }, undef, 'decoding failed';
 eval { decode_json("[\"foo\",\n\"bar\",\n\"bazra\"]lalala") };
