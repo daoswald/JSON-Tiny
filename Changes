@@ -6,6 +6,7 @@ Revision history for Perl module JSON::Tiny
   - Minor optimizations.
   - Handle encoding errors more gracefully.
   - Fixed line numbers in error messages.
+  - Test all decoding errors.
 
 0.40 2014-01-16
   - Minor optimization in encode().

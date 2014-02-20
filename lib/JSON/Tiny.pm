@@ -70,7 +70,7 @@ sub decode {
   my $ref = eval { _decode(shift) };
   return $ref if $ref;
   $self->error(_chomp($@));
-  return undef;
+  return undef;  ## no critic(return)
 }
 
 sub decode_json {
@@ -132,7 +132,6 @@ sub _decode {
 
   return $ref;
 }
-
 
 sub _decode_array {
   my @array;
