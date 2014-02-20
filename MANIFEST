@@ -22,5 +22,5 @@ t/22-bool.t
 examples/json_pp_alone.pl
 examples/json_tiny_alone.pl
 examples/json_benchmark.pl
-
+examples/sample.json
 

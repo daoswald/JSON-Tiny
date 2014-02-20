@@ -1,22 +1,24 @@
 Revision history for Perl module JSON::Tiny
 
 0.42 2014-02-20
-  - Clarify die on decode failure for 'j()'.
-  - More tests (Mojo::JSON 7947c2ed0f).
-  - u007f is not mentioned in RFC4627.
-  - Adapt a few small Mojo::JSON commits.
+  - Document die on failure for j().
+  - More tests.
+  - u007f isn't mentioned in RFC4627.
+  - Adapt a few Mojo::JSON commits.
+  - Eradicate '//' (again).
+  - Slim the distribution.
 
 0.41 2014-02-19
-  - ADDED decode_json and encode_json functions.
-  - Fixed small decoding error.
+  - ADD decode_json and encode_json functions.
+  - Fix small decoding error.
   - Minor optimizations.
-  - Handle encoding errors more gracefully.
-  - Fixed line numbers in error messages.
+  - Handle encoding errors gracefully.
+  - Fix line numbers in error messages.
   - Test all decoding errors.
 
 0.40 2014-01-16
-  - Minor optimization in encode().
-  - RFC mention in POD now links to the RFC.
+  - Minor optimization: encode().
+  - Linkify RFC mention in POD.
   - Makefile.PL: Fixed small bug with PREREQ_PM hashref.
 
 0.39 2013-12-04
@@ -32,9 +34,9 @@ Revision history for Perl module JSON::Tiny
 
 0.36 2013-11-08
   - JSON::Tiny had incorrect value associated with escaped special
-    character \b (was \x07). Now it's correctly associated with 0x08.
-  - Tests added to prove fix.
-  - Sync with Mojo::JSON commit 42fb62087a, etc. from 2014-11-08.
+    character \b (was \x07). Correctly associate with 0x08.
+  - Tests to prove fix.
+  - Sync Mojo::JSON commit 42fb62087a, etc. from 2014-11-08.
 
 0.35 2013-10-16
   - References to a scalar (even if blessed) will encode to Boolean types.
@@ -49,18 +51,18 @@ Revision history for Perl module JSON::Tiny
   - Added additional META info via Makefile.PL (Git repo, Meta spec versn.)
 
 0.32 2013-06-22
-  - j() dies with useful error message on non-parsable JSON.
-  - Document that j() will throw exception on failure to decode.
+  - j() dies on non-parsable JSON.
+  - Document j() throws exception on failure to decode.
   - Minor performance tweaks.
-  - Known issues: Perl 5.8.9 or older: May segfault on decoding JSON
-    with strings larger than 22k.
+  - Known issues: Perl 5.8.9 or older: May segfault decoding JSON strings
+    larger than 22k.
 
 0.31 2013-06-19
-  - Improved documentation on Exporter dependency for Pre-5.8.4 Perl.
+  - Improve documentation on Exporter dependency for Pre-5.8.4 Perl.
   
 0.30 2013-06-19
-  - Pushed minimum Perl version back to 5.8.4 (was 5.10). (tye)
-  - Document under INCOMPATIBILITIES about upgrading Exporter to facilitate
+  - Push minimum Perl version back to 5.8.4 (was 5.10). (tye)
+  - Document INCOMPATIBILITIES about upgrading Exporter to facilitate
     running under earlier Perl versions.
 
 0.29 2013-06-18
@@ -83,7 +85,7 @@ Revision history for Perl module JSON::Tiny
   - POD improvements.
 
 0.23 2013-02-27
-  - Make code and tests current with kraih/mojo 747f08d2 (Feb 3, 2013).
+  - Sync with kraih/mojo 747f08d2 (Feb 3, 2013).
   - Add 'j' function (and Exporter dependency).
   - POD tweaks, incl. documentation for 'j' function.
   - Tests for 'j'.
@@ -101,8 +103,8 @@ Revision history for Perl module JSON::Tiny
 0.20 2012-10-04
   - Bump version number to .20: avoid confusion with Perl6 module by same name.
   - POD improvements.
-  - Drop "ref($class) || $class;" from c'tor.
-  - Drop 'beta' status.
+  - Drop "ref($class) || $class;" from constructor.
+  - Drop 'beta'.
 
 0.01 2012-10-03
   - Initial release.
@@ -110,4 +112,3 @@ Revision history for Perl module JSON::Tiny
   - t/20-mojo-json.t adapted from Mojolicious/t/mojo/json.t
   - Mojolicious dependencies removed.
   - Artistic 2.0 license matches Mojolicious.
-  

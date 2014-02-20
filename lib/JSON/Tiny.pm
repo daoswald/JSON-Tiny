@@ -74,7 +74,9 @@ sub decode {
 }
 
 sub decode_json {
-  eval { _decode(shift) } // croak _chomp($@);
+  my $ret = eval { _decode(shift) };
+  croak _chomp($@) unless defined $ret;
+  return $ret;
 }
 
 sub encode { encode_json($_[1]) }
@@ -107,8 +109,8 @@ sub _decode {
   my $encoding = 'UTF-8';
   $bytes =~ $UTF_PATTERNS->{$_} and $encoding = $_ for keys %$UTF_PATTERNS;
 
-  my $d_res = eval { $bytes = Encode::decode($encoding, $bytes, 1) // ''; 1 };
-  $bytes = '' unless defined $d_res;
+  my $ok = eval { $bytes = Encode::decode($encoding, $bytes, 1); 1; };
+  $bytes = '' unless defined $ok;
   local $_ = $bytes;
 
   # Leading whitespace
