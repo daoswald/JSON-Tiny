@@ -48,7 +48,7 @@ my %ESCAPE = (
 );
 my %REVERSE = map { $ESCAPE{$_} => "\\$_" } keys %ESCAPE;
 
-for( 0x00 .. 0x1f, 0x7f ) {
+for(0x00 .. 0x1f) {
   my $packed = pack 'C', $_;
   $REVERSE{$packed} = sprintf '\u%.4X', $_
     if ! defined( $REVERSE{$packed} );
@@ -284,7 +284,7 @@ sub _encode_object {
 
 sub _encode_string {
   my $str = shift;
-  $str =~ s!([\x00-\x1f\x7f\x{2028}\x{2029}\\"/\b\f\n\r\t])!$REVERSE{$1}!gs;
+  $str =~ s!([\x00-\x1f\x{2028}\x{2029}\\"/])!$REVERSE{$1}!gs;
   return "\"$str\"";
 }
 
