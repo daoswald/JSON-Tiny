@@ -30,7 +30,7 @@ L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
 the L<Mojolicious> framework. It is a single-source-file module with 350 lines
 of code and core-only dependencies.
 
-Key features include L<RFC 4627|http://tools.ietf.org/search/rfc4627> JSON, 
+Key features include L<RFC 4627|http://tools.ietf.org/html/rfc4627> JSON, 
 transparent Unicode support, speed, small memory footprint, and a minimal 
 code base ideal for bundling or inlining. L<JSON::Tiny> and Mojo::JSON are 
 possibly the fastest pure-Perl implementations of 
@@ -44,12 +44,17 @@ blessed references, or stringify them if it doesn't exist.
     {"foo": "bar"} -> {foo => 'bar'}
 
 Literal names will be translated to and from L<JSON::Tiny> constants or a
-similar native Perl value. In addition C<Scalar> references will be used to
-generate booleans, based on if their values are true or false.
+similar native Perl value.
 
     true  -> JSON::Tiny->true
     false -> JSON::Tiny->false
     null  -> undef
+
+In addition C<Scalar> references will be used to generate Booleans, based on
+if their values are true or false.
+
+  \1 => true
+  \0 => false
 
 Decoding UTF-16 (LE/BE) and UTF-32 (LE/BE) will be handled transparently,
 encoding will only generate UTF-8. The two Unicode whitespace characters
