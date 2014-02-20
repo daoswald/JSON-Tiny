@@ -81,10 +81,7 @@ Encode Perl data structure to JSON.
     my $array = j($bytes);
     my $hash  = j($bytes);
 
-Encode Perl data structure or decode JSON and return C<undef> if decoding
-fails.
-
-Dies with a C<JSON::Tiny::error> message on decode failure.
+Encode Perl data structure, or decode JSON and die if decoding fails.
 
 =head1 ATTRIBUTES
 
