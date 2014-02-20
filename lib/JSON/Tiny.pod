@@ -168,7 +168,7 @@ dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 
 =item * Simple Design: L<JSON> has 2254 lines of code in six modules and five
 files, and a dist tarball of 85KB. L<JSON::Tiny> has under 350 lines of code; a
-single module in a single file -- good for embedding. The tarball is 18KB.
+single module in a single file -- good for embedding. The tarball is 19KB.
 
 =item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has nine.
 
@@ -274,7 +274,7 @@ alternatives to his regexp solution led to this fork of Mojo::JSON.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012-2013 David Oswald.
+Copyright 2012-2014 David Oswald.
 
 This program is free software, you can redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
@@ -283,6 +283,6 @@ See L<http://www.perlfoundation.org/artistic_license_2_0> for more information.
 
 =head1 SEE ALSO
 
-L<JSON>, L<JSON::PP>, L<JSON::XS>, L<Mojo::JSON>.
+L<JSON>, L<JSON::PP>, L<Mojo::JSON>.
 
 =cut

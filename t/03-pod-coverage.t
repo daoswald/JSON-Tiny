@@ -6,7 +6,7 @@ if( $ENV{RELEASE_TESTING} ) {
   eval 'use Test::Pod::Coverage 1.00'; ## no critic (eval)
   if( $@ ) {
     plan skip_all
-      => 'Test::Pod::Coverage 1.00 required for testing POD coverage.';
+      => 'Test::Pod::Coverage 1.00 required for this test.';
   }
   else {
     plan tests => 1;

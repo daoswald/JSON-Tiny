@@ -1,9 +1,9 @@
-BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # Force JSON::PP.
+BEGIN { $ENV{PERL_JSON_BACKEND} = 0; } # JSON::PP.
 
 use File::Slurp 'read_file';
 use JSON;
 use JSON::Tiny;
-use Benchmark qw( cmpthese );
+use Benchmark 'cmpthese';
 
 my @json = split /-{5,}/, read_file('sample.json');
 

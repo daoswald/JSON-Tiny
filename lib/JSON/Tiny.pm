@@ -1,7 +1,6 @@
 package JSON::Tiny;
 
 # Minimalistic JSON. Adapted from Mojo::JSON and Mojo::Util.
-
 # License: Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
 
@@ -13,7 +12,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.42';
+our $VERSION = '0.43';
 our @EXPORT_OK = qw(decode_json encode_json j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -27,7 +26,7 @@ sub error {
   return $_[0]->{error};
 }
 
-# Mojo::JSON uses 'my' lexicals here. We use 'our' so users may override the
+# Mojo::JSON uses 'my'. We use 'our' so users may override the
 # Booleans with literal 0 or 1 if desired.
 # Literal names
 our $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
@@ -75,8 +74,8 @@ sub decode {
 
 sub decode_json {
   my $ret = eval { _decode(shift) };
-  croak _chomp($@) unless defined $ret;
-  return $ret;
+  return $ret if defined $ret;
+  croak _chomp($@)
 }
 
 sub encode { encode_json($_[1]) }

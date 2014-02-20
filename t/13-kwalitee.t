@@ -6,13 +6,12 @@ use Test::More;
 
 if ( $ENV{RELEASE_TESTING} ) {
   eval { require Test::Kwalitee; Test::Kwalitee->import() }; ## no critic (eval)
-  plan( skip_all => 'Test::Kwalitee not installed; skipping' ) if $@;
+  plan( skip_all => 'Test::Kwalitee not installed: skip' ) if $@;
 
-  # Clean up.  I haven't traced out where this is getting created, but we don't
-  # need to leave it behind as clutter.
+  # Clean up.
   unlink 'Debian_CPANTS.txt' if -e 'Debian_CPANTS.txt';
 }
 else {
-  my $msg = 'Author Test: Set $ENV{RELEASE_TESTING} to a true value to run.';
+  my $msg = 'Author Test: Set $ENV{RELEASE_TESTING} true to run.';
   plan( skip_all => $msg );
 }

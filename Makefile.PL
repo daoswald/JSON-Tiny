@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 use Data::Dumper;
 my $PREREQ_PM = {};
 
-$PREREQ_PM->{'Exporter'}     = '5.59' if $] < 5.008004;
+$PREREQ_PM->{'Exporter'} = '5.59' if $] < 5.008004;
 
 WriteMakefile(
   NAME              => 'JSON::Tiny',
@@ -30,7 +30,7 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.42'
+        version => '0.43'
       },
     },
   },

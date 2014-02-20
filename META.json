@@ -39,7 +39,7 @@
    "provides" : {
       "JSON::Tiny" : {
          "file" : "lib/JSON/Tiny.pm",
-         "version" : "0.42"
+         "version" : "0.43"
       }
    },
    "release_status" : "stable",
@@ -50,5 +50,5 @@
          "web" : "https://github.com/daoswald/JSON-Tiny"
       }
    },
-   "version" : "0.42"
+   "version" : "0.43"
 }
