@@ -33,8 +33,7 @@ of code and core-only dependencies.
 Key features include L<RFC 4627|http://tools.ietf.org/html/rfc4627> JSON, 
 transparent Unicode support, speed, small memory footprint, and a minimal 
 code base ideal for bundling or inlining. L<JSON::Tiny> and Mojo::JSON are 
-possibly the fastest pure-Perl implementations of 
-L<RFC 4627|http://tools.ietf.org/search/rfc4627>.
+possibly the fastest pure-Perl RFC4627 JSON implementations.
 
 L<JSON::Tiny> supports normal Perl data types like C<Scalar>, C<Array>
 reference, C<Hash> reference and will try to call the C<TO_JSON> method on

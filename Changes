@@ -1,6 +1,6 @@
 Revision history for Perl module JSON::Tiny
 
-0.42 xxxx-xx-xx
+0.42 2014-02-20
   - Clarify die on decode failure for 'j()'.
   - More tests (Mojo::JSON 7947c2ed0f).
   - u007f is not mentioned in RFC4627.
