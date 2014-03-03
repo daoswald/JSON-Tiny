@@ -19,11 +19,6 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
     if(defined(my $hash = $json->decode($bytes))) { say $hash->{message} }
     else { say 'Error: ', $json->error }
 
-    # Use the shortcut interface (die on errors)
-    use JSON::Tiny 'j';
-    my $bytes = j({foo => [1, 2], bar => 'hello!', baz => \1});
-    my $hash  = j($bytes);
-
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
@@ -78,7 +73,7 @@ Decode JSON to Perl data structure and die if decoding fails.
 
 Encode Perl data structure to JSON.
 
-=head2 j
+=head2 j (DEPRECATED)
 
     my $bytes = j([1, 2, 3]);
     my $bytes = j({foo => 'bar'});
@@ -86,6 +81,12 @@ Encode Perl data structure to JSON.
     my $hash  = j($bytes);
 
 Encode Perl data structure, or decode JSON and die if decoding fails.
+
+B<This function has been deprecated.  RFC7159 specifies that scalars
+are now legitimate encode/decode entities, which makes j()'s ability
+to decide whether to encode or decode an intractable question.  This
+function will be removed in an upcoming release without further
+warning.>
 
 =head1 ATTRIBUTES
 

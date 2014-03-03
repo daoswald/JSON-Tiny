@@ -7,7 +7,7 @@ package JSON::Tiny;
 use strict;
 use warnings;
 use B;
-use Carp 'croak';
+use Carp qw(croak carp);
 use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
@@ -85,6 +85,9 @@ sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 sub false {$FALSE}
 
 sub j {
+  carp "Mojo::JSON::j is deprecated to facilitate compliance with RFC7159.\n"
+       . "It will be removed without warning further from Mojo::JSON.\n"
+       . "Use encode_json and decode_json instead.";
   return encode_json($_[0]) if ref $_[0] eq 'ARRAY' || ref $_[0] eq 'HASH';
   return decode_json($_[0]);
 }

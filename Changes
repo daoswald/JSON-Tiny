@@ -1,7 +1,9 @@
 Revision history for Perl module JSON::Tiny
 
-0.43 2014-02-21
+0.43 2014-03-03
   - Slim the dist.
+  - Deprecate j(): Its implementation becomes intractable
+    due to RFC7159.
 
 0.42 2014-02-20
   - Document die on failure for j().
