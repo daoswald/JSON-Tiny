@@ -1,9 +1,12 @@
 Revision history for Perl module JSON::Tiny
 
+0.44 2014-03-05
+  - Established RFC7159 compliance.
+  - De-deprecate j(), document limitations to its capabilities.
+
 0.43 2014-03-03
   - Slim the dist.
-  - Deprecate j(): Its implementation becomes intractable
-    due to RFC7159.
+  - Deprecate j(): Its implementation becomes intractable due to RFC7159.
 
 0.42 2014-02-20
   - Document die on failure for j().

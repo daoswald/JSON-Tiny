@@ -25,97 +25,97 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 143;  # One blessed reference test disabled: Difficult without
+plan tests => 149;  # One blessed reference test disabled: Difficult without
                     # Mojo::ByteStream & Mojo::Base. Other blessed reference
                     # tests still exist.
 
 use JSON::Tiny qw(decode_json encode_json j);
 
+my $json = JSON::Tiny->new;
+
 # Decode array
-my $json  = JSON::Tiny->new;
-my $array = $json->decode('[]');
+my $array = decode_json '[]';
 is_deeply $array, [], 'decode []';
-$array = $json->decode('[ [ ]]');
+$array = decode_json '[ [ ]]';
 is_deeply $array, [[]], 'decode [ [ ]]';
 
 # Decode number
-$array = $json->decode('[0]');
+$array = decode_json '[0]';
 is_deeply $array, [0], 'decode [0]';
-$array = $json->decode('[1]');
+$array = decode_json '[1]';
 is_deeply $array, [1], 'decode [1]';
-$array = $json->decode('[ "-122.026020" ]');
+$array = decode_json '[ "-122.026020" ]';
 is_deeply $array, ['-122.026020'], 'decode [ -122.026020 ]';
-$array = $json->decode('[ -122.026020 ]');
+$array = decode_json '[ -122.026020 ]';
 is_deeply $array, ['-122.02602'], 'decode [ -122.026020 ]';
-$array = $json->decode('[0.0]');
+$array = decode_json '[0.0]';
 cmp_ok $array->[0], '==', 0, 'value is 0';
-$array = $json->decode('[0e0]');
-
+$array = decode_json '[0e0]';
 cmp_ok $array->[0], '==', 0, 'value is 0';
-$array = $json->decode('[1,-2]');
+$array = decode_json '[1,-2]';
 is_deeply $array, [1, -2], 'decode [1,-2]';
-$array = $json->decode('["10e12" , [2 ]]');
+$array = decode_json '["10e12" , [2 ]]';
 is_deeply $array, ['10e12', [2]], 'decode ["10e12" , [2 ]]';
-$array = $json->decode('[10e12 , [2 ]]');
+$array = decode_json '[10e12 , [2 ]]';
 is_deeply $array, [10000000000000, [2]], 'decode [10e12 , [2 ]]';
-$array = $json->decode('[37.7668 , [ 20 ]] ');
+$array = decode_json '[37.7668 , [ 20 ]] ';
 is_deeply $array, [37.7668, [20]], 'decode [37.7668 , [ 20 ]] ';
-$array = $json->decode('[1e3]');
+$array = decode_json '[1e3]';
 cmp_ok $array->[0], '==', 1e3, 'value is 1e3';
-my $value = $json->decode('0');
+my $value = decode_json '0';
 cmp_ok $value, '==', 0, 'decode 0';
-$value = $json->decode('23.3');
+$value = decode_json '23.3';
 cmp_ok $value, '==', 23.3, 'decode 23.3';
 
 # Decode name
-$array = $json->decode('[true]');
+$array = decode_json '[true]';
 is_deeply $array, [JSON::Tiny->true], 'decode [true]';
-$array = $json->decode('[null]');
+$array = decode_json '[null]';
 is_deeply $array, [undef], 'decode [null]';
-$array = $json->decode('[true, false]');
+$array = decode_json '[true, false]';
 is_deeply $array, [JSON::Tiny->true, JSON::Tiny->false], 'decode [true, false]';
-$value = $json->decode('true');
+$value = decode_json 'true';
 is $value, JSON::Tiny->true, 'decode true';
-$value = $json->decode('false');
+$value = decode_json 'false';
 is $value, JSON::Tiny->false, 'decode false';
-$value = $json->decode('null');
+$value = decode_json 'null';
 is $value, undef, 'decode null';
 
 # Decode string
-$array = $json->decode('[" "]');
+$array = decode_json '[" "]';
 is_deeply $array, [' '], 'decode [" "]';
-$array = $json->decode('["hello world!"]');
+$array = decode_json '["hello world!"]';
 is_deeply $array, ['hello world!'], 'decode ["hello world!"]';
-$array = $json->decode('["hello\nworld!"]');
+$array = decode_json '["hello\nworld!"]';
 is_deeply $array, ["hello\nworld!"], 'decode ["hello\nworld!"]';
-$array = $json->decode('["hello\t\"world!"]');
+$array = decode_json '["hello\t\"world!"]';
 is_deeply $array, ["hello\t\"world!"], 'decode ["hello\t\"world!"]';
-$array = $json->decode('["hello\u0152world\u0152!"]');
+$array = decode_json '["hello\u0152world\u0152!"]';
 is_deeply $array, ["hello\x{0152}world\x{0152}!"],
   'decode ["hello\u0152world\u0152!"]';
-$array = $json->decode('["0."]');
+$array = decode_json '["0."]';
 is_deeply $array, ['0.'], 'decode ["0."]';
-$array = $json->decode('[" 0"]');
+$array = decode_json '[" 0"]';
 is_deeply $array, [' 0'], 'decode [" 0"]';
-$array = $json->decode('["1"]');
+$array = decode_json '["1"]';
 is_deeply $array, ['1'], 'decode ["1"]';
-$array = $json->decode('["\u0007\b\/\f\r"]');
+$array = decode_json '["\u0007\b\/\f\r"]';
 is_deeply $array, ["\a\b/\f\r"], 'decode ["\u0007\b\/\f\r"]';
-$value = $json->decode('""');
+$value = decode_json '""';
 is $value, '', 'decode ""';
-$value = $json->decode('"hell\no"');
+$value = decode_json '"hell\no"';
 is $value, "hell\no", 'decode "hell\no"';
 
 # Decode object
-my $hash = $json->decode('{}');
+my $hash = decode_json '{}';
 is_deeply $hash, {}, 'decode {}';
-$hash = $json->decode('{"foo": "bar"}');
+$hash = decode_json '{"foo": "bar"}';
 is_deeply $hash, {foo => 'bar'}, 'decode {"foo": "bar"}';
-$hash = $json->decode('{"foo": [23, "bar"]}');
+$hash = decode_json '{"foo": [23, "bar"]}';
 is_deeply $hash, {foo => [qw(23 bar)]}, 'decode {"foo": [23, "bar"]}';
 
 # Decode full spec example
-$hash = $json->decode(<<EOF);
+$hash = decode_json <<EOF;
 {
    "Image": {
        "Width":  800,
@@ -143,81 +143,81 @@ is $hash->{Image}{IDs}[2], 234,   'right value';
 is $hash->{Image}{IDs}[3], 38793, 'right value';
 
 # Encode array
-my $bytes = $json->encode([]);
+my $bytes = encode_json [];
 is $bytes, '[]', 'encode []';
-$bytes = $json->encode([[]]);
+$bytes = encode_json [[]];
 is $bytes, '[[]]', 'encode [[]]';
-$bytes = $json->encode([[], []]);
+$bytes = encode_json [[], []];
 is $bytes, '[[],[]]', 'encode [[], []]';
-$bytes = $json->encode([[], [[]], []]);
+$bytes = encode_json [[], [[]], []];
 is $bytes, '[[],[[]],[]]', 'encode [[], [[]], []]';
 
 # Encode string
-$bytes = $json->encode(['foo']);
+$bytes = encode_json ['foo'];
 is $bytes, '["foo"]', 'encode [\'foo\']';
-$bytes = $json->encode(["hello\nworld!"]);
+$bytes = encode_json ["hello\nworld!"];
 is $bytes, '["hello\nworld!"]', 'encode ["hello\nworld!"]';
-$bytes = $json->encode(["hello\t\"world!"]);
+$bytes = encode_json ["hello\t\"world!"];
 is $bytes, '["hello\t\"world!"]', 'encode ["hello\t\"world!"]';
-$bytes = $json->encode(["hello\x{0003}\x{0152}world\x{0152}!"]);
+$bytes = encode_json ["hello\x{0003}\x{0152}world\x{0152}!"];
 is decode('UTF-8', $bytes), "[\"hello\\u0003\x{0152}world\x{0152}!\"]",
   'encode ["hello\x{0003}\x{0152}world\x{0152}!"]';
-$bytes = $json->encode(["123abc"]);
+$bytes = encode_json ["123abc"];
 is $bytes, '["123abc"]', 'encode ["123abc"]';
-$bytes = $json->encode(["\x00\x1f \a\b/\f\r"]);
+$bytes = encode_json ["\x00\x1f \a\b/\f\r"];
 is $bytes, '["\\u0000\\u001F \\u0007\\b\/\f\r"]',
   'encode ["\x00\x1f \a\b/\f\r"]';  
-$bytes = $json->encode('');
+$bytes = encode_json '';
 is $bytes, '""', 'encode ""';
-$bytes = $json->encode("hell\no");
+$bytes = encode_json "hell\no";
 is $bytes, '"hell\no"', 'encode "hell\no"';
 
 # Encode object
-$bytes = $json->encode({});
+$bytes = encode_json {};
 is $bytes, '{}', 'encode {}';
-$bytes = $json->encode({foo => {}});
+$bytes = encode_json {foo => {}};
 is $bytes, '{"foo":{}}', 'encode {foo => {}}';
-$bytes = $json->encode({foo => 'bar'});
+$bytes = encode_json {foo => 'bar'};
 is $bytes, '{"foo":"bar"}', 'encode {foo => \'bar\'}';
-$bytes = $json->encode({foo => []});
+$bytes = encode_json {foo => []};
 is $bytes, '{"foo":[]}', 'encode {foo => []}';
-$bytes = $json->encode({foo => ['bar']});
+$bytes = encode_json {foo => ['bar']};
 is $bytes, '{"foo":["bar"]}', 'encode {foo => [\'bar\']}';
 
 # Encode name
-$bytes = $json->encode([$json->true]);
+$bytes = encode_json [$json->true];
 is $bytes, '[true]', 'encode [JSON::Tiny->true]';
-$bytes = $json->encode([undef]);
+$bytes = encode_json [undef];
 is $bytes, '[null]', 'encode [undef]';
-$bytes = $json->encode([JSON::Tiny->true, JSON::Tiny->false]);
+$bytes = encode_json [JSON::Tiny->true, JSON::Tiny->false];
 is $bytes, '[true,false]', 'encode [JSON::Tiny->true, JSON::Tiny->false]';
-$bytes = $json->encode(JSON::Tiny->true);
+$bytes = $json->encode( JSON::Tiny->true );  ###############
 is $bytes, 'true', 'encode JSON::Tiny->true';
-$bytes = $json->encode(JSON::Tiny->false);
+$bytes = $json->encode( JSON::Tiny->false );  ##############
 is $bytes, 'false', 'encode JSON::Tiny->false';
-$bytes = $json->encode(undef);
+$bytes = encode_json undef;
 is $bytes, 'null', 'encode undef';
 
 # Encode number
-$bytes = $json->encode([1]);
+$bytes = encode_json [1];
 is $bytes, '[1]', 'encode [1]';
-$bytes = $json->encode(["1"]);
+$bytes = encode_json ["1"];
 is $bytes, '["1"]', 'encode ["1"]';
-$bytes = $json->encode(['-122.026020']);
+$bytes = encode_json ['-122.026020'];
 is $bytes, '["-122.026020"]', 'encode [\'-122.026020\']';
-$bytes = $json->encode([-122.026020]);
+$bytes = encode_json [-122.026020];
 is $bytes, '[-122.02602]', 'encode [-122.026020]';
-$bytes = $json->encode([1, -2]);
+$bytes = encode_json [1, -2];
 is $bytes, '[1,-2]', 'encode [1, -2]';
-$bytes = $json->encode(['10e12', [2]]);
+$bytes = encode_json ['10e12', [2]];
 is $bytes, '["10e12",[2]]', 'encode [\'10e12\', [2]]';
-$bytes = $json->encode([10e12, [2]]);
+$bytes = encode_json [10e12, [2]];
 is $bytes, '[10000000000000,[2]]', 'encode [10e12, [2]]';
-$bytes = $json->encode([37.7668, [20]]);
+$bytes = encode_json [37.7668, [20]];
 is $bytes, '[37.7668,[20]]', 'encode [37.7668, [20]]';
-$bytes = $json->encode(0);
+$bytes = encode_json 0;
 is $bytes, '0', 'encode 0';
-$bytes = $json->encode(23.3);
+$bytes = encode_json 23.3;
 is $bytes, '23.3', 'encode 23.3';
 
 # Faihu roundtrip
@@ -225,6 +225,10 @@ $bytes = j(["\x{10346}"]);
 is decode( 'UTF-8', $bytes ), "[\"\x{10346}\"]", 'encode ["\x{10346}"]';
 $array = j($bytes);
 is_deeply $array, ["\x{10346}"], 'successful roundtrip';
+
+# Decode faihu surrogate pair
+$array = decode_json '["\\ud800\\udf46"]';
+is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Decode object with duplicate keys
 $hash = $json->decode('{"foo": 1, "foo": 2}');
@@ -311,7 +315,16 @@ like $json->encode({test => 9**9**9}), qr/^{"test":".*"}$/,
 like $json->encode({test => -sin(9**9**9)}), qr/^{"test":".*"}$/,
   'encode "nan" as string';
 
+# "null"
+# my $json = JSON::Tiny->new;
+is $json->decode('null'), undef, 'decode null';
+ok !$json->error, 'no error';
+is j('null'), undef, 'decode null';
+
 # Errors
+is $json->decode('test'), undef, 'syntax error';
+is $json->error, 'Malformed JSON: Expected string, array, object, number,'
+  . ' boolean or null at line 0, offset 0', 'right error';
 is $json->decode('["♥"]'), undef, 'wide character in input';
 is $json->error, 'Wide character in input', 'right error';
 is $json->decode(encode('UTF-8', '["\\ud800"]')), undef, 'syntax error';

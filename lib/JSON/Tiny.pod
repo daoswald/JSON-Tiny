@@ -16,8 +16,9 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
     # Handle errors
     my $json = JSON::Tiny->new;
-    if(defined(my $hash = $json->decode($bytes))) { say $hash->{message} }
-    else { say 'Error: ', $json->error }
+    my $hash = $json->decode($bytes);
+    my $err  = $json->error;
+    say $err ? "Error: $err" : $hash->{message};
 
 =head1 DESCRIPTION
 
@@ -25,14 +26,19 @@ L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
 the L<Mojolicious> framework. It is a single-source-file module with 350 lines
 of code and core-only dependencies.
 
-Key features include L<RFC 4627|http://tools.ietf.org/html/rfc4627> JSON, 
-transparent Unicode support, speed, small memory footprint, and a minimal 
-code base ideal for bundling or inlining. L<JSON::Tiny> and Mojo::JSON are 
-possibly the fastest pure-Perl RFC4627 JSON implementations.
+Key features include transparent Unicode support, speed, small memory
+footprint, and a minimal code base ideal for bundling or inlining.  Along with
+L<Mojo:JSON>, it is possibly the fastest pure-Perl implementation of
+L<RFC 7159|http://tools.ietf.org/html/rfc7159>.
 
 L<JSON::Tiny> supports normal Perl data types like C<Scalar>, C<Array>
-reference, C<Hash> reference and will try to call the C<TO_JSON> method on
-blessed references, or stringify them if it doesn't exist.
+reference, C<Hash> reference and will try to call the L<TO_JSON> method on
+blessed references, or stringify them if it doesn't exist.  Differentiating
+between strings and numbers in Perl is hard; depending on how it has been used,
+a C<Scalar> can be both at the same time.  Since numeric comparisons on strings
+are very unlikely to happen unintentionally, the numeric value always gets
+priority, so any C<Scalar> that has been used in numeric context is considered
+a number.
 
     [1, -2, 3]     -> [1, -2, 3]
     {"foo": "bar"} -> {foo => 'bar'}
@@ -50,9 +56,8 @@ if their values are true or false.
   \1 => true
   \0 => false
 
-Decoding UTF-16 (LE/BE) and UTF-32 (LE/BE) will be handled transparently,
-encoding will only generate UTF-8. The two Unicode whitespace characters
-C<u2028> and C<u2029> will always be escaped to make JSONP easier.
+The two Unicode whitespace characters C<u2028> and C<u2029> will always be
+escaped to make JSONP easier.
 
 =head1 FUNCTIONS
 
@@ -61,32 +66,24 @@ individually.
 
 =head2 decode_json
 
-  my $array = decode_json($bytes);
-  my $hash  = decode_json($bytes);
+  my $value = decode_json($bytes);
 
-Decode JSON to Perl data structure and die if decoding fails.
+Decode JSON to Perl value and die if decoding fails.
 
 =head2 encode_json
 
-  my $bytes = encode_json([1, 2, 3]);
   my $bytes = encode_json({foo => 'bar'});
 
-Encode Perl data structure to JSON.
+Encode Perl value to JSON.
 
-=head2 j (DEPRECATED)
+=head2 j
 
     my $bytes = j([1, 2, 3]);
     my $bytes = j({foo => 'bar'});
-    my $array = j($bytes);
-    my $hash  = j($bytes);
+    my $value = j($bytes);
 
-Encode Perl data structure, or decode JSON and die if decoding fails.
-
-B<This function has been deprecated.  RFC7159 specifies that scalars
-are now legitimate encode/decode entities, which makes j()'s ability
-to decide whether to encode or decode an intractable question.  This
-function will be removed in an upcoming release without further
-warning.>
+Encode Perl data structure (which may only be an C<Array> reference or C<Hash>
+reference) or decode JSON. Dies if decoding fails.
 
 =head1 ATTRIBUTES
 
@@ -111,17 +108,15 @@ Instantiate a JSON::Tiny object.
 
 =head2 decode
 
-    my $array = $json->decode($bytes);
-    my $hash  = $json->decode($bytes);
+    my $value  = $json->decode($bytes);
 
-Decode JSON to Perl data structure and return C<undef> if decoding fails.
+Decode JSON to Perl value and set L</"error"> if decoding failed.
 
 =head2 encode
 
-    my $bytes = $json->encode([1, 2, 3]);
     my $bytes = $json->encode({foo => 'bar'});
 
-Encode Perl data structure to JSON.
+Encode Perl value to JSON.
 
 =head2 false
 
@@ -145,12 +140,13 @@ value unless it has a TO_JSON method.
     my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
 
 Boolean false and true values returned when JSON is decoded are
-JSON::Tiny::_Bool objects with stringification and numeric overloading. As an
-B<advanced option>, if the user requires a plain old literal C<0> or C<1>,
-setting C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>, or some
+JSON::Tiny::_Bool objects with stringification and numeric overloading.
+
+As an B<advanced option>, if the user requires a plain old literal C<0> or
+C<1>, setting C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>, or some
 other value, including blessed references prior to calling the C<decode> method
-will have the desired effect. Use C<local> to prevent the change from causing
-errors at a distance.
+will have the desired effect. Use C<local> to constrain the scope of the
+change.
 
 =head1 Tiny
 
