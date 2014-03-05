@@ -1,7 +1,7 @@
 ---
 abstract: 'Minimalistic JSON. No dependencies.'
 author:
-  - 'David Oswald <davido [at] cpan [d.o.t] org>'
+  - 'David Oswald <davido [at] cpan [dot] org>'
 build_requires:
   ExtUtils::MakeMaker: 0
 configure_requires:
@@ -20,9 +20,9 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: 0.44
+    version: 0.45
 requires:
   perl: 5.008000
 resources:
   repository: https://github.com/daoswald/JSON-Tiny.git
-version: 0.44
+version: 0.45

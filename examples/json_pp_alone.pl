@@ -8,5 +8,4 @@ my @json = split /-{5,}/, read_file('sample.json');
 
 sub json_pp { my $j = JSON->new; return [ map { $j->decode($_) } @json ]; }
 
-my $decoded = json_pp();
-print Dumper $decoded;
+print Dumper json_pp()

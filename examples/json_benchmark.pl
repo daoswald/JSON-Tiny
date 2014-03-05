@@ -13,8 +13,7 @@ sub json_pp {
 }
 
 sub json_tiny {
-  my $j = JSON::Tiny->new;
-  return [ map { $j->decode($_) } @json ];
+  return [ map { JSON::Tiny::decode_json $_ } @json ];
 }
 
 cmpthese ( -15, { JSON_PP => \&json_pp, JSON_Tiny => \&json_tiny } );

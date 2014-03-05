@@ -1,20 +1,23 @@
 Revision history for Perl module JSON::Tiny
 
+0.45 2014-03-05
+  - Streamline POD.
+
 0.44 2014-03-05
   - Established RFC7159 compliance.
-  - De-deprecate j(), document limitations to its capabilities.
+  - De-deprecate j() but document its limitations.
 
 0.43 2014-03-03
   - Slim the dist.
-  - Deprecate j(): Its implementation becomes ambiguous due to RFC7159.
+  - Deprecate j(): Implementation becomes ambiguous with RFC7159.
 
 0.42 2014-02-20
   - Document die on failure for j().
   - More tests.
   - u007f isn't mentioned in RFC4627.
-  - Adapt a few Mojo::JSON commits.
-  - Eradicate '//' (again).
-  - Clean up examples.
+  - Adapt Mojo::JSON updates.
+  - Eradicate '//'.
+  - Cleaner examples.
 
 0.41 2014-02-19
   - ADD decode_json and encode_json functions.

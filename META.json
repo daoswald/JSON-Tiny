@@ -1,7 +1,7 @@
 {
    "abstract" : "Minimalistic JSON. No dependencies.",
    "author" : [
-      "David Oswald <davido [at] cpan [d.o.t] org>"
+      "David Oswald <davido [at] cpan [dot] org>"
    ],
    "dynamic_config" : 1,
    "generated_by" : "ExtUtils::MakeMaker version 6.86, CPAN::Meta::Converter version 2.133380",
@@ -39,7 +39,7 @@
    "provides" : {
       "JSON::Tiny" : {
          "file" : "lib/JSON/Tiny.pm",
-         "version" : "0.44"
+         "version" : "0.45"
       }
    },
    "release_status" : "stable",
@@ -50,5 +50,5 @@
          "web" : "https://github.com/daoswald/JSON-Tiny"
       }
    },
-   "version" : "0.44"
+   "version" : "0.45"
 }

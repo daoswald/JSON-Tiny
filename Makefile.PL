@@ -4,14 +4,13 @@ use 5.008000;
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
-use Data::Dumper;
-my $PREREQ_PM = {};
 
+my $PREREQ_PM = {};
 $PREREQ_PM->{'Exporter'} = '5.59' if $] < 5.008004;
 
 WriteMakefile(
   NAME              => 'JSON::Tiny',
-  AUTHOR            => q{David Oswald <davido [at] cpan [d.o.t] org>},
+  AUTHOR            => q{David Oswald <davido [at] cpan [dot] org>},
   VERSION_FROM      => 'lib/JSON/Tiny.pm',
   ABSTRACT_FROM     => 'lib/JSON/Tiny.pod',
   LICENSE           => 'artistic_2',
@@ -30,10 +29,10 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.44'
+        version => '0.45'
       },
     },
   },
-  dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+  dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz' },
   clean => { FILES    => 'JSON-Tiny-*' },
 );
