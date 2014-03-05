@@ -23,7 +23,7 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
-the L<Mojolicious> framework. It is a single-source-file module with 350 lines
+the L<Mojolicious> framework. It is a single-source-file module with 316 lines
 of code and core-only dependencies.
 
 Key features include transparent Unicode support, speed, small memory

@@ -25,13 +25,11 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 149;  # One blessed reference test disabled: Difficult without
+plan tests => 148;  # One blessed reference test disabled: Difficult without
                     # Mojo::ByteStream & Mojo::Base. Other blessed reference
                     # tests still exist.
 
 use JSON::Tiny qw(decode_json encode_json j);
-
-my $json = JSON::Tiny->new;
 
 # Decode array
 my $array = decode_json '[]';
@@ -185,15 +183,15 @@ $bytes = encode_json {foo => ['bar']};
 is $bytes, '{"foo":["bar"]}', 'encode {foo => [\'bar\']}';
 
 # Encode name
-$bytes = encode_json [$json->true];
+$bytes = encode_json [JSON::Tiny->true];
 is $bytes, '[true]', 'encode [JSON::Tiny->true]';
 $bytes = encode_json [undef];
 is $bytes, '[null]', 'encode [undef]';
 $bytes = encode_json [JSON::Tiny->true, JSON::Tiny->false];
 is $bytes, '[true,false]', 'encode [JSON::Tiny->true, JSON::Tiny->false]';
-$bytes = $json->encode( JSON::Tiny->true );  ###############
+$bytes = encode_json(JSON::Tiny->true);
 is $bytes, 'true', 'encode JSON::Tiny->true';
-$bytes = $json->encode( JSON::Tiny->false );  ##############
+$bytes = encode_json(JSON::Tiny->false);
 is $bytes, 'false', 'encode JSON::Tiny->false';
 $bytes = encode_json undef;
 is $bytes, 'null', 'encode undef';
@@ -231,92 +229,92 @@ $array = decode_json '["\\ud800\\udf46"]';
 is_deeply $array, ["\x{10346}"], 'decode [\"\\ud800\\udf46\"]';
 
 # Decode object with duplicate keys
-$hash = $json->decode('{"foo": 1, "foo": 2}');
+$hash = decode_json '{"foo": 1, "foo": 2}';
 is_deeply $hash, {foo =>2}, 'decode {"foo": 1, "foo": 2}';
 
 # Complicated roudtrips
 $bytes = '{"":""}';
-$hash  = $json->decode($bytes);
+$hash  = decode_json $bytes;
 is_deeply $hash, {'' => ''}, 'decode {"":""}';
-is $json->encode($hash), $bytes, 'reencode';
+is encode_json($hash), $bytes, 'reencode';
 $bytes = '[null,false,true,"",0,1]';
-$array  = $json->decode($bytes);
+$array  = decode_json $bytes;
 is_deeply $array, [undef, JSON::Tiny->false, JSON::Tiny->true, '', 0, 1],
   'decode [null,false,true,"",0,1]';
-is $json->encode($array), $bytes, 'reencode';
+is encode_json($array), $bytes, 'reencode';
 $array = [undef, 0, 1, '', JSON::Tiny->true, JSON::Tiny->false];
-$bytes = $json->encode($array);
+$bytes = encode_json $array;
 ok $bytes, 'defined value';
-is_deeply $json->decode($bytes), $array, 'successful roundtrip';
+is_deeply decode_json($bytes), $array, 'successful roundtrip';
 
 # Real world roundtrip
-$bytes = encode_json({foo => 'c:\progra~1\mozill~1\firefox.exe'});
+$bytes = encode_json {foo => 'c:\progra~1\mozill~1\firefox.exe'};
 is $bytes, '{"foo":"c:\\\\progra~1\\\\mozill~1\\\\firefox.exe"}',
   'encode {foo => \'c:\progra~1\mozill~1\firefox.exe\'}';
-$hash = decode_json($bytes);
+$hash = decode_json $bytes;
 is_deeply $hash, {foo => 'c:\progra~1\mozill~1\firefox.exe'},
   'successful roundtrip';
 
 # Huge string
-$bytes = $json->encode(['a' x 32768]);
-is_deeply $json->decode($bytes), ['a' x 32768], 'successful roundtrip (huge)'; # segfault under 5.8.x.
-is $json->error, undef, 'no error';
+$bytes = encode_json ['a' x 32768];
+is_deeply decode_json($bytes), ['a' x 32768], 'successful roundtrip (huge)'; # segfault under 5.8.x.
 
 # u2028 and u2029
-$bytes = $json->encode(["\x{2028}test\x{2029}123"]);
+$bytes = encode_json ["\x{2028}test\x{2029}123"];
 is index($bytes, encode('UTF-8',"\x{2028}")), -1,'properly escaped';
 is index($bytes, encode('UTF-8',"\x{2029}")), -1, 'properly escaped';
-is_deeply $json->decode($bytes), ["\x{2028}test\x{2029}123"],
+is_deeply decode_json($bytes), ["\x{2028}test\x{2029}123"],
   'successful roundtrip';
 
-# Mojo::ByteStream::b() not available, and can't be reasonably simulated.
+
 # Blessed reference
-# $bytes = $json->encode([b('test')]);
-# is_deeply $json->decode($bytes), ['test'], 'successful roundtrip';
+# We don't have Mojo::ByteStream to use for this test.
+#$bytes = encode_json b(['test']);
+#is_deeply decode_json($bytes), ['test'], 'successful roundtrip';
 
 # Blessed reference with TO_JSON method
-$bytes = $json->encode(JSONTest->new);
-is_deeply $json->decode($bytes), {}, 'successful roundtrip';
-$bytes = $json->encode(
+$bytes = encode_json(JSONTest->new);
+is_deeply decode_json($bytes), {}, 'successful roundtrip';
+$bytes = encode_json(
   JSONTest->new(something => {just => 'works'}, else => {not => 'working'}));
-is_deeply $json->decode($bytes), {just => 'works'}, 'successful roundtrip';
+is_deeply decode_json($bytes), {just => 'works'}, 'successful roundtrip';
 
 # Boolean shortcut
-is $json->encode({true  => \1}), '{"true":true}',   'encode {true => \1}';
-is $json->encode({false => \0}), '{"false":false}', 'encode {false => \0}';
+is encode_json({true  => \1}), '{"true":true}',   'encode {true => \1}';
+is encode_json({false => \0}), '{"false":false}', 'encode {false => \0}';
 $bytes = 'some true value';
-is $json->encode({true => \!!$bytes}), '{"true":true}',
+is encode_json({true => \!!$bytes}), '{"true":true}',
   'encode true boolean from double negated reference';
-is $json->encode({true => \$bytes}), '{"true":true}',
+is encode_json({true => \$bytes}), '{"true":true}',
   'encode true boolean from reference';
 $bytes = '';
-is $json->encode({false => \!!$bytes}), '{"false":false}',
+is encode_json({false => \!!$bytes}), '{"false":false}',
   'encode false boolean from double negated reference';
-is $json->encode({false => \$bytes}), '{"false":false}',
+is encode_json({false => \$bytes}), '{"false":false}',
   'encode false boolean from reference';
 
 # Upgraded numbers
 my $num = 3;
 my $str = "$num";
-is $json->encode({test => [$num, $str]}), '{"test":[3,"3"]}',
+is encode_json({test => [$num, $str]}), '{"test":[3,"3"]}',
   'upgraded number detected';
 $num = 3.21;
 $str = "$num";
-is $json->encode({test => [$num, $str]}), '{"test":[3.21,"3.21"]}',
+is encode_json({test => [$num, $str]}), '{"test":[3.21,"3.21"]}',
   'upgraded number detected';
 $str = '0 but true';
 $num = 1 + $str;
-is $json->encode({test => [$num, $str]}), '{"test":[1,0]}',
+is encode_json({test => [$num, $str]}), '{"test":[1,0]}',
   'upgraded number detected';
 
 # "inf" and "nan"
-like $json->encode({test => 9**9**9}), qr/^{"test":".*"}$/,
+like encode_json({test => 9**9**9}), qr/^{"test":".*"}$/,
   'encode "inf" as string';
-like $json->encode({test => -sin(9**9**9)}), qr/^{"test":".*"}$/,
+like encode_json({test => -sin(9**9**9)}), qr/^{"test":".*"}$/,
   'encode "nan" as string';
 
 # "null"
-# my $json = JSON::Tiny->new;
+my $json = JSON::Tiny->new;
 is $json->decode('null'), undef, 'decode null';
 ok !$json->error, 'no error';
 is j('null'), undef, 'decode null';

@@ -1,6 +1,7 @@
 package JSON::Tiny;
 
 # Minimalistic JSON. Adapted from Mojo::JSON and Mojo::Util.
+# (c) 2012-2014 David Oswald
 # License: Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
 
@@ -26,9 +27,8 @@ sub error {
   return $_[0]->{error};
 }
 
-# Mojo::JSON uses 'my'. We use 'our' so users may override the
-# Booleans with literal 0 or 1 if desired.
 # Literal names
+# Users may override the Booleans with literal 0 or 1 if desired.
 our $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
 our $TRUE  = bless \(my $true  = 1), 'JSON::Tiny::_Bool';
 
