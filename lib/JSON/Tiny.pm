@@ -53,29 +53,20 @@ for(0x00 .. 0x1f) {
     if ! defined( $REVERSE{$packed} );
 }
 
-# Unicode encoding detection
-my $UTF_PATTERNS = {
-  'UTF-32BE' => qr/^\x00{3}[^\x00]/,
-  'UTF-32LE' => qr/^[^\x00]\x00{3}/,
-  'UTF-16BE' => qr/^(?:\x00[^\x00]){2}/,
-  'UTF-16LE' => qr/^(?:[^\x00]\x00){2}/
-};
-
 my $WHITESPACE_RE = qr/[\x20\x09\x0a\x0d]*/;
 
 sub decode {
   my $self = shift;
   $self->error(undef);
-  my $ref = eval { _decode(shift) };
-  return $ref if $ref;
+  my $value;
+  return $value if eval{ $value = _decode(shift); 1; };
   $self->error(_chomp($@));
   return undef;  ## no critic(return)
 }
 
 sub decode_json {
-  my $ret = eval { _decode(shift) };
-  return $ret if defined $ret;
-  croak _chomp($@)
+  my $value;
+  return eval { $value = _decode(shift); 1; } ? $value : croak _chomp($@);
 }
 
 sub encode { encode_json($_[1]) }
@@ -85,56 +76,33 @@ sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 sub false {$FALSE}
 
 sub j {
-  carp "JSON::Tiny::j is deprecated to facilitate compliance with RFC7159.\n"
-       . "It will be removed without warning further from JSON::Tiny.\n"
-       . "Use encode_json and decode_json instead.";
   return encode_json($_[0]) if ref $_[0] eq 'ARRAY' || ref $_[0] eq 'HASH';
   return decode_json($_[0]);
 }
 
 sub true {$TRUE}
 
-sub _chomp { chomp $_[0]; $_[0]; }
+sub _chomp { chomp $_[0] ? $_[0] : $_[0]; }
 
 sub _decode {
-
   # Missing input
   die "Missing or empty input\n" unless length(my $bytes = shift);
-
-  # Remove BOM
-  $bytes =~ s/^(?:\357\273\277|\377\376\0\0|\0\0\376\377|\376\377|\377\376)//g;
 
   # Wide characters
   die "Wide character in input\n" unless utf8::downgrade($bytes, 1);
 
-  # Detect and decode Unicode
-  my $encoding = 'UTF-8';
-  $bytes =~ $UTF_PATTERNS->{$_} and $encoding = $_ for keys %$UTF_PATTERNS;
+  # UTF-8
+  local $_;
+  die "Input is not UTF-8 encoded\n"
+    unless eval { $_ = Encode::decode('UTF-8', $bytes, 1); 1; };
 
-  my $ok = eval { $bytes = Encode::decode($encoding, $bytes, 1); 1; };
-  $bytes = '' unless defined $ok;
-  local $_ = $bytes;
-
-  # Leading whitespace
-  m/\G$WHITESPACE_RE/gc;
-
-  # Array
-  my $ref;
-  if (m/\G\[/gc) { $ref = _decode_array() }
-
-  # Object
-  elsif (m/\G\{/gc) { $ref = _decode_object() }
-
-  # Invalid character
-  else { _exception('Expected array or object') }
-
+  # Value
+  my $value = _decode_value();
+  
   # Leftover data
-  unless(m/\G$WHITESPACE_RE\z/gc) {
-    my $got = ref $ref eq 'ARRAY' ? 'array' : 'object';
-    _exception("Unexpected data after $got");
-  }
+  _exception('Unexpected data') unless m/\G$WHITESPACE_RE\z/gc;
 
-  return $ref;
+  return $value;
 }
 
 sub _decode_array {
@@ -190,6 +158,7 @@ sub _decode_object {
 
 sub _decode_string {
   my $pos = pos;
+  
   # Extract string with escaped characters
   m!\G((?:(?:[^\x00-\x1f\\"]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4})){0,32766})*)!gc; # segfault on 5.8.x in t/20-mojo-json.t #83
   my $str = $1;
@@ -230,7 +199,6 @@ sub _decode_string {
         $str =~ m/\G\\u([Dd][C-Fc-f]..)/gc
           or pos($_) = $pos + pos($str), _exception('Missing low-surrogate');
 
-        # Pair
         $ord = 0x10000 + ($ord - 0xd800) * 0x400 + (hex($1) - 0xdc00);
       }
 
@@ -251,11 +219,11 @@ sub _decode_value {
   # String
   return _decode_string() if m/\G"/gc;
 
-  # Array
-  return _decode_array() if m/\G\[/gc;
-
   # Object
   return _decode_object() if m/\G\{/gc;
+
+  # Array
+  return _decode_array() if m/\G\[/gc;
 
   # Number
   return 0 + $1
@@ -298,23 +266,20 @@ sub _encode_value {
   # Reference
   if (my $ref = ref $value) {
 
-    # Array
-    return _encode_array($value) if $ref eq 'ARRAY';
-
     # Object
     return _encode_object($value) if $ref eq 'HASH';
 
+    # Array
+    return _encode_array($value) if $ref eq 'ARRAY';
+
     # True or false
+    return $$value ? 'true' : 'false' if $ref eq 'SCALAR';
     return $value  ? 'true' : 'false' if $ref eq 'JSON::Tiny::_Bool';
 
     # Blessed reference with TO_JSON method
     if (Scalar::Util::blessed $value && (my $sub = $value->can('TO_JSON'))) {
       return _encode_value($value->$sub);
     }
-    
-    # References to scalars (including blessed) will be encoded as Booleans.
-    return $$value ? 'true' : 'false' if $ref =~ /SCALAR/;
-
   }
 
   # Null
