@@ -86,15 +86,14 @@ sub _chomp { chomp $_[0] ? $_[0] : $_[0]; }
 
 sub _decode {
   # Missing input
-  die "Missing or empty input\n" unless length(my $bytes = shift);
+  die "Missing or empty input\n" unless length(local $_ = shift);
 
   # Wide characters
-  die "Wide character in input\n" unless utf8::downgrade($bytes, 1);
+  die "Wide character in input\n" unless utf8::downgrade($_, 1);
 
   # UTF-8
-  local $_;
   die "Input is not UTF-8 encoded\n"
-    unless eval { $_ = Encode::decode('UTF-8', $bytes, 1); 1; };
+    unless eval { $_ = Encode::decode('UTF-8', $_, 1); 1; };
 
   # Value
   my $value = _decode_value();
