@@ -1,19 +1,19 @@
 package JSON::Tiny;
 
 # Minimalistic JSON. Adapted from Mojo::JSON and Mojo::Util.
-# (c) 2012-2014 David Oswald
+# (c)2012-2014 David Oswald
 # License: Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0.
 
 use strict;
 use warnings;
 use B;
-use Carp qw(croak carp);
+use Carp 'croak';
 use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.45';
+our $VERSION = '0.46';
 our @EXPORT_OK = qw(decode_json encode_json j);
 
 # Constructor and accessor: we don't have Mojo::Base.
@@ -23,7 +23,7 @@ sub new {
 }
 
 sub error {
-  $_[0]->{error} = $_[1] if @_ > 1;
+  @_ > 1 && do{ $_[0]->{error} = $_[1]; return $_[0]; };
   return $_[0]->{error};
 }
 
@@ -56,8 +56,7 @@ for(0x00 .. 0x1f) {
 my $WHITESPACE_RE = qr/[\x20\x09\x0a\x0d]*/;
 
 sub decode {
-  my $self = shift;
-  $self->error(undef);
+  my $self = shift->error(undef);
   my $value;
   return $value if eval{ $value = _decode(shift); 1; };
   $self->error(_chomp($@));

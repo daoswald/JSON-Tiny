@@ -8,17 +8,17 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
 =head1 SYNOPSIS
 
-    use JSON::Tiny qw(decode_json encode_json);
+  use JSON::Tiny qw(decode_json encode_json);
 
-    # Encode and decode JSON (die on errors)
-    my $bytes = encode_json({foo => [1, 2], bar => 'hello!', baz => \1});
-    my $hash  = decode_json($bytes);
+  # Encode and decode JSON (die on errors)
+  my $bytes = encode_json({foo => [1, 2], bar => 'hello!', baz => \1});
+  my $hash  = decode_json($bytes);
 
-    # Handle errors
-    my $json = JSON::Tiny->new;
-    my $hash = $json->decode($bytes);
-    my $err  = $json->error;
-    say $err ? "Error: $err" : $hash->{message};
+  # Handle errors
+  my $json = JSON::Tiny->new;
+  my $hash = $json->decode($bytes);
+  my $err  = $json->error;
+  say $err ? "Error: $err" : $hash->{message};
 
 =head1 DESCRIPTION
 
@@ -26,29 +26,30 @@ L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
 the L<Mojolicious> framework. It is a single-source-file module with 316 lines
 of code and core-only dependencies.
 
-Key features include transparent Unicode support, speed, small memory
-footprint, and a minimal code base ideal for bundling or inlining.  Along with
+Features include transparent Unicode support, speed, small memory footprint,
+and a minimal code base ideal for bundling or inlining.  Along with
 L<Mojo:JSON>, it is possibly the fastest pure-Perl implementation of
 L<RFC 7159|http://tools.ietf.org/html/rfc7159>.
 
 L<JSON::Tiny> supports normal Perl data types like C<Scalar>, C<Array>
-reference, C<Hash> reference and will try to call the L<TO_JSON> method on
-blessed references, or stringify them if it doesn't exist.  Differentiating
-between strings and numbers in Perl is hard; depending on how it has been used,
-a C<Scalar> can be both at the same time.  Since numeric comparisons on strings
-are very unlikely to happen intentionally, the numeric value always gets
-priority, so any C<Scalar> that has been used in numeric context is considered
-a number.
+reference, C<Hash> reference, and will try to call the L<TO_JSON> method on
+blessed references, or stringify them if it doesn't exist.
 
-    [1, -2, 3]     -> [1, -2, 3]
-    {"foo": "bar"} -> {foo => 'bar'}
+Differentiating between strings and numbers in Perl is hard; depending on how
+it has been used, a C<Scalar> can be both at the same time.  Since numeric
+comparisons on strings are very unlikely to happen intentionally, the numeric
+value always gets priority, so any C<Scalar> that has been used in numeric
+context is considered a number.
+
+  [1, -2, 3]     -> [1, -2, 3]
+  {"foo": "bar"} -> {foo => 'bar'}
 
 Literal names will be translated to and from L<JSON::Tiny> constants or a
 similar native Perl value.
 
-    true  -> JSON::Tiny->true
-    false -> JSON::Tiny->false
-    null  -> undef
+  true  -> JSON::Tiny->true
+  false -> JSON::Tiny->false
+  null  -> undef
 
 In addition C<Scalar> references will be used to generate Booleans, based on
 if their values are true or false.
@@ -78,9 +79,9 @@ Encode Perl value to JSON.
 
 =head2 j
 
-    my $bytes = j([1, 2, 3]);
-    my $bytes = j({foo => 'bar'});
-    my $value = j($bytes);
+  my $bytes = j([1, 2, 3]);
+  my $bytes = j({foo => 'bar'});
+  my $value = j($bytes);
 
 Encode Perl data structure (which may only be an C<Array> reference or C<Hash>
 reference) or decode JSON. Dies if decoding fails.
@@ -91,8 +92,8 @@ L<JSON::Tiny> implements the following attributes.
 
 =head2 error
 
-    my $err = $json->error;
-    $json   = $json->error('Parser error');
+  my $err = $json->error;
+  $json   = $json->error('Parser error');
 
 Parser errors.
 
@@ -102,33 +103,33 @@ L<JSON::Tiny> implements the following methods.
 
 =head2 new
 
-    my $json = JSON::Tiny->new;
+  my $json = JSON::Tiny->new;
 
 Instantiate a JSON::Tiny object.
 
 =head2 decode
 
-    my $value  = $json->decode($bytes);
+  my $value  = $json->decode($bytes);
 
 Decode JSON to Perl value and set L</"error"> if decoding failed.
 
 =head2 encode
 
-    my $bytes = $json->encode({foo => 'bar'});
+  my $bytes = $json->encode({foo => 'bar'});
 
 Encode Perl value to JSON.
 
 =head2 false
 
-    my $false = JSON::Tiny->false;
-    my $false = $json->false;
+  my $false = JSON::Tiny->false;
+  my $false = $json->false;
 
 False value, used because Perl has no native equivalent.
 
 =head2 true
 
-    my $true = JSON::Tiny->true;
-    my $true = $json->true;
+  my $true = JSON::Tiny->true;
+  my $true = $json->true;
 
 True value, used because Perl has no native equivalent.
 
@@ -137,7 +138,7 @@ True value, used because Perl has no native equivalent.
 A reference to a scalar (even if blessed) will also be encoded as a Boolean
 value unless it has a TO_JSON method.
 
-    my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
+  my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
 
 Boolean false and true values returned when JSON is decoded are
 JSON::Tiny::_Bool objects with stringification and numeric overloading.
@@ -166,30 +167,30 @@ dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 =item * Simple Design: L<JSON> has 2254 lines of code, six modules and five
 files. Distribution: 85KB. 
 
-L<JSON::Tiny> has under 320 lines of code; a single-file module -- good for 
-embedding. Distribution: 19KB.
+L<JSON::Tiny> has ~316 lines of code; an embeddable single-file module.
+Distribution: 19KB.
 
 =item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has nine.
 
-=item * Performance (Benchmarks):
+=item * Performance Benchmarks:
 
-               Rate   JSON_PP JSON_Tiny
-    JSON_PP   306/s        --      -51%
-    JSON_Tiny 624/s      104%        --
+             Rate   JSON_PP JSON_Tiny
+  JSON_PP   304/s        --      -52%
+  JSON_Tiny 636/s      109%        --
 
 L<JSON> uses L<JSON::XS> if it's available, in which case L<JSON> wins.
-See C<examples/json_benchmark.pl> for benchmark code.
+See C<examples/json_bench.pl> for benchmark code.
 
 JSON::Tiny's lightweight design reduces its startup time as compared to the
 L<JSON> module. This is beneficial to frequently run applications like CGI.
 
 =item * Light Memory Needs: Memory usage was tested with
 L<http://valgrind.org/valgrind> and L<Devel::MemoryTrace::Light> by running
-C<examples/json_pp_alone.pl> and C<examples/json_tiny_alone.pl>.
+C<examples/json_pp.pl> and C<examples/json_tiny.pl>.
 
-                 valgrind    Devel::MemoryTrace::Light
-    JSON::PP      8.0MB        5.9MB
-    JSON::Tiny    7.6MB        5.0MB
+             valgrind  Devel::MemoryTrace::Light
+  JSON::PP   5.1MB     3.7MB
+  JSON::Tiny 4.5MB     2.6MB
 
 =back
 
@@ -204,8 +205,8 @@ bugs in Perl 5.8's regular expression engine.
 
 =head1 INCOMPATIBILITIES
 
-Incompatible with L<Exporter> versions that predate Perl 5.8.4. For older 
-Perl versions upgrade Exporter to version 5.59 or newer.
+Incompatible with L<Exporter> versions predating Perl 5.8.4. For older Perl
+versions upgrade Exporter to version 5.59 or newer.
 
 =head1 AUTHOR
 
@@ -220,7 +221,7 @@ Tracker (RT).
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc JSON::Tiny
+  perldoc JSON::Tiny
 
 You may look for additional information at:
 
@@ -274,6 +275,6 @@ See L<http://www.perlfoundation.org/artistic_license_2_0> for more information.
 
 =head1 SEE ALSO
 
-L<Mojo::JSON>, L<JSON>, L<RFC 7159|http://tools.ietf.org/html/rfc7159>.
+L<Mojo::JSON>, L<JSON>, L<RFC7159|http://tools.ietf.org/html/rfc7159>.
 
 =cut

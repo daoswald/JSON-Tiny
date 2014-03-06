@@ -1,22 +1,27 @@
 Revision history for Perl module JSON::Tiny
 
+0.46 2014-03-06
+  - POD revisions.
+  - Tighten 'examples/*'.
+  - Tighten &error.
+
 0.45 2014-03-05
   - Streamline POD.
 
 0.44 2014-03-05
   - Established RFC7159 compliance.
-  - De-deprecate j() but document its limitations.
+  - De-deprecate &j but document its limitations.
 
 0.43 2014-03-03
   - Slim the dist.
-  - Deprecate j(): Implementation becomes ambiguous with RFC7159.
+  - Deprecate &j: Implementation is ambiguous with RFC7159.
 
 0.42 2014-02-20
-  - Document die on failure for j().
+  - Document die on failure for &j.
   - More tests.
   - u007f isn't mentioned in RFC4627.
   - Adapt Mojo::JSON updates.
-  - Eradicate '//'.
+  - Eradicate //.
   - Cleaner examples.
 
 0.41 2014-02-19
@@ -28,7 +33,7 @@ Revision history for Perl module JSON::Tiny
   - Test all decoding errors.
 
 0.40 2014-01-16
-  - Minor optimization: encode().
+  - Minor optimization: &encode.
   - Linkify RFC mention in POD.
   - Makefile.PL: Fixed small bug with PREREQ_PM hashref.
 
@@ -36,8 +41,8 @@ Revision history for Perl module JSON::Tiny
   - POD refinements.
 
 0.38 2013-12-03
-  - ACKNOWLEDGEMENTS recognizes chansen's GitHub Gist as Mojo::JSON's
-    foundation.
+  - ACKNOWLEDGEMENTS recognize chansen's GitHub Gist as Mojo::JSON's
+    beginning.
 
 0.37 2013-11-21
   - Removed useless minimum dependency version checks in Makefile.PL.
@@ -57,31 +62,31 @@ Revision history for Perl module JSON::Tiny
   - Documented Boolean override.
 
 0.33 2013-10-15
-  - Change 'my $TRUE', 'my $FALSE' to 'our' so users can override
-    Booleans. (http://perlmonks.org/?node_id=1058232)
+  - Change 'my $TRUE', 'my $FALSE' to 'our': users can override
+    Booleans. http://perlmonks.org/?node_id=1058232
   - Added more META info via Makefile.PL (Git repo, Meta spec versn.)
 
 0.32 2013-06-22
   - j() dies on non-parsable JSON.
-  - Document j() throws exception on failure to decode.
+  - Document j() throws exception on decode failure.
   - Minor performance tweaks.
-  - Known issues: Perl 5.8.9 or older: May segfault decoding JSON 
+  - Known issue: Perl 5.8.9 or older: May segfault decoding JSON 
     strings >22k.
 
 0.31 2013-06-19
-  - Improve POD: Exporter dependency for Pre-5.8.4 Perl.
+  - Improve POD: Exporter dependency for Perl <5.8.4.
   
 0.30 2013-06-19
-  - Push minimum Perl version back to 5.8.4 (was 5.10). (tye)
-  - Document INCOMPATIBILITIES about upgrading Exporter to facilitate
-    running under earlier Perl versions.
+  - Push minimum Perl version back to 5.8.4, was 5.10. (tye)
+  - Document INCOMPATIBILITIES: upgrade Exporter to facilitate
+    running under Perl <5.8.4.
 
 0.29 2013-06-18
   - Added tests for empty keys.
   - Revised UTF patterns.
   
 0.28 2013-05-31
-  - Tests for "inf" and "nan" made more portable. Close RT# 85775.
+  - Tests for "inf" and "nan" made more portable. RT# 85775.
     
 0.27 2013-05-15
   - Fixed JSON::Tiny to encode "inf" and "nan" values as strings.
@@ -96,13 +101,13 @@ Revision history for Perl module JSON::Tiny
   - POD improvements.
 
 0.23 2013-02-27
-  - Sync with kraih/mojo 747f08d2 (Feb 3, 2013).
-  - Add 'j' function (and Exporter dependency).
-  - POD tweaks, incl. documentation for 'j' function.
-  - Tests for 'j'.
+  - Sync with kraih/mojo 747f08d2.
+  - Add j function and Exporter dependency.
+  - POD tweaks, incl. documentation for j function.
+  - Tests for j.
   
 0.22 2012-11-02
-  - Enable lexical warnings for JSON/Tiny.pm.
+  - Enable lexical warnings for Tiny.pm.
   - Silence unwanted Perl Critiques.
   - "Changes" W3CDTF compliance.
   - Add release test t/09-changes.t: Standard compliance.
@@ -114,8 +119,8 @@ Revision history for Perl module JSON::Tiny
 0.20 2012-10-04
   - Bump version number to .20: avoid confusion with Perl6 module by same name.
   - POD improvements.
-  - Drop "ref($class)||$class;" from constructor.
-  - Not 'beta'.
+  - Drop ref($class)||$class; from constructor.
+  - Drop beta.
 
 0.01 2012-10-03
   - Initial release.
