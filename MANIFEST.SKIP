@@ -1,5 +1,4 @@
-^\.git/\b
-^\.gitignore$
+^\.git
 ^MANIFEST\.
 ^Makefile$
 ^blib/
@@ -11,6 +10,6 @@
 ^#.*#$
 ^\.#
 \.gz$
-MYMETA\b
+^MYMETA
 pm_to_blib
-cover_db
+cover

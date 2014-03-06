@@ -3,7 +3,6 @@ package JSONTest; ## no critic (package)
 use strict;
 
 # Emulate Mojo::Base -base.
-
 sub new {
   my $class = shift;
   bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, $class;
@@ -12,7 +11,7 @@ sub new {
 sub something {
   my $self = shift;
   $self->{something} = shift if @_;
-  $self->{something} = {}    if ! defined $self->{something};
+  $self->{something} = {} if ! defined $self->{something};
   return $self->{something};
 }
 
@@ -115,17 +114,17 @@ is_deeply $hash, {foo => [qw(23 bar)]}, 'decode {"foo": [23, "bar"]}';
 # Decode full spec example
 $hash = decode_json <<EOF;
 {
-   "Image": {
-       "Width":  800,
-       "Height": 600,
-       "Title":  "View from 15th Floor",
-       "Thumbnail": {
-           "Url":    "http://www.example.com/image/481989943",
-           "Height": 125,
-           "Width":  "100"
-       },
-       "IDs": [116, 943, 234, 38793]
-    }
+  "Image": {
+    "Width":  800,
+    "Height": 600,
+    "Title":  "View from 15th Floor",
+    "Thumbnail": {
+      "Url":    "http://www.example.com/image/481989943",
+      "Height": 125,
+      "Width":  "100"
+    },
+    "IDs": [116, 943, 234, 38793]
+  }
 }
 EOF
 is $hash->{Image}{Width},  800,                    'right value';

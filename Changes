@@ -2,8 +2,7 @@ Revision history for Perl module JSON::Tiny
 
 0.46 2014-03-06
   - POD revisions.
-  - Tighten 'examples/*'.
-  - Tighten &error.
+  - Tighten 'examples/*', &error, tests.
 
 0.45 2014-03-05
   - Streamline POD.

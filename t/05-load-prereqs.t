@@ -4,12 +4,6 @@ use strict;
 use warnings;
 use Test::More tests => 3;
 
-sub message {
-  return "*** $_[0] MUST BE INSTALLED BEFORE PROCEEDING ***\n";
-}
+sub msg { "*** $_[0] MUST BE INSTALLED BEFORE PROCEEDING ***\n"; }
 
-BEGIN {
-  foreach my $module ( qw/Scalar::Util Encode B/ ) {
-    use_ok($module) or BAIL_OUT( message($module) );
-  }
-}
+BEGIN { use_ok $_ or BAIL_OUT msg $_ for qw/Scalar::Util Encode B/; }
