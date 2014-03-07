@@ -23,7 +23,7 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
-the L<Mojolicious> framework. It is a single-source-file module with 316 lines
+the L<Mojolicious> framework. It is a single-source-file module with 315 lines
 of code and core-only dependencies.
 
 Features include transparent Unicode support, speed, small memory footprint,
@@ -167,7 +167,7 @@ dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 =item * Simple Design: L<JSON> has 2254 lines of code, six modules and five
 files. Distribution: 85KB. 
 
-L<JSON::Tiny> has ~316 lines of code; an embeddable single-file module.
+L<JSON::Tiny> has 315 lines of code; an embeddable single-file module.
 Distribution: 19KB.
 
 =item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has nine.
@@ -216,7 +216,7 @@ Code and tests were adapted from L<Mojo::JSON>.
 
 =head1 SUPPORT
 
-Directed support requests to the author. Direct bug reports to CPAN's Request
+Direct support requests to the author. Direct bug reports to CPAN's Request
 Tracker (RT).
 
 You can find documentation for this module with the perldoc command.
@@ -252,14 +252,14 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 =head1 ACKNOWLEDGEMENTS
 
 The L<Mojolicious> team for their excellent product that offers a lightweight 
-JSON implementation. This module was adapted directly from L<Mojo::JSON>, 
-chosen as a model because it is robust, minimal, and well tested. 
-Mojo::JSON's tests were also adapted to a dependency-free design.
+JSON implementation. This module was adapted from L<Mojo::JSON>, chosen as a
+model because it is robust, minimal, and well tested. Mojo::JSON's tests were
+also adapted to a dependency-free design.
 
 Christian Hansen, whos L<GitHub Gist|https://gist.github.com/chansen/810296>
-provided the basis for L<Mojo::JSON>, from which this module is derived.
+provided the basis for L<Mojo::JSON>, and subsequently JSON::Tiny.
 
-Randal Schwartz demonstrated a pure-regexp JSON parser
+Randal Schwartz showed his pure-regexp JSON parser
 (L<PerlMonks|http://perlmonks.org/?node_id=995856>) to Los Angeles Perl Mongers
 (Sept 2012). He wasn't involved in JSON::Tiny, but my exploration of
 alternatives to his solution led to this fork of L<Mojo::JSON>.

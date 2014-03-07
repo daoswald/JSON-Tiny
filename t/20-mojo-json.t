@@ -5,7 +5,7 @@ use strict;
 # Emulate Mojo::Base -base.
 sub new {
   my $class = shift;
-  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, $class;
+  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
 }
 
 sub something {
@@ -24,9 +24,7 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 148;  # One blessed reference test disabled: Difficult without
-                    # Mojo::ByteStream & Mojo::Base. Other blessed reference
-                    # tests still exist.
+plan tests => 148;  # One blessed ref test disabled: needs Mojo::ByteStream
 
 use JSON::Tiny qw(decode_json encode_json j);
 
@@ -218,9 +216,9 @@ $bytes = encode_json 23.3;
 is $bytes, '23.3', 'encode 23.3';
 
 # Faihu roundtrip
-$bytes = j(["\x{10346}"]);
+$bytes = j ["\x{10346}"];
 is decode( 'UTF-8', $bytes ), "[\"\x{10346}\"]", 'encode ["\x{10346}"]';
-$array = j($bytes);
+$array = j $bytes;
 is_deeply $array, ["\x{10346}"], 'successful roundtrip';
 
 # Decode faihu surrogate pair
@@ -372,8 +370,8 @@ is $json->error, 'Malformed JSON: Unexpected data at line 3, offset 8',
   'right error';
 is $json->decode(encode('Shift_JIS', 'やった')), undef, 'invalid encoding';
 is $json->error, 'Input is not UTF-8 encoded', 'right error';
-is eval { j('{'), 1 }, undef, 'syntax error';
-eval { decode_json("[\"foo\",\n\"bar\",\n\"bazra\"]lalala") };
+is eval { j '{'; 1 }, undef, 'syntax error';
+eval { decode_json "[\"foo\",\n\"bar\",\n\"bazra\"]lalala" };
 like $@,
   qr/JSON: Unexpected data at line 3, offset 8 at.*json\.t/,
   'right error';
