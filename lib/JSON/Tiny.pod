@@ -31,14 +31,14 @@ and a minimal code base ideal for bundling or inlining.  Along with
 L<Mojo:JSON>, it is possibly the fastest pure-Perl implementation of
 L<RFC 7159|http://tools.ietf.org/html/rfc7159>.
 
-L<JSON::Tiny> supports normal Perl data types like C<Scalar>, C<Array>
-reference, C<Hash> reference, and will try to call the L<TO_JSON> method on
-blessed references, or stringify them if it doesn't exist.
+L<JSON::Tiny> supports normal Perl data types like scalar, array reference,
+hash reference, and will try to call the L<TO_JSON> method on blessed
+references, or stringify them if it doesn't exist.
 
 Differentiating between strings and numbers in Perl is hard; depending on how
-it has been used, a C<Scalar> can be both at the same time.  Since numeric
+it has been used, a scalar can be both at the same time.  Since numeric
 comparisons on strings are very unlikely to happen intentionally, the numeric
-value always gets priority, so any C<Scalar> that has been used in numeric
+value always gets priority, so any scalar that has been used in numeric
 context is considered a number.
 
   [1, -2, 3]     -> [1, -2, 3]
@@ -51,7 +51,7 @@ similar native Perl value.
   false -> JSON::Tiny->false
   null  -> undef
 
-In addition C<Scalar> references will be used to generate Booleans, based on
+In addition scalar references will be used to generate Booleans, based on
 if their values are true or false.
 
   \1 => true
@@ -83,7 +83,7 @@ Encode Perl value to JSON.
   my $bytes = j({foo => 'bar'});
   my $value = j($bytes);
 
-Encode Perl data structure (which may only be an C<Array> reference or C<Hash>
+Encode Perl data structure (which may only be an array reference or hash
 reference) or decode JSON. Dies if decoding fails.
 
 =head1 ATTRIBUTES
