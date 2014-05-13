@@ -290,11 +290,6 @@ sub _encode_value {
     $num += 0;
     return $num if $num eq $value && $num * 0 == 0;
   }
-#  my $num = $value;
-#  { no warnings 'numeric'; $num += 0 }
-#  my $flags = B::svref_2object(\$value)->FLAGS;
-#  return $num
-#    if $flags & (B::SVp_IOK | B::SVp_NOK) && $num eq $value && $num * 0 == 0;
 
   # String
   return _encode_string($value);

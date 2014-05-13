@@ -4,11 +4,11 @@ author:
   - 'David Oswald <davido [at] cpan [dot] org>'
 build_requires: {}
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.120921'
+generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.141170'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: JSON-Tiny
 no_index:
   directory:
@@ -17,7 +17,7 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: 0.47
+    version: '0.47'
 resources:
   repository: https://github.com/daoswald/JSON-Tiny.git
-version: 0.47
+version: '0.47'
