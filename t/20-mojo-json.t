@@ -24,7 +24,7 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 148;  # One blessed ref test disabled: needs Mojo::ByteStream
+plan tests => 149;  # One blessed ref test disabled: needs Mojo::ByteStream
 
 use JSON::Tiny qw(decode_json encode_json j);
 
@@ -301,8 +301,14 @@ is encode_json({test => [$num, $str]}), '{"test":[3.21,"3.21"]}',
   'upgraded number detected';
 $str = '0 but true';
 $num = 1 + $str;
-is encode_json({test => [$num, $str]}), '{"test":[1,0]}',
+is encode_json({test => [$num, $str]}), '{"test":[1,"0 but true"]}',
   'upgraded number detected';
+
+# Upgraded string
+$str = "bar";
+{ no warnings 'numeric'; $num = 23 + $str }
+is encode_json({test => [$num, $str]}), '{"test":[23,"bar"]}',
+  'upgraded string detected';
 
 # "inf" and "nan"
 like encode_json({test => 9**9**9}), qr/^{"test":".*"}$/,

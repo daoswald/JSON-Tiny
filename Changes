@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.47 2014-05-13
+  - Number detection heuristics better match user expectations.
+
 0.46 2014-03-06
   - POD revisions.
   - Tighten 'examples/*', &error, tests.
@@ -51,7 +54,6 @@ Revision history for Perl module JSON::Tiny
   - JSON::Tiny had incorrect value associated with escaped special
     character \b (was \x07). Correctly associate with 0x08.
   - Tests for 0x07=>0x08.
-  - Sync Mojo::JSON commit 42fb62087a, etc.
 
 0.35 2013-10-16
   - References to a scalar (even if blessed) encode to Boolean types.
@@ -94,13 +96,12 @@ Revision history for Perl module JSON::Tiny
   - Change heuristics for number detection to better match user expectations.
 
 0.25 2012-03-05
-  - Add test "Decode object with duplicate keys" (kraih/mojo e4874cba)
+  - Add test "Decode object with duplicate keys".
 
 0.24 2012-03-01
   - POD improvements.
 
 0.23 2013-02-27
-  - Sync with kraih/mojo 747f08d2.
   - Add j function and Exporter dependency.
   - POD tweaks, incl. documentation for j function.
   - Tests for j.
@@ -112,8 +113,8 @@ Revision history for Perl module JSON::Tiny
   - Add release test t/09-changes.t: Standard compliance.
 
 0.21 2012-10-27
-  - Add boolean shortcut support to JSON::Tiny (Mojolicious v3.52).
-  - Fix small context bugs (Mojolicious v3.51).
+  - Add boolean shortcut support to JSON::Tiny.
+  - Fix small context bugs.
 
 0.20 2012-10-04
   - Bump version number to .20: avoid confusion with Perl6 module by same name.

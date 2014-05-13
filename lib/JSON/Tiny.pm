@@ -13,7 +13,7 @@ use Exporter 'import';
 use Scalar::Util ();
 use Encode ();
 
-our $VERSION = '0.46';
+our $VERSION = '0.47';
 our @EXPORT_OK = qw(decode_json encode_json j);
 
 # Constructor and error inlined from Mojo::Base
@@ -284,8 +284,17 @@ sub _encode_value {
   return 'null' unless defined $value;
 
   # Number
-  my $flags = B::svref_2object(\$value)->FLAGS;
-  return 0 + $value if $flags & (B::SVp_IOK | B::SVp_NOK) && $value * 0 == 0;
+  if(B::svref_2object(\$value)->FLAGS & (B::SVp_IOK | B::SVp_NOK)) {
+    no warnings 'numeric';
+    my $num = $value;
+    $num += 0;
+    return $num if $num eq $value && $num * 0 == 0;
+  }
+#  my $num = $value;
+#  { no warnings 'numeric'; $num += 0 }
+#  my $flags = B::svref_2object(\$value)->FLAGS;
+#  return $num
+#    if $flags & (B::SVp_IOK | B::SVp_NOK) && $num eq $value && $num * 0 == 0;
 
   # String
   return _encode_string($value);
