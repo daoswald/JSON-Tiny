@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.48 2014-05-17
+  - Small optimization in number detection code.
+
 0.47 2014-05-13
   - Number detection heuristics better match user expectations.
 
