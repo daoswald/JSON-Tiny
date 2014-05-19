@@ -24,7 +24,7 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 149;  # One blessed ref test disabled: needs Mojo::ByteStream
+plan tests => 150;  # One blessed ref test disabled: needs Mojo::ByteStream
 
 use JSON::Tiny qw(decode_json encode_json j);
 
@@ -381,3 +381,4 @@ eval { decode_json "[\"foo\",\n\"bar\",\n\"bazra\"]lalala" };
 like $@,
   qr/JSON: Unexpected data at line 3, offset 8 at.*json\.t/,
   'right error';
+is $json->encode({a=>undef}), '{"a":null}', 'Encode undef to null.';
