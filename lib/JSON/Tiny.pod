@@ -49,8 +49,8 @@ similar native Perl value.
   false -> JSON::Tiny->false
   null  -> undef
 
-In addition scalar references will be used to generate Booleans, based on
-if their values are true or false.
+Scalar references will be used to generate Booleans, based on if their values
+are true or false.
 
   \1 => true
   \0 => false
@@ -179,8 +179,8 @@ Distribution: 19KB.
 L<JSON> uses L<JSON::XS> if it's available, in which case L<JSON> wins.
 See C<examples/json_bench.pl> for benchmark code.
 
-JSON::Tiny's lightweight design reduces its startup time as compared to the
-L<JSON> module. This is beneficial to frequently run applications like CGI.
+JSON::Tiny's lightweight design reduces its startup time compared to the
+L<JSON> module. This may benefit frequently run applications like CGI.
 
 =item * Light Memory Needs: Memory usage was tested with
 L<http://valgrind.org/valgrind> and L<Devel::MemoryTrace::Light> by running
@@ -198,8 +198,8 @@ No configuration.
 
 =head1 DEPENDENCIES
 
-Perl 5.8.1 or newer.  However, Perl 5.10 is the recommended minimum due to 
-bugs in Perl 5.8's regular expression engine.
+Perl 5.8.1 or newer.  B<Note>: Perl 5.10+ is recommended due to bugs in
+Perl 5.8's regular expression engine.
 
 =head1 INCOMPATIBILITIES
 
@@ -210,7 +210,7 @@ versions upgrade Exporter to version 5.59 or newer.
 
 David Oswald, C<< <davido at cpan.org> >>
 
-Code and tests were adapted from L<Mojo::JSON>.
+Code and tests adapted from L<Mojo::JSON>.
 
 =head1 SUPPORT
 
@@ -249,18 +249,17 @@ L<http://search.cpan.org/dist/JSON-Tiny/>
 
 =head1 ACKNOWLEDGEMENTS
 
-The L<Mojolicious> team for their excellent product that offers a lightweight 
-JSON implementation. This module was adapted from L<Mojo::JSON>, chosen as a
-model because it is robust, minimal, and well tested. Mojo::JSON's tests were
-also adapted to a dependency-free design.
+L<Mojolicious> team for its lightweight JSON implementation. This module was
+adapted from L<Mojo::JSON> because it is robust, minimal, and well tested.
+Mojo::JSON's tests were also adapted to a dependency-free design.
 
 Christian Hansen, whos L<GitHub Gist|https://gist.github.com/chansen/810296>
-provided the basis for L<Mojo::JSON>, and subsequently JSON::Tiny.
+formed the basis for L<Mojo::JSON>, and subsequently JSON::Tiny.
 
 Randal Schwartz showed his pure-regexp JSON parser
 (L<PerlMonks|http://perlmonks.org/?node_id=995856>) to Los Angeles Perl Mongers
-(Sept 2012). He wasn't involved in JSON::Tiny, but my exploration of
-alternatives to his solution led to this fork of L<Mojo::JSON>.
+(Sept 2012). He wasn't involved in JSON::Tiny, but exploring alternatives to
+his solution led to this fork of L<Mojo::JSON>.
 
 =head1 LICENSE AND COPYRIGHT
 
