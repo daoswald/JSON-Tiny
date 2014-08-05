@@ -3,7 +3,7 @@ package JSON::Tiny;
 # Minimalistic JSON. Adapted from Mojo::JSON.
 # (c)2012-2014 David Oswald
 # License: Artistic 2.0 license.
-# http://www.perlfoundation.org/artistic_license_2_0.
+# http://www.perlfoundation.org/artistic_license_2_0
 
 use strict;
 use warnings;
