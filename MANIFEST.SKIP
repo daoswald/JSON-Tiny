@@ -1,5 +1,4 @@
 ^\.git
-^MANIFEST\.
 ^Makefile$
 ^blib/
 ^MakeMaker-\d
