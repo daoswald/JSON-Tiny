@@ -240,8 +240,7 @@ sub _decode_value {
 }
 
 sub _encode_array {
-  my $array = shift;
-  '[' . join(',', map { _encode_value($_) } @$array) . ']';
+  '[' . join(',', map { _encode_value($_) } @{$_[0]}) . ']';
 }
 
 sub _encode_object {
