@@ -14,4 +14,4 @@ sub json_pp {
 
 sub json_tiny { [ map { JSON::Tiny::decode_json $_ } @json ]; }
 
-cmpthese( -15, { JSON_PP => \&json_pp, JSON_Tiny => \&json_tiny } );
+cmpthese -15, { JSON_PP => \&json_pp, JSON_Tiny => \&json_tiny };
