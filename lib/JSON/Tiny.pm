@@ -9,20 +9,24 @@ use strict;
 use warnings;
 use utf8;
 use B;
-use Carp 'croak';
+use Carp qw/carp croak/;
 use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
 our $VERSION = '0.50';
-our @EXPORT_OK = qw(decode_json encode_json from_json to_json j);
+our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Constructor and error inlined from Mojo::Base
+# DEPRECATED in 0.51.
 sub new {
+  local $Carp::CarpLevel = 1;
+  carp( 'Object-Oriented JSON::Tiny API is DEPRECATED' );
   my $class = shift;
   bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
 }
 
+# DEPRECATED IN 0.51.
 sub error {
   return $_[0]{error} if @_ == 1;
   $_[0]{error} = $_[1];
@@ -55,6 +59,7 @@ for(0x00 .. 0x1f) {
     if ! defined $REVERSE{$packed};
 }
 
+# DEPRECATED IN 0.51.
 sub decode {
   shift->error(my $err = _catch(\my $value, pop));
   return defined $err ? undef : $value;
@@ -65,6 +70,7 @@ sub decode_json {
   return defined $err ? croak $err : $value;
 }
 
+# DEPRECATED IN 0.51.
 sub encode { encode_json($_[1]) }
 
 sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }

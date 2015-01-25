@@ -10,15 +10,8 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 
   use JSON::Tiny qw(decode_json encode_json);
 
-  # Encode and decode JSON (die on errors)
   my $bytes = encode_json {foo => [1, 2], bar => 'hello!', baz => \1};
   my $hash  = decode_json $bytes;
-
-  # Handle errors
-  my $json = JSON::Tiny->new;
-  my $hash = $json->decode($bytes);
-  my $err  = $json->error;
-  say $err ? "Error: $err" : $hash->{message};
 
 =head1 DESCRIPTION
 
@@ -75,6 +68,12 @@ Decode JSON to Perl value and die if decoding fails.
 
 Encode Perl value to JSON.
 
+=head2 false
+
+  my $false = false;
+
+False value, used because Perl has no equivalent.
+
 =head2 from_json
 
   my $value = from_json $chars;
@@ -98,50 +97,9 @@ Dies if decoding fails.
 
 Encode Perl value to JSON text without C<UTF-8> encoding it.
 
-=head1 ATTRIBUTES
-
-L<JSON::Tiny> implements the following attributes.
-
-=head2 error
-
-  my $err = $json->error;
-  $json   = $json->error('Parser error');
-
-Parser errors.
-
-=head1 METHODS
-
-L<JSON::Tiny> implements the following methods.
-
-=head2 new
-
-  my $json = JSON::Tiny->new;
-
-Instantiate a JSON::Tiny object.
-
-=head2 decode
-
-  my $value  = $json->decode($bytes);
-
-Decode JSON to Perl value and set L</"error"> if decoding failed.
-
-=head2 encode
-
-  my $bytes = $json->encode({foo => 'bar'});
-
-Encode Perl value to JSON.
-
-=head2 false
-
-  my $false = JSON::Tiny->false;
-  my $false = $json->false;
-
-False value, used because Perl has no native equivalent.
-
 =head2 true
 
-  my $true = JSON::Tiny->true;
-  my $true = $json->true;
+  my $true = true;
 
 True value, used because Perl has no native equivalent.
 
