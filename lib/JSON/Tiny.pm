@@ -14,7 +14,7 @@ use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
-our $VERSION = '0.50';
+our $VERSION = '0.51';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Constructor and error inlined from Mojo::Base

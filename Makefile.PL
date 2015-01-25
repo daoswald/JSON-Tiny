@@ -20,7 +20,7 @@ WriteMakefile(
   META_MERGE => {
     'meta-spec' => { version => 2 },
     resources   => {
-			license     => 'http://www.perlfoundation.org/artistic_license_2_0',
+      license     => 'http://www.perlfoundation.org/artistic_license_2_0',
       repository  => {
         type => 'git',
         url  => 'https://github.com/daoswald/JSON-Tiny.git',
@@ -30,7 +30,7 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.50'
+        version => '0.51'
       },
     },
   },
