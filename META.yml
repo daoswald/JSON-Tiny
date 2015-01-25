@@ -20,10 +20,10 @@ no_index:
 provides:
   JSON::Tiny:
     file: lib/JSON/Tiny.pm
-    version: '0.51'
+    version: '0.52'
 requires:
   perl: '5.008000'
 resources:
   license: http://www.perlfoundation.org/artistic_license_2_0
   repository: https://github.com/daoswald/JSON-Tiny.git
-version: '0.51'
+version: '0.52'

@@ -14,24 +14,8 @@ use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
-our $VERSION = '0.51';
+our $VERSION = '0.52';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
-
-# Constructor and error inlined from Mojo::Base
-# DEPRECATED in 0.51.
-sub new {
-  local $Carp::CarpLevel = 1;
-  carp( 'Object-oriented JSON::Tiny API is DEPRECATED' );
-  my $class = shift;
-  bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
-}
-
-# DEPRECATED IN 0.51.
-sub error {
-  return $_[0]{error} if @_ == 1;
-  $_[0]{error} = $_[1];
-  $_[0];
-}
 
 # Literal names
 # Users may override Booleans with literal 0 or 1 if desired.
@@ -58,19 +42,10 @@ for(0x00 .. 0x1f) {
     if ! defined $REVERSE{$packed};
 }
 
-# DEPRECATED IN 0.51.
-sub decode {
-  shift->error(my $err = _decode(\my $value, pop));
-  return defined $err ? undef : $value;
-}
-
 sub decode_json {
   my $err = _decode(\my $value, shift);
   return defined $err ? croak $err : $value;
 }
-
-# DEPRECATED IN 0.51.
-sub encode { encode_json($_[1]) }
 
 sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 

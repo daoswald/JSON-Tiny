@@ -137,8 +137,8 @@ dependencies. JSON::Tiny requires Perl 5.8.4, while L<JSON::PP> requires 5.6.
 =item * Simple Design: L<JSON> has 2254 lines of code, six modules and five
 files. Distribution: 85KB. 
 
-L<JSON::Tiny> has 315 lines of code; an embeddable single-file module.
-Distribution: 19KB.
+L<JSON::Tiny> has under 300 lines of code; an embeddable single-file module.
+Distribution: 18KB.
 
 =item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has nine.
 

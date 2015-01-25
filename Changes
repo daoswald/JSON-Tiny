@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.52 2015-01-25
+  - Remove deprecated object-oriented API.
+
 0.51 2015-01-25
   - Document why '/' is escaped.
   - Add from_json and to_json functions.

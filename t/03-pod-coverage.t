@@ -11,6 +11,5 @@ if( $ENV{RELEASE_TESTING} ) {
 }
 else { plan skip_all => 'Author Test: Set $ENV{RELEASE_TESTING} to run.'; }
 
-pod_coverage_ok(
-  'JSON::Tiny', {also_private => [ qw/encode decode error new/ ]}
+pod_coverage_ok( 'JSON::Tiny', {also_private => [ qw/encode decode error new/ ]}
 );
