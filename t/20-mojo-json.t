@@ -24,9 +24,7 @@ use utf8;
 use Encode qw( encode decode );
 use Test::More;
 
-plan tests => 150;  # One blessed ref test disabled: needs Mojo::ByteStream
-
-use JSON::Tiny qw(decode_json encode_json j);
+use JSON::Tiny qw(decode_json encode_json from_json to_json j);
 
 # Decode array
 my $array = decode_json '[]';
@@ -263,6 +261,11 @@ is index($bytes, encode('UTF-8',"\x{2029}")), -1, 'properly escaped';
 is_deeply decode_json($bytes), ["\x{2028}test\x{2029}123"],
   'successful roundtrip';
 
+# JSON without UTF-8 encoding
+is_deeply from_json('["♥"]'), ['♥'], 'characters decoded';
+is to_json(['♥']), '["♥"]', 'characters encoded';
+is_deeply from_json(to_json(["\xe9"])), ["\xe9"], 'successful roundtrip';
+
 
 # Blessed reference
 # We don't have Mojo::ByteStream to use for this test.
@@ -326,8 +329,6 @@ is j('null'), undef, 'decode null';
 is $json->decode('test'), undef, 'syntax error';
 is $json->error, 'Malformed JSON: Expected string, array, object, number,'
   . ' boolean or null at line 0, offset 0', 'right error';
-is $json->decode('["♥"]'), undef, 'wide character in input';
-is $json->error, 'Wide character in input', 'right error';
 is $json->decode(encode('UTF-8', '["\\ud800"]')), undef, 'syntax error';
 is $json->error, 'Malformed JSON: Missing low-surrogate at line 1, offset 8',
   'right error';
@@ -374,6 +375,8 @@ is $json->decode("[\"foo\",\n\"bar\",\n\"bazra\"]lalala"), undef,
   'syntax error';
 is $json->error, 'Malformed JSON: Unexpected data at line 3, offset 8',
   'right error';
+is $json->decode('["♥"]'), undef, 'wide character in input';
+is $json->error, 'Input is not UTF-8 encoded', 'right error';
 is $json->decode(encode('Shift_JIS', 'やった')), undef, 'invalid encoding';
 is $json->error, 'Input is not UTF-8 encoded', 'right error';
 is eval { j '{'; 1 }, undef, 'syntax error';
@@ -381,4 +384,9 @@ eval { decode_json "[\"foo\",\n\"bar\",\n\"bazra\"]lalala" };
 like $@,
   qr/JSON: Unexpected data at line 3, offset 8 at.*json\.t/,
   'right error';
+eval { from_json("[\"foo\",\n\"bar\",\n\"bazra\"]lalala") };
+like $@, qr/JSON: Unexpected data at line 3, offset 8 at.*json\.t/,
+  'right error';
 is $json->encode({a=>undef}), '{"a":null}', 'Encode undef to null.';
+
+done_testing();

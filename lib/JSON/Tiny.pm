@@ -7,6 +7,7 @@ package JSON::Tiny;
 
 use strict;
 use warnings;
+use utf8;
 use B;
 use Carp 'croak';
 use Exporter 'import';
@@ -14,7 +15,7 @@ use Scalar::Util 'blessed';
 use Encode ();
 
 our $VERSION = '0.50';
-our @EXPORT_OK = qw(decode_json encode_json j);
+our @EXPORT_OK = qw(decode_json encode_json from_json to_json j);
 
 # Constructor and error inlined from Mojo::Base
 sub new {
@@ -70,10 +71,17 @@ sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 
 sub false {$FALSE}
 
+sub from_json {
+  my $err = _catch(\my $value, shift, 1);
+  return defined $err ? croak $err : $value;
+}
+
 sub j {
   return encode_json $_[0] if ref $_[0] eq 'ARRAY' || ref $_[0] eq 'HASH';
   return decode_json $_[0];
 }
+
+sub to_json { _encode_value(shift) }
 
 sub true {$TRUE}
 
@@ -84,15 +92,21 @@ sub _catch {
 }
 
 sub _decode {
+  my($json, $unencoded) = @_;
+  
   # Missing input
-  die "Missing or empty input\n" unless length(local $_ = shift);
-
-  # Wide characters
-  die "Wide character in input\n" unless utf8::downgrade($_, 1);
+  die "Missing or empty input\n" unless length $json;
 
   # UTF-8
-  die "Input is not UTF-8 encoded\n"
-    unless eval { $_ = Encode::decode('UTF-8', $_, 1); 1 };
+  local $_;
+  if( $unencoded ) {
+    $_ = $json;
+  }
+  else {
+    $_ = eval { Encode::decode('UTF-8', $json, 1); };
+    $_ = undef if $@;
+  }
+  die "Input is not UTF-8 encoded\n" unless defined $_;
 
   # Value
   my $value = _decode_value();

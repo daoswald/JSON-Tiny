@@ -11,8 +11,8 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
   use JSON::Tiny qw(decode_json encode_json);
 
   # Encode and decode JSON (die on errors)
-  my $bytes = encode_json({foo => [1, 2], bar => 'hello!', baz => \1});
-  my $hash  = decode_json($bytes);
+  my $bytes = encode_json {foo => [1, 2], bar => 'hello!', baz => \1};
+  my $hash  = decode_json $bytes;
 
   # Handle errors
   my $json = JSON::Tiny->new;
@@ -65,24 +65,38 @@ individually.
 
 =head2 decode_json
 
-  my $value = decode_json($bytes);
+  my $value = decode_json $bytes;
 
 Decode JSON to Perl value and die if decoding fails.
 
 =head2 encode_json
 
-  my $bytes = encode_json({foo => 'bar'});
+  my $bytes = encode_json {foo => 'bar'};
 
 Encode Perl value to JSON.
 
+=head2 from_json
+
+  my $value = from_json $chars;
+
+Decode JSON text without C<UTF-8> encoding to Perl value and die if decoding
+fails.
+
 =head2 j
 
-  my $bytes = j([1, 2, 3]);
-  my $bytes = j({foo => 'bar'});
-  my $value = j($bytes);
+  my $bytes = j [1, 2, 3];
+  my $bytes = j {foo => 'bar'};
+  my $value = j $bytes;
 
 Encode Perl data structure (which may only be an array reference or hash
-reference) or decode JSON. Dies if decoding fails.
+reference) or decode JSON. An C<undef> return value indicates a bare C<null>.
+Dies if decoding fails.
+
+=head2 to_json
+
+  my $chars = to_json {i => '♥ Perl'};
+
+Encode Perl value to JSON text without C<UTF-8> encoding.
 
 =head1 ATTRIBUTES
 
