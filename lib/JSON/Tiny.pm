@@ -35,8 +35,7 @@ sub error {
 
 # Literal names
 # Users may override Booleans with literal 0 or 1 if desired.
-our $FALSE = bless \(my $false = 0), 'JSON::Tiny::_Bool';
-our $TRUE  = bless \(my $true  = 1), 'JSON::Tiny::_Bool';
+our($FALSE, $TRUE) = map { bless \(my $dummy = $_), 'JSON::Tiny::_Bool' } 0, 1;
 
 # Escaped special character map with u2028 and u2029
 my %ESCAPE = (
