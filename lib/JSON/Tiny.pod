@@ -49,7 +49,7 @@ are true or false.
   \0 => false
 
 The two Unicode whitespace characters C<u2028> and C<u2029> will always be
-escaped to make JSONP easier.
+escaped to make JSONP easier, and the character C</> to prevent XSS attacks.
 
 =head1 FUNCTIONS
 

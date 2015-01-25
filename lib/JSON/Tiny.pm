@@ -21,7 +21,7 @@ our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 # DEPRECATED in 0.51.
 sub new {
   local $Carp::CarpLevel = 1;
-  carp( 'Object-Oriented JSON::Tiny API is DEPRECATED' );
+  carp( 'Object-oriented JSON::Tiny API is DEPRECATED' );
   my $class = shift;
   bless @_ ? @_ > 1 ? {@_} : {%{$_[0]}} : {}, ref $class || $class;
 }
@@ -265,7 +265,7 @@ sub _encode_object {
 
 sub _encode_string {
   my $str = shift;
-  $str =~ s!([\x00-\x1f\x{2028}\x{2029}\\"])!$REVERSE{$1}!gs;
+  $str =~ s!([\x00-\x1f\x{2028}\x{2029}\\"/])!$REVERSE{$1}!gs;
   return "\"$str\"";
 }
 
