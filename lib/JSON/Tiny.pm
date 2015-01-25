@@ -61,12 +61,12 @@ for(0x00 .. 0x1f) {
 
 # DEPRECATED IN 0.51.
 sub decode {
-  shift->error(my $err = _catch(\my $value, pop));
+  shift->error(my $err = _decode(\my $value, pop));
   return defined $err ? undef : $value;
 }
 
 sub decode_json {
-  my $err = _catch(\my $value, shift);
+  my $err = _decode(\my $value, shift);
   return defined $err ? croak $err : $value;
 }
 
@@ -78,7 +78,7 @@ sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 sub false () {$FALSE}
 
 sub from_json {
-  my $err = _catch(\my $value, shift, 1);
+  my $err = _decode(\my $value, shift, 1);
   return defined $err ? croak $err : $value;
 }
 
@@ -91,28 +91,26 @@ sub to_json { _encode_value(shift) }
 
 sub true () {$TRUE}
 
-sub _catch {
-  my $valueref = shift;
-  eval { $$valueref = _decode(@_); 1 } ? return undef : chomp $@;
-  return $@;
-}
-
 sub _decode {
+  my $valueref = shift;
 
-  # Missing input
-  die "Missing or empty input\n" unless length( local $_ = shift );
+  eval {
 
-  # UTF-8
-  $_ = eval { Encode::decode('UTF-8', $_, 1) } unless shift;
-  die "Input is not UTF-8 encoded\n" unless defined $_;
+    # Missing input
+    die "Missing or empty input\n" unless length( local $_ = shift );
 
-  # Value
-  my $value = _decode_value();
+    # UTF-8
+    $_ = eval { Encode::decode('UTF-8', $_, 1) } unless shift;
+    die "Input is not UTF-8 encoded\n" unless defined $_;
+
+    # Value
+    $$valueref = _decode_value();
   
-  # Leftover data
-  _throw('Unexpected data') unless m/\G[\x20\x09\x0a\x0d]*\z/gc;
+    # Leftover data
+    return m/\G[\x20\x09\x0a\x0d]*\z/gc || _throw('Unexpected data');
+  } ? return undef : chomp $@;
 
-  return $value;
+  return $@;
 }
 
 sub _decode_array {
