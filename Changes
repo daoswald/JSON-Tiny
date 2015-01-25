@@ -4,6 +4,7 @@ Revision history for Perl module JSON::Tiny
   - Document why '/' is escaped.
   - Add from_json and to_json functions.
   - Deprecate Object-Oriented API.
+  - Better tests for Booleans.
 
 0.50 2014-08-05
   - Whitespace parsing simplification/optimization.

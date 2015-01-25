@@ -293,6 +293,12 @@ is encode_json({false => \!!$bytes}), '{"false":false}',
 is encode_json({false => \$bytes}), '{"false":false}',
   'encode false boolean from reference';
 
+# Booleans in different contexts
+is(true,      1, 'right string value');
+is(true + 0,  1, 'right numeric value');
+is(false,     0, 'right string value');
+is(false + 0, 0, 'right numeric value');
+
 # Upgraded numbers
 my $num = 3;
 my $str = "$num";
