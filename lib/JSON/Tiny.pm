@@ -92,20 +92,12 @@ sub _catch {
 }
 
 sub _decode {
-  my($json, $unencoded) = @_;
-  
+
   # Missing input
-  die "Missing or empty input\n" unless length $json;
+  die "Missing or empty input\n" unless length( local $_ = shift );
 
   # UTF-8
-  local $_;
-  if( $unencoded ) {
-    $_ = $json;
-  }
-  else {
-    $_ = eval { Encode::decode('UTF-8', $json, 1); };
-    $_ = undef if $@;
-  }
+  $_ = eval { Encode::decode('UTF-8', $_, 1) } unless shift;
   die "Input is not UTF-8 encoded\n" unless defined $_;
 
   # Value
