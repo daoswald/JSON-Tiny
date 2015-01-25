@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.51 2015-01-24
+  - Generate smaller JSON by not escaping '/' character.
+
 0.50 2014-08-05
   - Whitespace parsing simplification/optimization.
 
