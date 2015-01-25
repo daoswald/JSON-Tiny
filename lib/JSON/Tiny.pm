@@ -74,7 +74,7 @@ sub encode { encode_json($_[1]) }
 
 sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
 
-sub false () {$FALSE}
+sub false () {$FALSE}  ## no critic (prototypes)
 
 sub from_json {
   my $err = _decode(\my $value, shift, 1);
@@ -88,7 +88,7 @@ sub j {
 
 sub to_json { _encode_value(shift) }
 
-sub true () {$TRUE}
+sub true () {$TRUE} ## no critic (prototypes)
 
 sub _decode {
   my $valueref = shift;
