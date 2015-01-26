@@ -16,8 +16,8 @@ JSON::Tiny - Minimalistic JSON. No dependencies.
 =head1 DESCRIPTION
 
 L<JSON::Tiny> is a minimalistic standalone adaptation of L<Mojo::JSON>, from
-the L<Mojolicious> framework. It is a single-source-file module with 315 lines
-of code and core-only dependencies.
+the L<Mojolicious> framework. It is a single-source-file module with under 300
+lines of code and core-only dependencies.
 
 Features include transparent Unicode support, speed, small memory footprint,
 and a minimal code base ideal for bundling or inlining. Along with
@@ -105,19 +105,18 @@ True value, used because Perl has no native equivalent.
 
 =head3 More on Booleans
 
-A reference to a scalar (even if blessed) will also be encoded as a Boolean
-value unless it has a TO_JSON method.
+A reference to a scalar (even if blessed) is encoded as a Boolean value unless
+it has a TO_JSON method.
 
   my $json = $j->encode( { b => \1, a => \0 } ); # {"b":true,"a":false}
 
 Boolean false and true values returned when JSON is decoded are
-JSON::Tiny::_Bool objects with stringification and numeric overloading.
+JSON::Tiny::_Bool objects with overloaded stringification.
 
-As an B<advanced option>, users requiring a plain old literal C<0> or C<1>, 
-may set C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>. Any value, 
-including blessed references will work. The setting must be made prior to 
-calling a JSON decoding method or function. Use C<local> to constrain the 
-scope of the change.
+B<Advanced option>: Users requiring a plain old literal C<0> or C<1>, may set
+C<$JSON::Tiny::FALSE = 0;> and C<$JSON::Tiny::TRUE = 1;>. Any value, including
+blessed references will work. This must be set prior to calling a JSON decoding
+function. Use C<local> to limit scope.
 
 =head1 Tiny
 
@@ -140,9 +139,9 @@ files. Distribution: 85KB.
 L<JSON::Tiny> has under 300 lines of code; an embeddable single-file module.
 Distribution: 18KB.
 
-=item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has nine.
+=item * L<JSON::PP> has 42 functions and methods. L<JSON::Tiny> has seven.
 
-=item * Performance Benchmarks:
+=item * Performance:
 
              Rate   JSON_PP JSON_Tiny
   JSON_PP   304/s        --      -52%
@@ -170,13 +169,13 @@ No configuration.
 
 =head1 DEPENDENCIES
 
-Perl 5.8.1 or newer. B<Note>: Perl 5.10+ is recommended due to bugs in Perl
-5.8's regular expression engine.
+Perl 5.8.4 or newer. B<Perl 5.10+ is recommended due to bugs in Perl 5.8's
+regular expression engine.>
 
 =head1 INCOMPATIBILITIES
 
-Incompatible with L<Exporter> versions predating Perl 5.8.4. For older Perl
-versions upgrade Exporter to version 5.59 or newer.
+Incompatible with L<Exporter> versions older than 5.59 (ie, predating Perl
+5.8.4).
 
 =head1 AUTHOR
 

@@ -1,7 +1,6 @@
 package JSON::Tiny;
 
-# Minimalistic JSON. Adapted from Mojo::JSON.
-# (c)2012-2014 David Oswald
+# Minimalistic JSON. Adapted from Mojo::JSON. (c)2012-2015 David Oswald
 # License: Artistic 2.0 license.
 # http://www.perlfoundation.org/artistic_license_2_0
 
@@ -38,8 +37,7 @@ my %REVERSE = map { $ESCAPE{$_} => "\\$_" } keys %ESCAPE;
 
 for(0x00 .. 0x1f) {
   my $packed = pack 'C', $_;
-  $REVERSE{$packed} = sprintf '\u%.4X', $_
-    if ! defined $REVERSE{$packed};
+  $REVERSE{$packed} = sprintf '\u%.4X', $_ unless defined $REVERSE{$packed};
 }
 
 sub decode_json {
@@ -47,7 +45,7 @@ sub decode_json {
   return defined $err ? croak $err : $value;
 }
 
-sub encode_json { Encode::encode 'UTF-8', _encode_value(shift); }
+sub encode_json { Encode::encode 'UTF-8', _encode_value(shift) }
 
 sub false () {$FALSE}  ## no critic (prototypes)
 

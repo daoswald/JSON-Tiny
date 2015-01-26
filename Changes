@@ -1,13 +1,16 @@
 Revision history for Perl module JSON::Tiny
 
+0.53 2015-01-25
+  - Minor POD and code tweaks.
+
 0.52 2015-01-25
   - Remove deprecated object-oriented API.
 
 0.51 2015-01-25
-  - Document why '/' is escaped.
+  - Document '/' escaping.
   - Add from_json and to_json functions.
   - Deprecate Object-Oriented API.
-  - Better tests for Booleans.
+  - Improved Boolean tests.
 
 0.50 2014-08-05
   - Whitespace parsing simplification/optimization.
@@ -23,14 +26,14 @@ Revision history for Perl module JSON::Tiny
 
 0.46 2014-03-06
   - POD revisions.
-  - Tighten 'examples/*', &error, tests.
+  - Tighten 'examples/', &error, tests.
 
 0.45 2014-03-05
   - Streamline POD.
 
 0.44 2014-03-05
   - Established RFC7159 compliance.
-  - De-deprecate &j but document its limitations.
+  - De-deprecate &j: document limitations.
 
 0.43 2014-03-03
   - Slim the dist.
@@ -47,7 +50,6 @@ Revision history for Perl module JSON::Tiny
 0.41 2014-02-19
   - ADD decode_json and encode_json functions.
   - Fix decoding error.
-  - Mini-optimizations.
   - Handle encoding errors better.
   - Fix line numbers in error messages.
   - Test all decoding errors.
@@ -61,7 +63,7 @@ Revision history for Perl module JSON::Tiny
   - POD refinements.
 
 0.38 2013-12-03
-  - ACKNOWLEDGEMENTS recognize chansen's GitHub Gist as Mojo::JSON's birth.
+  - ACKNOWLEDGEMENTS recognize chansen's GitHub Gist: Mojo::JSON's birth.
 
 0.37 2013-11-21
   - Removed minimum dependency version checks in Makefile.PL.
@@ -72,10 +74,10 @@ Revision history for Perl module JSON::Tiny
   - Tests for 0x07=>0x08.
 
 0.35 2013-10-16
-  - References to a scalar (even blessed) encode as Boolean types.
+  - References to a scalar (even blessed) encode as Boolean.
 
 0.34 2013-10-15
-  - Added t/22-bool.t to test Boolean override decoding behavior.
+  - Added t/22-bool.t to test Boolean override.
   - Documented Boolean override.
 
 0.33 2013-10-15
@@ -84,8 +86,7 @@ Revision history for Perl module JSON::Tiny
   - Added META: Git repo, Meta spec versn.
 
 0.32 2013-06-22
-  - j() dies on non-parsable JSON.
-  - Document j() throws exception on decode failure.
+  - &j dies on non-parsable JSON.
   - Performance tweaks.
   - Document: Perl 5.8.9 or older may segfault decoding JSON strings >22k.
 
@@ -94,8 +95,8 @@ Revision history for Perl module JSON::Tiny
   
 0.30 2013-06-19
   - Push minimum Perl version back to 5.8.4, was 5.10. (tye)
-  - Document INCOMPATIBILITIES: upgrade Exporter to facilitate
-    running under Perl <5.8.4.
+  - Document INCOMPATIBILITIES: upgrade Exporter to facilitate running under
+    Perl <5.8.4.
 
 0.29 2013-06-18
   - Added tests for empty keys.
@@ -114,31 +115,29 @@ Revision history for Perl module JSON::Tiny
   - Add test "Decode object with duplicate keys".
 
 0.24 2012-03-01
-  - POD improvements.
+  - POD tweaks.
 
 0.23 2013-02-27
-  - Add j(), and Exporter dependency.
-  - POD tweaks, incl. documentation for j().
-  - j() tests.
+  - Add &j, and Exporter dependency.
+  - POD tweaks, incl. documentation for &j.
+  - &j tests.
   
 0.22 2012-11-02
   - Enable lexical warnings in Tiny.pm.
   - Silence unwanted Perl Critiques.
   - "Changes" W3CDTF compliance.
-  - Add release test t/09-changes.t: Standard compliance.
 
 0.21 2012-10-27
   - Add boolean shortcut support to JSON::Tiny.
   - Fix context bugs.
 
 0.20 2012-10-04
-  - Bump to version number .20: avoid confusion with Perl6 module by same name.
-  - POD improvements.
+  - Bump to version number .20: avoid confusion with like-named Perl6 module.
+  - POD tweaks.
   - Drop ref($class)||$class; from c'tor.
-  - Stable.
-
+  
 0.01 2012-10-03
-  - JSON::Tiny adapted from Mojo::JSON.
+  - JSON::Tiny adapts Mojo::JSON.
   - t/20-mojo-json.t adapts Mojolicious/t/mojo/json.t
-  - Mojolicious dependencies removed.
-  - Artistic 2.0 license, per Mojolicious.
+  - Mojolicious dependencies purged.
+  - Artistic 2.0 license, as Mojolicious.
