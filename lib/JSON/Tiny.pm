@@ -13,7 +13,7 @@ use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
-our $VERSION = '0.52';
+our $VERSION = '0.54';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Literal names
@@ -206,8 +206,8 @@ sub _decode_value {
   return _decode_array() if m/\G\[/gc;
 
   # Number
-  return 0 + $1
-    if m/\G([-]?(?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?)/gc;
+  my ($i) = /\G([-]?(?:0|[1-9][0-9]*)(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?)/gc;
+  return 0 + $i if defined $i;
 
   # True
   return $TRUE if m/\Gtrue/gc;

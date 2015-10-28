@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.54 2015-10-27
+  - Fixed loss of large integer precision.
+
 0.53 2015-01-25
   - Minor POD and code tweaks.
 
