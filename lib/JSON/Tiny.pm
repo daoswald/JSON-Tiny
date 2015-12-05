@@ -6,8 +6,6 @@ package JSON::Tiny;
 
 use strict;
 use warnings;
-use utf8;
-use B;
 use Carp qw/carp croak/;
 use Exporter 'import';
 use Scalar::Util 'blessed';
@@ -265,8 +263,10 @@ sub _encode_value {
   return 'null' unless defined $value;
 
   # Number
+  my $check = "0" & $value;
   return $value
-    if B::svref_2object(\$value)->FLAGS & (B::SVp_IOK | B::SVp_NOK)
+    if !($check ^ $check)
+    && length $check
     && 0 + $value eq $value
     && $value * 0 == 0;
 
