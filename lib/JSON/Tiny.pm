@@ -265,9 +265,11 @@ sub _encode_value {
 
   # Number (bitwise operators change behavior based on the internal value type)
 
+  # "0" & $x will modify the flags on the "0" on perl < 5.14, so use a copy
+  my $zero = "0";
   # "0" & $num -> 0. "0" & "" -> "". "0" & $string -> a character.
   # this maintains the internal type but speeds up the xor below.
-  my $check = "0" & $value;
+  my $check = $zero & $value;
   return $value
     if length $check
     # 0 ^ itself          -> 0    (false)
