@@ -6,7 +6,6 @@ package JSON::Tiny;
 
 use strict;
 use warnings;
-use utf8;
 use B;
 use Carp qw/carp croak/;
 use Exporter 'import';
