@@ -6,8 +6,6 @@ package JSON::Tiny;
 
 use strict;
 use warnings;
-use utf8;
-use B;
 use Carp qw/carp croak/;
 use Exporter 'import';
 use Scalar::Util 'blessed';
@@ -264,10 +262,22 @@ sub _encode_value {
   # Null
   return 'null' unless defined $value;
 
-  # Number
+
+  # Number (bitwise operators change behavior based on the internal value type)
+
+  # "0" & $x will modify the flags on the "0" on perl < 5.14, so use a copy
+  my $zero = "0";
+  # "0" & $num -> 0. "0" & "" -> "". "0" & $string -> a character.
+  # this maintains the internal type but speeds up the xor below.
+  my $check = $zero & $value;
   return $value
-    if B::svref_2object(\$value)->FLAGS & (B::SVp_IOK | B::SVp_NOK)
+    if length $check
+    # 0 ^ itself          -> 0    (false)
+    # $character ^ itself -> "\0" (true)
+    && !($check ^ $check)
+    # filter out "upgraded" strings whose numeric form doesn't strictly match
     && 0 + $value eq $value
+    # filter out inf and nan
     && $value * 0 == 0;
 
   # String
