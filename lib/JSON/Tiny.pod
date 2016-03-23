@@ -21,7 +21,7 @@ lines of code and core-only dependencies.
 
 Features include transparent Unicode support, speed, small memory footprint,
 and a minimal code base ideal for bundling or inlining. Along with
-L<Mojo:JSON>, it is among the fastest pure-Perl implementations of
+L<Mojo::JSON>, it is among the fastest pure-Perl implementations of
 L<RFC 7159|http://tools.ietf.org/html/rfc7159>.
 
 L<JSON::Tiny> supports normal Perl data types like scalar, array reference,
