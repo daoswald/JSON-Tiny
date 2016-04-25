@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.55 2016-04-25
+  - Canonical object encoding.
+
 0.54 2015-10-27
   - Fixed loss of large integer precision.
 

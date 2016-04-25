@@ -6,12 +6,12 @@ package JSON::Tiny;
 
 use strict;
 use warnings;
-use Carp qw/carp croak/;
+use Carp 'croak';
 use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
-our $VERSION = '0.54';
+our $VERSION = '0.55';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Literal names
@@ -227,7 +227,7 @@ sub _encode_array {
 sub _encode_object {
   my $object = shift;
   my @pairs = map { _encode_string($_) . ':' . _encode_value($object->{$_}) }
-    keys %$object;
+    sort keys %$object;
   return '{' . join(',', @pairs) . '}';
 }
 

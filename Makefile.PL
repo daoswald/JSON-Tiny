@@ -30,7 +30,13 @@ WriteMakefile(
     provides => {
       'JSON::Tiny' => {
         file    => 'lib/JSON/Tiny.pm',
-        version => '0.54'
+        version => '0.55'
+      },
+    },
+    prereqs => {
+      runtime => {
+        requires => $PREREQ_PM,
+        suggests => {'JSON::PP' => '0'},
       },
     },
   },
