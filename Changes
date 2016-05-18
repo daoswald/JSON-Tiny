@@ -1,5 +1,8 @@
 Revision history for Perl module JSON::Tiny
 
+0.56 2016-05-18
+  - Removed B as a tested dependency.
+
 0.55 2016-04-25
   - Canonical object encoding.
 

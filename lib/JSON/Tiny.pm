@@ -11,7 +11,7 @@ use Exporter 'import';
 use Scalar::Util 'blessed';
 use Encode ();
 
-our $VERSION = '0.55';
+our $VERSION = '0.56';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Literal names
@@ -75,7 +75,7 @@ sub _decode {
 
     # Value
     $$valueref = _decode_value();
-  
+
     # Leftover data
     return m/\G[\x20\x09\x0a\x0d]*\z/gc || _throw('Unexpected data');
   } ? return undef : chomp $@;
