@@ -12,7 +12,7 @@ use Scalar::Util 'blessed';
 use Encode ();
 use B;
 
-our $VERSION = '0.56';
+our $VERSION = '0.58';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Literal names
