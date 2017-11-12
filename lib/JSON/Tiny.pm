@@ -12,7 +12,7 @@ use Scalar::Util 'blessed';
 use Encode ();
 use B;
 
-our $VERSION = '0.56';
+our $VERSION = '0.57';
 our @EXPORT_OK = qw(decode_json encode_json false from_json j to_json true);
 
 # Literal names
@@ -137,7 +137,7 @@ sub _decode_object {
 
 sub _decode_string {
   my $pos = pos;
-  
+
   # Extract string with escaped characters
   m!\G((?:(?:[^\x00-\x1f\\"]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4})){0,32766})*)!gc; # segfault on 5.8.x in t/20-mojo-json.t
   my $str = $1;
